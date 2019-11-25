@@ -20,7 +20,9 @@ First cd into your Desktop directory (cd ~/Desktop), then run this command: pip 
 
 
 pip uninstall Django
+-uninstall Django
 
 pip show Django
+-command not found
 
 pip search Flask This one might take a moment to execute.
