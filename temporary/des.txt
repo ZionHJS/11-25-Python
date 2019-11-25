@@ -1,0 +1,26 @@
+pip list   
+-show what package currenty installed
+
+deactivate (This will deactivate your virtual environment)
+-deactivate the virtual environment
+
+pip3 list (How is the result different from when you ran pip list with the virtualenv activated? Hint, you should not have as many things listed when the virtualenv is deactivated. If your results are the same, go back and figure out what went wrong.)
+
+
+source myEnvironments/py3Env/bin/activate (Adjust the path as needed to re-activate the virtualenv; for windows call myEnvironments/py3Env/Scripts/activate)
+-activate the Virtual Env
+
+pip install Django==1.11.9 (We know you already ran this one. What information do you see returned in terminal after this command?)
+-Successfully installed Django-1.11.9
+
+pip freeze (What's the difference between freeze and list?)
+-pip freeze(Output installed pacakges in requirements format)  -pip list(list installed pakcages)
+
+First cd into your Desktop directory (cd ~/Desktop), then run this command: pip freeze > requirements.txt. What do you see when you ls? What's inside this file?
+
+
+pip uninstall Django
+
+pip show Django
+
+pip search Flask This one might take a moment to execute.
