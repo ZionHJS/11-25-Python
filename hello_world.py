@@ -25,3 +25,20 @@ if x > 50:
 	print("bigger than 50")
 else:
 	print("smaller than 50")
+
+#pass
+class EmptyClass:
+    pass
+for val in my_string:
+    pass
+
+#data-types
+#Primitive data types
+#Boolean Values
+is_hungry = True
+has_freckles = False
+#Numbers
+age = 35
+weight = 160.57
+#Strings
+name = 'Joe Blue'
