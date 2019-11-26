@@ -169,4 +169,11 @@ for val in "string":
         break
     print(val)
 # output: s, t, r
+#continue
+for val in "string":
+    if val == "i":
+        continue
+    print(val)
+# output: s, t, r, n, g
+
 
