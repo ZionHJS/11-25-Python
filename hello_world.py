@@ -93,3 +93,80 @@ user_val = "26"
 total = total + user_val		# output: TypeError
 total = total + int(user_val)		# total will be 61
 
+#Conditional Statement
+x = 12
+if x > 50:
+	print("bigger than 50")
+else:
+	print("smaller than 50")
+# because x is not greater than 50, the second print statement is the only one that will execute
+x = 55
+if x > 10:
+	print("bigger than 10")
+elif x > 50:
+	print("bigger than 50")
+else:
+	print("smaller than 10")
+# even though x is greater than 10 and 50, the first true statement is the only one that will execute, so we will only see 'bigger than 10'
+if x < 10:
+    print("smaller than 10")
+# nothing happens, because the statement is false 
+
+if not True == False:   #true
+    print('true')
+if  !True == False:   #SyntaxError
+    print('true')  
+
+#loops
+for x in range(0, 10, 1):
+for x in range(0, 10):	# increment of +1 is implied
+for x in range(10):	# increment of +1 and start at 0 is implied
+
+#Note that if you need to specify increment other than +1, all three arguments are required
+for x in range(0, 10, 2):
+    print(x)
+# output: 0, 2, 4, 6, 8
+for x in range(5, 1, -3):
+    print(x)
+# output: 5, 2
+
+# for loop through dictionaries 
+my_dict = { "name": "Noelle", "language": "Python" }
+for k in my_dict:
+    print(k)
+# output: name, language
+
+#all for dictionaries
+# another way to iterate through the keys
+for key in capitals.keys():
+     print(key)
+#to iterate through the values
+for val in capitals.values():
+     print(val)
+#to iterate through both keys and values
+for key, val in capitals.items():
+     print(key, " = ", val)
+
+#While Loops
+for count in range(0,5):
+    print("looping - ", count)
+#while loop
+count = 0
+while count < 5:
+    print("looping - ", count)
+    count += 1
+#while else
+y = 3
+while y > 0:
+    print(y)
+    y = y - 1
+else:
+    print("Final else statement")
+
+#break
+for val in "string":
+    if val == "i":
+        break
+    print(val)
+# output: s, t, r
+
