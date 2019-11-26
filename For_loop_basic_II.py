@@ -95,7 +95,7 @@ ultimate_analysis([37,2,1,-9])
 # Example: reverse_list([37,2,1,-9]) should return [-9,1,2,37]
 def reverse_list(list):
     if len(list) < 2:
-        return false
+        return
     for x in range(0, len(list)):
         temp = list[-1-x]
         if x < len(list) - 1 - x:
