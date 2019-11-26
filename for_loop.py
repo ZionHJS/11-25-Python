@@ -19,4 +19,27 @@ while i <= 100:
         print('Coding')
     else:
         print(i)
-    i+1
+    i = i+1
+
+# add odd integers from 0 to 500,000 and print the final sum
+i = 1
+sum = 0
+while i < 500000:
+    if i > 500000-2:
+        print(sum)
+    sum = sum + i
+    i = i + 2
+
+# print positive numbers starting at 2018, counting donw by fours
+i = 2018
+while i > 0:
+    print(i)
+    i = i - 4
+
+# set three variables:lowNum, highNum, mult, starting at lowNum and going through highNum, print only the integers that are a multiple of mult
+lowNum = 3
+highNum = 30
+mult = 3
+x = 0
+for x in range(lowNum, highNum + 1, mult):
+    print(x)
