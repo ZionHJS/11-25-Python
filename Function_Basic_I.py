@@ -116,3 +116,4 @@ def b():
     return 5
 y = a() # => 1 3 5
 print(y) # => 10
+
