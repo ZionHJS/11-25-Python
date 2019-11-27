@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Flask_Projects</title>
 </head>
+
 <body>
-    Flask Project
+    <form action="">
+        <h1>Give me your data!</h1>
+
+        <div>
+            <label>name:</label>
+            <input type="text" name="name">
+        </div>
+
+        <div>
+            <label>Age:</label>
+            <input type="text" name="age">
+        </div>
+
+        <div>
+            <label>Favorite-Quote:</label>
+            <textarea name="favorite-quote" id="" cols="30" rows="10"></textarea>
+        </div>
+
+        <input type="submit" value="Submit Form">
+    </form>
+    <hr>
+    {% for user in all_users %}
+    <div style="border:1px solid cornflowerblue; margin-bottom:5px;">
+        <p>
+            <a href="/users/{{ loop.index - 1 }}">Name:{{user['name']}}</a>
+        </p>
+        <p>
+            <a>Age:{{user['age']}}</a>
+        </p>
+    </div>
+    {% endfor %}
 </body>
+
 </html>
