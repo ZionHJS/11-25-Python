@@ -1,0 +1,10 @@
+#!/Users/zionhugh/GoogleDrive_Folder/Code_Practices/CodingDojo/python_stack/flask/first_flask_project/server/py3Env/bin/python
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from pylint import run_epylint
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(run_epylint())
