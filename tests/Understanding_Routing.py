@@ -19,18 +19,17 @@ def say(name):
     return "Hello" + name
 
 # '/repeat/<num>/<name>' have it say "name" *num times
-@app.route('/repeat/<num>/<name>')
+@app.route('/repeat/<int:num>/<name>')
 def repeat(num, name):
-    sum = name
-    for x in range(0, num):
-        sum = sum + name
-    return sum
- 
+    strSum = ''
+    for i in range(0, num):
+        strSum = strSum + '</br>' +name
+    return strSum
+
 #change from paths
 @app.route('/success')
 def success():
   return "success"
-
 
 if __name__=="__main__":   # Ensure this file is being run directly and not from a different module    
     app.run(debug=True)    # Run the app in debug mode.
