@@ -24,11 +24,11 @@
             <td>Last Name</td>
             <td>Full Name</td>
         </th>
-        {% for x in users %}
+        {% for user in users %}
         <tr>
-            <td>{{ users[first_name]}}</td>
-            <td>{{ users[last_name]}}</td>
-            <td>{{ users[first_name] + uesrs[last_name]}}</td>
+            <td>{{ users[first_name] }}</td>
+            <td>{{ users[last_name] }}</td>
+            <td>{{ users[first_name] + ' ' + users[last_name] }}</td>
         </tr>
         {% endfor%}
     </table>
