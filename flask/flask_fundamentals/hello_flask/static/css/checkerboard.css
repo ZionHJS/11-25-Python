@@ -5,13 +5,16 @@
 }
 .container .row{
     height:100px;
-    background:red;
     box-sizing:border-box;
-    border:1px solid darkgrey;
 }
 .container .row .box{
     width:100px;
     height:100%;
     background:yellow;
     box-sizing:border-box;
+    display:inline-block;
+    border:1px solid cornflowerblue;
+    margin: 0;
+    padding: 0;
 }
+
