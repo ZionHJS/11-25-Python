@@ -6,9 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        table th{
-            font-weight: 900;
-        }
         table td{
             margin: 0;
             padding: 0;
@@ -19,18 +16,18 @@
 </head>
 <body>
     <table>
-        <th>
+        <tr>
             <td>First Name</td>
             <td>Last Name</td>
             <td>Full Name</td>
-        </th>
+        </tr>
         {% for user in users %}
         <tr>
-            <td>{{ users[first_name] }}</td>
-            <td>{{ users[last_name] }}</td>
-            <td>{{ users[first_name] + ' ' + users[last_name] }}</td>
+            <td>{{ user['first_name'] }}</td>
+            <td>{{ user['last_name'] }}</td>
+            <td>{{ user['first_name'] + ' ' + user['last_name'] }}</td>
         </tr>
-        {% endfor%}
+        {% endfor %}
     </table>
 </body>
 </html>
