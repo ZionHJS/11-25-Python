@@ -1,0 +1,17 @@
+.container{
+    width:100vw;
+    height:100vh;
+    background:silver;
+}
+.container .row{
+    width:100px;
+    height:100px;
+    background:red;
+    box-sizing:border-box;
+    border:1px solid darkgrey;
+}
+.container .box{
+    width:100px;
+    height:100;
+    background:yellow;
+}

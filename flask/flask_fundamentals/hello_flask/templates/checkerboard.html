@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{url_for('static', 'css/checkerboard.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', 'js/checkboard.js')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/checkerboard.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/checkboard.js')}}">
     <title>CheckerBoard</title>
 </head>
 <body>
-    
+    <div class="container">
+        {% for r in range(0, rows): %}
+        <div class="row">
+            {% for c in range(0, cols): %}
+            <div class="box"></div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
+
