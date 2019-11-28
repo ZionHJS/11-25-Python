@@ -4,14 +4,14 @@
     background:silver;
 }
 .container .row{
-    width:100px;
     height:100px;
     background:red;
     box-sizing:border-box;
     border:1px solid darkgrey;
 }
-.container .box{
+.container .row .box{
     width:100px;
-    height:100;
+    height:100%;
     background:yellow;
+    box-sizing:border-box;
 }
