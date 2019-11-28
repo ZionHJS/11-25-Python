@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table th{
+            font-weight: 900;
+        }
+        table td{
+            margin: 0;
+            padding: 0;
+            box-sizing:border-box;
+            border:1px solid darkgrey;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <th>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Full Name</td>
+        </th>
+        {% for x in users %}
+        <tr>
+            <td>{{ users[first_name]}}</td>
+            <td>{{ users[last_name]}}</td>
+            <td>{{ users[first_name] + uesrs[last_name]}}</td>
+        </tr>
+        {% endfor%}
+    </table>
+</body>
+</html>
