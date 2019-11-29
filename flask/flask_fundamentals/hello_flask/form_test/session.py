@@ -11,5 +11,4 @@ def create_user():
 
 @app.route('/show')
 def show_user():
-    return render_template('show.html', name_on_template=session['username'], email_on_template=session['useremail'])
-
+    return render_template('show.html') #session data is directly in our templates so we can use it without define variables
