@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, session
 app = Flask(__name__)
 
-@app.route('/process_money')
+@app.route('/process_money', methods=['POST'])
 def gold():
     if request.form['building'] == 'farm':
         
