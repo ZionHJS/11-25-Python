@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo_Survey</title>
+</head>
+
+<body>
+    <form action="/result" method="post">
+        Your Name: 
+        <input type="text" name="user_name" />
+        <br />
+        Dojo Location:
+        <select name="dojo_location" id="location">
+            <option value="">--please choose an option--</option>
+            <option value="San Jose">San Jose</option>
+            <option value="Orange County">Orange County</option>
+            <option value="Seatle">Seatle</option>
+            <option value="San Diego">San Diego</option>
+            <option value="Las Vegas">Las Vegas</option>
+        </select>
+        <br />
+        Favorite Language:
+        <select name="favorite_language" id="">
+            <option value="">--please select an language--</option>
+            <option value="Python">Python</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Java">Java</option>
+            <option value="C++">C++</option>
+            <option value="Ruby&Rail">Ruby&Rail</option>
+        </select>
+        <br />
+        Comment(optional): 
+        <textarea name="comment" value="your comments here!" cols="30" rows="10"></textarea>
+        <br />
+        <input type="submit" value="Button">
+    </form>
+</body>
+
+</html>
