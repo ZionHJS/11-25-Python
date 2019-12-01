@@ -8,5 +8,19 @@
 </head>
 <body>
     <h1>Test!</h1>
+    {% for one_friend in all_friends %}
+       <p>Frist Name: {{one_friend['first_name']}}</p>
+       <p>Last Name: {{one_friend['last_name']}}</p>
+       <p>Occupation: {{one_friend['occupation']}}</p>
+       <hr>
+    {% endfor %}
+
+    <h1>Adda a Friend</h1>
+    <form action="/create_friend" method="POST">
+        <p>First Name: <input type="text" name="fname"></p>
+        <p>Last Name: <input type="text" name="lname"></p>
+        <p>Occupation: <input type="text" name="occ"></p>
+        <input type="submit" value="Add Friend">
+    </form>
 </body>
 </html>
