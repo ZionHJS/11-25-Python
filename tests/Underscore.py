@@ -1,12 +1,15 @@
 class Underscore:
     def map(self, iterable, callback):
         # your code here
+        for i in range(len(iterable)):
+            iterable[i] = callback(i)
     def find(self, iterable, callback):
         # your code here
     def filter(self, iterable, callback):
         # your code
     def reject(self, iterable, callback):
         # your code
+
 # you just created a library with 4 methods!
 # let's create an instance of our class
 _ = Underscore() # yes we are setting our instance to a variable that is an underscorecopy
