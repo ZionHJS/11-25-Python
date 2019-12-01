@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>C+R_pets</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Type</td>
+        </tr>
+        {% for one_row in all_pets %}
+        <tr>
+            <td>{{one_row['id']}}</td>
+            <td>{{one_row['name']}}</td>
+            <td>{{one_row['type']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <form action="/addpet" method="POST">
+        <h1>Add a Pet</h1>
+        name: <input type="text">
+        Type: <input type="text">
+        <input type="button" value="Add">
+    </form>
+</body>
+</html>
