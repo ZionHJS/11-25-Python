@@ -1,0 +1,4 @@
+-- error line6  'localhost' to 'localhosts'
+-- error line7   'user'  to 'user_name'
+-- error line23  'insert' to 'inserts'
+-- error line34  e to f
