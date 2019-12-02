@@ -20,6 +20,8 @@ class User:
             print('insuffficcient acount_balance')
         else:
             self.account_balance -= amount
+    def display_user_balance(self):
+        print(f'{self.account_balance}')
     def example_method(self):
         self.account.deposit(100)		# we can call the BankAccount instance's methods
     	print(self.account.balance)		# or access its attributes
