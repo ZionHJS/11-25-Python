@@ -41,9 +41,9 @@ key_and_value(students)
 #@3-Get Values From a List of Dicrtionaries
 students = [
          {'first_name':  'Michael', 'last_name' : 'Jordan'},
-         {'first_name' : 'John', 'last_name' : 'Rosales'},
-         {'first_name' : 'Mark', 'last_name' : 'Guillen'},
-         {'first_name' : 'KB', 'last_name' : 'Tonel'}
+         {'first_name': 'John', 'last_name' : 'Rosales'},
+         {'first_name': 'Mark', 'last_name' : 'Guillen'},
+         {'first_name': 'KB', 'last_name' : 'Tonel'}
 ]
 def iterateDictionary2(key, list):
     for i in list:
