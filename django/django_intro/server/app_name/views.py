@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
-def index(request):
+def index(request, name):
     # return HttpResponse("this is the equivalent of @app.rout('/')!")
     context = {
-        'name':'Noelle',
+        'name':name,
         'favorite_color':'turquoise',
         'pets':['Bruce', 'Fitz','Georgie']
     }
