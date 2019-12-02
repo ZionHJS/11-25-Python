@@ -2,7 +2,8 @@ from django.urls import path
 from . import views   
 
 urlpatterns = [
-    path('/', views.index),
+    path('/<str:name>', views.index),   #how to pass multiple parameters
+    
     path('/new', views.new),
     path('/create', views.new),
     path('/<number>', views.show),

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>IndexHtml</title>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
 </head>
 
 <body>
@@ -18,6 +21,8 @@
         <li>{{pet}}</li>
         {% endfor %}
     </ul>
+    <hr>
+    <img src="{% static 'images/image.jpg' %}" alt="">
 </body>
 
 </html>

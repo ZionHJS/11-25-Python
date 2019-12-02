@@ -17,5 +17,5 @@ from django.urls import path, include
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('/', include('app_name.urls')),   #1.a raw string representing a route pattern  #2.what to do if the pattern matches
+    path('', include('app_name.urls')),   #1.a raw string representing a route pattern  #2.what to do if the pattern matches
 ]
