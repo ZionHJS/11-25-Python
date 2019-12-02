@@ -2,8 +2,13 @@ from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
 def index(request):
-    return HttpResponse("this is the equivalent of @app.rout('/')!")
-    #return render(request, 'index.html')
+    # return HttpResponse("this is the equivalent of @app.rout('/')!")
+    context = {
+        'name':'Noelle',
+        'favorite_color':'turquoise',
+        'pets':['Bruce', 'Fitz','Georgie']
+    }
+    return render(request, 'index.html', context)
 
 #couple of other method
 def new(request):
@@ -15,4 +20,4 @@ def show(request, number):
 def edit(request, number):
     return HttpResponse('placeholder to edit blog{number}')
 def destroy(request):
-    pass
+    return redirect('/')
