@@ -9,9 +9,10 @@
 <body>
     <h1>Random Word(attempt #{{ request.session.count }}</h1>
     <div class="container">
-        {{ random_str }}
+        {{ request.session.random_str }}
     </div>
-    <form action="/generate" method="post">
+    <form action="/random_word" method="post">
+        {% csrf_token %}
         <button>Generate</button>
     </form>
 </body>

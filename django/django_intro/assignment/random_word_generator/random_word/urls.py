@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.index),
-    path('generate', views.generate),
+    path('random_word', views.generate),
 ]
