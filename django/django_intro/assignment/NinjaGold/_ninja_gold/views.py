@@ -66,4 +66,3 @@ def process_money(request):
             request.session['total_gold'] -= casinoNum
             addActivity(request, casinoNum, 'lost', 'casino')
     return redirect('/')
-
