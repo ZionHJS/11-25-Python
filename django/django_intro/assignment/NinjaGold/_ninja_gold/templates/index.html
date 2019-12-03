@@ -51,9 +51,9 @@
     </div>
     <div class="footer">
         <h1>Activities</h1>
-        {% if activities %}
+        {% if request.session.activity %}
         <ul>
-            {% for class, acticitiy in request.session.activity %}
+            {% for class, activity in request.session.activity %}
             <li class={{class}}>{{activity}}</li>
             {% endfor %}
         </ul>

@@ -32,12 +32,13 @@ def addActivity(request, num, action, location):
         request.session['activity'].append(['earn', 'Earned %d from the %s! %s' % (num, location, timestamp)])
     else:
         print('error')
+    request.session.save()
 
 # Create your views here.
 def index(request):
-    if request.session['total'] == None:
-        request.session['total'] = 0
-    if request.session['activity'] == None:
+    if request.session.get('total_gold') == None:
+        request.session['total_gold'] = 0
+    if request.session.get('activity') == None:
         request.session['activity'] = []
     return render(request, 'index.html')
 
@@ -46,23 +47,23 @@ def process_money(request):
     if hiddenInput == 'farm':
         farmNum = randomNum(10,20)
         request.session['total_gold'] += farmNum
-        addActivity(farmNum, 'earned', 'farm')
+        addActivity(request, farmNum, 'earned', 'farm')
     elif hiddenInput == 'cave':
         caveNum = randomNum(5,10)
         request.session['total_gold'] += caveNum
-        addActivity(caveNum, 'earned', 'cave')
+        addActivity(request, caveNum, 'earned', 'cave')
     elif hiddenInput == 'house':
         houseNum = randomNum(2,5)
         request.session['total_gold'] += houseNum
-        addActivity(houseNum, 'earned', 'house')
+        addActivity(request, houseNum, 'earned', 'house')
     elif hiddenInput == 'casino':
         casinoNum = randomNum(0,50)
         chance = earnOrAdd()
         if chance:
             request.session['total_gold'] += casinoNum
-            addActivity(casinoNum, 'earned', 'casino')
+            addActivity(request, casinoNum, 'earned', 'casino')
         else:
             request.session['total_gold'] -= casinoNum
-            addActivity(casinoNum, 'lost', 'casino')
+            addActivity(request, casinoNum, 'lost', 'casino')
     return redirect('/')
 
