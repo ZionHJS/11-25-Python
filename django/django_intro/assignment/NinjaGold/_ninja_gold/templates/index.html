@@ -13,7 +13,7 @@
     </div>
     <div class="body">
         <div class="farm">
-            <form action="/process_farm" method="post">
+            <form action="/process_money" method="post">
                 {% csrf_token %}
                 <h1>Farm</h1>
                 <p>(earns 10-20 golds)</p>
@@ -22,7 +22,7 @@
             </form>
         </div>
         <div class="Cave">
-            <form action="/process_cave" method="post">
+            <form action="/process_money" method="post">
                 {% csrf_token %}
                 <h1>Cave</h1>
                 <p>(earns 5-10 golds)</p>
@@ -31,7 +31,7 @@
             </form>
         </div>
         <div class="House">
-            <form action="/process_house" method="post">
+            <form action="/process_money" method="post">
                 {% csrf_token %}
                 <h1>House</h1>
                 <p>(earns 2-5 golds)</p>
@@ -40,7 +40,7 @@
             </form>
         </div>
         <div class="Casino">
-            <form action="/process_casino" method="post">
+            <form action="/process_money" method="post">
                 {% csrf_token %}
                 <h1>Casino</h1>
                 <p>(earns/takes 0-50 golds)</p>
@@ -53,7 +53,7 @@
         <h1>Activities</h1>
         {% if activities %}
         <ul>
-            {% for class, acticitiy in request.session.activities %}
+            {% for class, acticitiy in request.session.activity %}
             <li class={{class}}>{{activity}}</li>
             {% endfor %}
         </ul>
@@ -61,4 +61,3 @@
     </div>
 </body>
 </html>
-
