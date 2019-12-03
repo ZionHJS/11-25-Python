@@ -37,8 +37,8 @@ def addActivity(request, num, action, location):
 def index(request):
     if request.session['total'] == None:
         request.session['total'] = 0
-    if request.session['activities'] == None:
-        request.session['activities'] = []
+    if request.session['activity'] == None:
+        request.session['activity'] = []
     return render(request, 'index.html')
 
 def process_money(request):
