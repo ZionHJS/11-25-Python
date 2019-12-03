@@ -42,7 +42,7 @@ def index(request):
     return render(request, 'index.html')
 
 def process_money(request):
-    hiddenInput = request.form['hidden']
+    hiddenInput = request.POST['hidden']
     if hiddenInput == 'farm':
         farmNum = randomNum(10,20)
         request.session['total_gold'] += farmNum
