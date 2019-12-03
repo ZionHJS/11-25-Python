@@ -9,13 +9,14 @@
 <body>
     <div class="header">
         <h1>Your Gold</h1>
-        <h1>{{ request.session.gold }}</h1>
+        <h1>{{ request.session.total_gold }}</h1>
     </div>
     <div class="body">
         <div class="farm">
             <form action="/process_money" method="post">
                 <h1>Farm</h1>
                 <p>(earns 10-20 golds)</p>
+                <input type="hidden" name="hidden" value="farm"/>
                 <button type="submit" name="farm_btn">Find Gold</button>
             </form>
         </div>
@@ -23,6 +24,7 @@
             <form action="/process_money" method="post">
                 <h1>Farm</h1>
                 <p>(earns 5-10 golds)</p>
+                <input type="hidden" name="hidden" value="cave"/>
                 <button type="submit" name="cave_btn">Find Gold</button>
             </form>
         </div>
@@ -30,6 +32,7 @@
             <form action="/process_money" method="post">
                 <h1>Farm</h1>
                 <p>(earns 2-5 golds)</p>
+                <input type="hidden" name="hidden" value="house"/>
                 <button type="submit" name="house_btn">Find Gold</button>
             </form>
         </div>
@@ -37,6 +40,7 @@
             <form action="/process_money" method="post">
                 <h1>Farm</h1>
                 <p>(earns/takes 0-50 golds)</p>
+                <input type="hidden" name="hidden" value="casino"/>
                 <button type="submit" name="casino_btn">Find Gold</button>
             </form>
         </div>
