@@ -19,5 +19,3 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('_ninja_gold.urls')),
 ]
-
-
