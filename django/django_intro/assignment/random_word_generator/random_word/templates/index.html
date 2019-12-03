@@ -7,9 +7,9 @@
     <title>IndexHtml</title>
 </head>
 <body>
-    <h1>Random Word(attempt #{{ num }}</h1>
+    <h1>Random Word(attempt #{{ request.session.count }}</h1>
     <div class="container">
-        {{ random_num }}
+        {{ random_str }}
     </div>
     <form action="/generate" method="post">
         <button>Generate</button>
