@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from . import User
 
 # Create your views here.
 def index(request):
