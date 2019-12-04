@@ -1,0 +1,26 @@
+#create
+newUser_neil = User.objects.create(first_name='neil', last_name='D', email_address='neil_D@gmail.com', age=30)
+newUser_Rolando = User.objects.create(first_name='Rolando', last_name='Lopantzi', email_address='rolando@gmail.com', age=27)
+newUser_Adam = User.objects.create(first_name='Adam', last_name='R',email_address='adam@gmail.com', age=30)
+
+#get
+all_users = User.objects.all()
+first_user = User.objects.first()
+last_user = User.objects.last()
+
+#update
+name_update = User.objects.get(id=7)
+name_update.last_name='pancakes'
+name_update.save()
+
+#delete
+user_delete = User.objects.get(id=2)
+user_delete.delete()
+
+#sort
+user_all = User.objects.all()
+user_all.objects.order_by('first_name')
+
+#sort_descending
+user_all = User.objects.all()
+user_all.objects.order_by('first_name').desc()
