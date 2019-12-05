@@ -80,9 +80,9 @@ _remove.delete()
 2nd_book = Book.objects.get(id=2)
 2nd_book.publishers.add(5th_author)
 
-#Find all the books that the 3rd author is part of 
+#Find all the books that the 3rd author is part of   ??????
 books_all = Books.objects.all()
-books_3rd_author = books_all.filter(books.all)
+books_3rd_author = books_all.publishers.filter(id=3)
 
-#Find all the authors that contribute to the 5th book
+#Find all the authors that contribute to the 5th book   ??????
 
