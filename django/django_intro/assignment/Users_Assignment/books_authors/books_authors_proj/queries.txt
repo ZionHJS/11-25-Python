@@ -1,0 +1,6 @@
+#create 5 books with the following names:C Sharp, Java, Python, PHP, Ruby
+newbook_01 = Book.objects.create(title='C-Sharp')
+newbook_02 = Book.objects.create(title='Java')
+newbook_03 = Book.objects.create(title='Python')
+newbook_04 = Book.objects.create(title='PHP')
+newbook_05 = Book.objects.create(title='Ruby')
