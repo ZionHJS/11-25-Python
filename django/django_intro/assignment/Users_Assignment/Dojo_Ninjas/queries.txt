@@ -22,3 +22,10 @@ last_ninja_dojo = new_ninja_3.
 new_dojo_3 = Dojo.objects.create(name='dojo_03', city='la', state='CA', desc='old_dojo')
 
 show_dojo = Dojo.objects.all().values()
+
+
+ninjas_all = Ninja.objects.all()
+
+last_ninja = ninjas_all[len(ninjas_all)-1]
+
+last_ninja.DOJO

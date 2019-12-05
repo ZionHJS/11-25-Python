@@ -20,8 +20,9 @@ c_update.title = 'C#'
 c_update.save() 
 
 #change the first name pf the 4th author to Bill
-4th_author = Author.objects.get(id=4)
-4th_author.first_name = 'Bill'
+author_4th = Author.objects.get(id=4)
+author_4th.first_name = 'Bill'
+author_4th.save()
 
 #assign the first author to the first 2 books   ??????
 author_first = Author.objects.first()
@@ -29,6 +30,9 @@ books_1 = Book.objects.filter(id=1)
 books_2 = Book.objects.filter(id=2)
 author_first.books.add(books_1)
 author_first.books.add(books_2)
+#or
+books_1.publishers.add(author_first)
+books_2.publishers.add(author_first)
 
 #assign the second author to the first 4 books   ??????
 books_1 = Book.objects.filter(id=1)
@@ -36,21 +40,21 @@ books_2 = Book.objects.filter(id=2)
 books_3 = Book.objects.filter(id=3)
 books_4 = Book.objects.filter(id=4)
 author_second = Author.objects.filter(id=2)
-books_1.publishers.add(author_second)
-books_2.publishers.add(author_second)
-books_3.publishers.add(author_second)
-books_4.publishers.add(author_second)
+author_second.books.add(books_1)
+author_second.books.add(books_2)
+author_second.books.add(books_3)
+author_second.books.add(books_4)
 
-#assign the third author to the first 4 books
+#assign the third author to the first 4 books   ??????
 books_1 = Book.objects.filter(id=1)
 books_2 = Book.objects.filter(id=2)
 books_3 = Book.objects.filter(id=3)
 books_4 = Book.objects.filter(id=4)
 author_third = Author.objects.filter(id=3)
-books_1.publishers.add(author_third)
-books_2.publishers.add(author_third)
-books_3.publishers.add(author_third)
-books_4.publishers.add(author_third)
+author_third.books.add(books_1)
+author_third.books.add(books_2)
+author_third.books.add(books_3)
+author_third.books.add(books_4)
 
 #assign the fourth author to the first 5 books(or in other words, all the books)
 books_1 = Book.objects.filter(id=1)
@@ -59,30 +63,21 @@ books_3 = Book.objects.filter(id=3)
 books_4 = Book.objects.filter(id=4)
 books_5 = Book.objects.filter(id=5)
 author_fourth = Author.objects.filter(id=4)
-books_1.publishers.add(author_fourth)
-books_2.publishers.add(author_fourth)
-books_3.publishers.add(author_fourth)
-books_4.publishers.add(author_fourth)
-books_5.publishers.add(author_fourth)
+author_fourth.books.add(Book.objects.all())
 
-#retrieve all the authors fro the 3rd book
-books_3rd = Book.objects.get(id=3)
-books_3rd.publishers.all()
+#retrieve all the authors from the 3rd book   ???
+authors_ = Author.objects.all().books.filter(id=3)
 
 #remove the first author of the 3rd book   ??????
 books_3 = Book.objects.filter(id=3)
-name_first_author = Author.objects.first()
-_remove = books_3.publishers.filter(name=name_first_author)
-_remove.delete()
 
 #add 5th author as one of the authors of the 2nd book
 5th_author = Author.objects.get(id=5)
 2nd_book = Book.objects.get(id=2)
-2nd_book.publishers.add(5th_author)
+5th_author.books.add(2nd_book)
 
-#Find all the books that the 3rd author is part of   ??????
-books_all = Books.objects.all()
-books_3rd_author = books_all.publishers.filter(id=3)
+#Find all the books that the 3rd author is part of 
+srd_author = Author.objects.get(id=3)
+srd_author.books.all()
 
 #Find all the authors that contribute to the 5th book   ??????
-

@@ -8,6 +8,10 @@
 </head>
 <body>
     <h1>Dojo-Ninja</h1>
-    
+    <ul>
+        {% for dojo in all_dojos %}
+        <li>{{ dojo.name }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
