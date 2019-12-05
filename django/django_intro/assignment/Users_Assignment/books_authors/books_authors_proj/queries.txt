@@ -23,7 +23,33 @@ c_update.save()
 4th_author = Author.objects.get(id=4)
 4th_author.first_name = 'Bill'
 
-#assign the first author to the first 2 books
+#assign the first author to the first 2 books   ??????
 author_first = Author.objects.first()
-books_1_2 = Book.objects.filter(id__in(1,2))
+books_1 = Book.objects.filter(id=1)
+books_2 = Book.objects.filter(id=2)
+author_first.books.add(books_1)
+author_first.books.add(books_2)
 
+#assign the second author to the first 4 books   ??????
+books_1 = Book.objects.filter(id=1)
+books_2 = Book.objects.filter(id=2)
+books_3 = Book.objects.filter(id=3)
+books_4 = Book.objects.filter(id=4)
+author_second = Author.objects.filter(id=2)
+books_1.publishers.add(author_second)
+books_2.publishers.add(author_second)
+books_3.publishers.add(author_second)
+books_4.publishers.add(author_second)
+
+#assign the third author to the first 4 books
+books_1 = Book.objects.filter(id=1)
+books_2 = Book.objects.filter(id=2)
+books_3 = Book.objects.filter(id=3)
+books_4 = Book.objects.filter(id=4)
+author_third = Author.objects.filter(id=3)
+books_1.publishers.add(author_third)
+books_2.publishers.add(author_third)
+books_3.publishers.add(author_third)
+books_4.publishers.add(author_third)
+
+#assign the fourth author to the first 5 books(or in other words, all the books)
