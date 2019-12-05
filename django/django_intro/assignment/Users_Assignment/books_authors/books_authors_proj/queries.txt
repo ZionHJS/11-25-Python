@@ -5,4 +5,25 @@ newbook_03 = Book.objects.create(title='Python')
 newbook_04 = Book.objects.create(title='PHP')
 newbook_05 = Book.objects.create(title='Ruby')
 
+#create 5 different authors:Jane Austen, Emilly Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu
+newauthor_01 = Author.objects.create(first_name='Jane', last_name='Austen')
+newauthor_02 = Author.objects.create(first_name='Emilly', last_name='Dickinson')
+newauthor_03 = Author.objects.create(first_name='Fyodor', last_name='Dostoevksy')
+newauthor_04 = Author.objects.create(first_name='William', last_name='Shakespeare')
+newauthor_05 = Author.objects.create(first_name='Lau', last_name='Tzu')
+
+#add a new text field in the authors table called 'notes' and restart migration
+
+#change the name of the C-Sharp book to C# 
+c_update = Book.objects.get(title='C-Sharp')
+c_update.title = 'C#'
+c_update.save() 
+
+#change the first name pf the 4th author to Bill
+4th_author = Author.objects.get(id=4)
+4th_author.first_name = 'Bill'
+
+#assign the first author to the first 2 books
+author_first = Author.objects.first()
+books_1_2 = Book.objects.filter(id__in(1,2))
 
