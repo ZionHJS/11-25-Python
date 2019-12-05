@@ -18,3 +18,7 @@ retrieve_ninjas = first_dojo.ninjas.all()
 #retrieve the last ninja's dojo   ???
 last_ninja_dojo = new_ninja_3.
 
+#create a new Dojo
+new_dojo_3 = Dojo.objects.create(name='dojo_03', city='la', state='CA', desc='old_dojo')
+
+show_dojo = Dojo.objects.all().values()
