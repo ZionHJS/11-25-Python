@@ -5,3 +5,4 @@ def index(request):
         #'all_the_users':User.objects.all()
     }
     return render(request, 'index.html')
+
