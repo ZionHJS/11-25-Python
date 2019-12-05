@@ -53,3 +53,20 @@ books_3.publishers.add(author_third)
 books_4.publishers.add(author_third)
 
 #assign the fourth author to the first 5 books(or in other words, all the books)
+books_1 = Book.objects.filter(id=1)
+books_2 = Book.objects.filter(id=2)
+books_3 = Book.objects.filter(id=3)
+books_4 = Book.objects.filter(id=4)
+books_5 = Book.objects.filter(id=5)
+author_fourth = Author.objects.filter(id=4)
+books_1.publishers.add(author_fourth)
+books_2.publishers.add(author_fourth)
+books_3.publishers.add(author_fourth)
+books_4.publishers.add(author_fourth)
+books_5.publishers.add(author_fourth)
+
+#retrieve all the authors fro the 3rd book
+books_3rd = Book.objects.get(id=3)
+books_3rd.publishers.all()
+
+#remove the first author of the 3rd book
