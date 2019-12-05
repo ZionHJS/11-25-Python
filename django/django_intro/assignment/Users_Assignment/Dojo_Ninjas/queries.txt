@@ -1,0 +1,15 @@
+#create 3 new Dojo and Delete these 3 Dojo
+new_dojo_1 = Dojo.objects.create(name='dojo_01', city='st', state='WA')
+new_dojo_2 = Dojo.objects.create(name='dojo_02', city='sf', state='CA')
+new_dojo_3 = Dojo.objects.create(name='dojo_03', city='la', state='CA')
+
+delete_dojo = Dojo.objects.all().delete()
+
+#create 3 ninjas taht belong to the first dojo
+first_dojo = Dojo.objects.first()
+
+new_ninja_1 = Ninja.objects.create(first_name='ninja_01', last_name='nin1', DOJO=first_dojo)
+new_ninja_2 = Ninja.objects.create(first_name='ninja_02', last_name='nin2', DOJO=first_dojo)
+new_ninja_3 = Ninja.objects.create(first_name='ninja_03', last_name='nin3', DOJO=first_dojo)
+
+#
