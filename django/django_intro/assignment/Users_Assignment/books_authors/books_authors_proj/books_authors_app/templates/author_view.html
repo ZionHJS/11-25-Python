@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>author_view</title>
+</head>
+
+<body>
+    <h1>{{ author_name }}</h1>
+    <h2>ID: {{ author_id_num }}</h2>
+    <h2>Notes:</h2>
+    <p>{{ author_notes }}</p>
+    <h2>Authors:</h2>
+    {{% for author_book in Author_Books%}}
+        <h2>{{ author_book }}</h2>
+        <h2>{{ author_book }}</h2>
+    {{% endfor %}}
+    <form action="/add_book">
+        <select name="book_select">
+            {{% for book in Books %}}
+            <option value="{{book}}">{{book}}</option>
+            {{% endfor %}}
+        </select>
+        <input type='submit' name='submit' value='Add'>
+    </form>
+</body>
+
+</html>

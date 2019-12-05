@@ -65,10 +65,9 @@ for book in Book.objects.all():
 book_3rd = Book.objects.get(id=3)
 book3rd_author = book_3.publishers.all()
 
-#remove the first author of the 3rd book   ???
+#remove the first author of the 3rd book  
 books_3 = Book.objects.get(id=3)
 books_3.publishers.all()
-books_3.publishers.first()
 books_3.publishers.first().delete()
 books_3.publishers.get(id=1)   #why this is not exist???
 
