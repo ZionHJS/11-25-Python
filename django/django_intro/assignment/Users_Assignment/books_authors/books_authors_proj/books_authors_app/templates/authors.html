@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Authors</title>
 </head>
+
 <body>
     <h1>Add A Author!</h1>
     <form action="/add_book">
@@ -13,5 +15,24 @@
         Last Name <input type="text" name="last_name">
         Notes: <textarea name="notes" cols="30" rows="10" placeholder="write your notes here..."></textarea>
     </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for author in Authors %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.first_name }} {{ author.last_name }}</td>
+                <td><a href="/{author.first_name}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
 </body>
+
 </html>
