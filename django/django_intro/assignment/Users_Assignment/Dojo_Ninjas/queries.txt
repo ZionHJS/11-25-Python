@@ -12,4 +12,9 @@ new_ninja_1 = Ninja.objects.create(first_name='ninja_01', last_name='nin1', DOJO
 new_ninja_2 = Ninja.objects.create(first_name='ninja_02', last_name='nin2', DOJO=first_dojo)
 new_ninja_3 = Ninja.objects.create(first_name='ninja_03', last_name='nin3', DOJO=first_dojo)
 
-#
+#retrieve all the ninjas from the first dojo
+retrieve_ninjas = first_dojo.ninjas.all()
+
+#retrieve the last ninja's dojo   ???
+last_ninja_dojo = new_ninja_3.
+
