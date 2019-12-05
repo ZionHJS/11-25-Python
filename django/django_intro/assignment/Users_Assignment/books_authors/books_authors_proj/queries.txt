@@ -24,59 +24,63 @@ author_4th = Author.objects.get(id=4)
 author_4th.first_name = 'Bill'
 author_4th.save()
 
-#assign the first author to the first 2 books   ??????
-author_first = Author.objects.first()
-books_1 = Book.objects.filter(id=1)
-books_2 = Book.objects.filter(id=2)
+#assign the first author to the first 2 books 
+author_first = Author.objects.get(id=1)
+books_1 = Book.objects.get(id=1)
+books_2 = Book.objects.get(id=2)
 author_first.books.add(books_1)
 author_first.books.add(books_2)
 #or
 books_1.publishers.add(author_first)
 books_2.publishers.add(author_first)
 
-#assign the second author to the first 4 books   ??????
-books_1 = Book.objects.filter(id=1)
-books_2 = Book.objects.filter(id=2)
-books_3 = Book.objects.filter(id=3)
-books_4 = Book.objects.filter(id=4)
-author_second = Author.objects.filter(id=2)
+#assign the second author to the first 4 books   
+books_1 = Book.objects.get(id=1)
+books_2 = Book.objects.get(id=2)
+books_3 = Book.objects.get(id=3)
+books_4 = Book.objects.get(id=4)
+author_second = Author.objects.get(id=2)
 author_second.books.add(books_1)
 author_second.books.add(books_2)
 author_second.books.add(books_3)
 author_second.books.add(books_4)
 
-#assign the third author to the first 4 books   ??????
-books_1 = Book.objects.filter(id=1)
-books_2 = Book.objects.filter(id=2)
-books_3 = Book.objects.filter(id=3)
-books_4 = Book.objects.filter(id=4)
-author_third = Author.objects.filter(id=3)
+#assign the third author to the first 4 books   
+books_1 = Book.objects.get(id=1)
+books_2 = Book.objects.get(id=2)
+books_3 = Book.objects.get(id=3)
+books_4 = Book.objects.get(id=4)
+author_third = Author.objects.get(id=3)
 author_third.books.add(books_1)
 author_third.books.add(books_2)
 author_third.books.add(books_3)
 author_third.books.add(books_4)
 
-#assign the fourth author to the first 5 books(or in other words, all the books)   ??????
-author_fourth = Author.objects.filter(id=4)
-author_fourth.books.add(Book.objects.all())
+#assign the fourth author to the first 5 books(or in other words, all the books)   
+author_fourth = Author.objects.get(id=4)
+for book in Book.objects.all():
+    author_fourth.books.add(book)
 
-#retrieve all the authors from the 3rd book   ???
-authors_3rd = Author.objects.all().books.filter(id=3)
+#retrieve all the authors from the 3rd book   
 book_3rd = Book.objects.get(id=3)
-book3rd_author = book_3.publishers
+book3rd_author = book_3.publishers.all()
 
-#remove the first author of the 3rd book   ??????
-books_3 = Book.objects.filter(id=3)
+#remove the first author of the 3rd book   ???
+books_3 = Book.objects.get(id=3)
+books_3.publishers.all()
+books_3.publishers.first()
+books_3.publishers.first().delete()
+books_3.publishers.get(id=1)   #why this is not exist???
 
 #add 5th author as one of the authors of the 2nd book
-5th_author = Author.objects.get(id=5)
-2nd_book = Book.objects.get(id=2)
-5th_author.books.add(2nd_book)
+author_5th = Author.objects.get(id=5)
+book_2nd = Book.objects.get(id=2)
+author_5th.books.add(book_2nd)
 
 #Find all the books that the 3rd author is part of 
-srd_author = Author.objects.get(id=3)
-srd_author.books.all()
+auth_3rd = Author.objects.get(id=3)
+Book.objects.filter(publishers=auth_3rd)
 
-#Find all the authors that contribute to the 5th book   ??????
+#Find all the authors that contribute to the 5th book
 book_5th = Book.objects.get(id=5)
-book3rd_author = book_3.publishers
+Author.objects.filter(books=book_5th)
