@@ -56,17 +56,14 @@ author_third.books.add(books_2)
 author_third.books.add(books_3)
 author_third.books.add(books_4)
 
-#assign the fourth author to the first 5 books(or in other words, all the books)
-books_1 = Book.objects.filter(id=1)
-books_2 = Book.objects.filter(id=2)
-books_3 = Book.objects.filter(id=3)
-books_4 = Book.objects.filter(id=4)
-books_5 = Book.objects.filter(id=5)
+#assign the fourth author to the first 5 books(or in other words, all the books)   ??????
 author_fourth = Author.objects.filter(id=4)
 author_fourth.books.add(Book.objects.all())
 
 #retrieve all the authors from the 3rd book   ???
-authors_ = Author.objects.all().books.filter(id=3)
+authors_3rd = Author.objects.all().books.filter(id=3)
+book_3rd = Book.objects.get(id=3)
+book3rd_author = book_3.publishers
 
 #remove the first author of the 3rd book   ??????
 books_3 = Book.objects.filter(id=3)
@@ -81,3 +78,5 @@ srd_author = Author.objects.get(id=3)
 srd_author.books.all()
 
 #Find all the authors that contribute to the 5th book   ??????
+book_5th = Book.objects.get(id=5)
+book3rd_author = book_3.publishers
