@@ -9,21 +9,20 @@
 </head>
 
 <body>
-    <h1>{{ author_name }}</h1>
-    <h2>ID: {{ author_id_num }}</h2>
+    <h1>{{ author_first_name }} {{ author_last_name }}</h1>
+    <h2>ID: {{ author_id }}</h2>
     <h2>Notes:</h2>
     <p>{{ author_notes }}</p>
     <h2>Authors:</h2>
-    {{% for author_book in Author_Books %}}
-        <h2>{{ author_book }}</h2>
-        <h2>{{ author_book }}</h2>
-    {{% endfor %}}
-    <form action="/add_book" method="post">
+    {% for book in author_books %}
+        <h2>{{ book.title }}</h2>
+    {% endfor %}
+    <form action="/authors/{{author_id}}/add_book2author" method="post">
         {% csrf_token %}
         <select name="book_select">
-            {{% for book in Books %}}
-            <option value="{{book}}">{{book}}</option>
-            {{% endfor %}}
+            {% for book in Books %}
+            <option value="{{book.id}}" name="{{book.title}}">{{book.title}}</option>
+            {% endfor %}
         </select>
         <input type='submit' name='submit' value='Add'>
     </form>

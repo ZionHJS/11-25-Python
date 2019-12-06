@@ -16,7 +16,7 @@
     <h2>Authors:</h2>
     {% for book_author in book_authors %}
         <h2>{{ book_author.first_name }}</h2>
-        <h2>{{ book_author.first_name }}</h2>
+        <h2>{{ book_author.last_name }}</h2>
     {% endfor %}
 
     <form action="/books/{{book_id}}/add_author2book" method='post'>
