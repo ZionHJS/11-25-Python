@@ -18,7 +18,8 @@
         <h2>{{ author_book }}</h2>
         <h2>{{ author_book }}</h2>
     {{% endfor %}}
-    <form action="/add_book">
+    <form action="/add_book" method="post">
+        {% csrf_token %}
         <select name="book_select">
             {{% for book in Books %}}
             <option value="{{book}}">{{book}}</option>

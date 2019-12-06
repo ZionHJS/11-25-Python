@@ -18,7 +18,8 @@
         <h2>{{ book_author }}</h2>
         <h2>{{ book_author }}</h2>
     {{% endfor %}}
-    <form action="/add_author">
+    <form action="/add_author" method='post'>
+        {% csrf_token %}
         <select name="author_select">
             {{% for author in Authors %}}
             <option value="{{author}}">{{author}}</option>
