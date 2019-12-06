@@ -14,16 +14,17 @@
     <h2>Description:</h2>
     <p>{{ book_des }}</p>
     <h2>Authors:</h2>
-    {{% for book_author in Authors %}}
-        <h2>{{ book_author }}</h2>
-        <h2>{{ book_author }}</h2>
-    {{% endfor %}}
-    <form action="/add_author" method='post'>
+    {% for book_author in book_authors %}
+        <h2>{{ book_author.first_name }}</h2>
+        <h2>{{ book_author.first_name }}</h2>
+    {% endfor %}
+    
+    <form action="/books/{{book_id}}/add_author2book" method='post'>
         {% csrf_token %}
         <select name="author_select">
-            {{% for author in Authors %}}
-            <option value="{{author}}">{{author}}</option>
-            {{% endfor %}}
+            {% for author in Authors %}
+            <option value={{author}} name="{{author.first_name}}">{{author.first_name}} {{author.last_name}}</option>
+            {% endfor %}
         </select>
         <input type='submit' name='submit' value='Add'>
     </form>

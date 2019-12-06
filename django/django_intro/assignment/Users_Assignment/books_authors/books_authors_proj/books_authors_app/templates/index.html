@@ -12,7 +12,9 @@
         {% csrf_token %}
         Title: <input type="text" name='title'>
         Description: <textarea name="book_des" cols="30" rows="10" placeholder="write your book_descriptions here..."></textarea>
+        <input type='submit' name='submit' value='Add'>
     </form>
+
     <table>
         <thead>
             <tr>
@@ -26,7 +28,7 @@
                 <tr>
                     <td>{{ book.id }}</td>
                     <td>{{ book.title }}</td>
-                    <td><a href="/{book.title}">View</a></td>
+                    <td><a href="/books/{{book.id}}">View</a></td>
                 </tr>
             {% endfor%}
         </tbody>
