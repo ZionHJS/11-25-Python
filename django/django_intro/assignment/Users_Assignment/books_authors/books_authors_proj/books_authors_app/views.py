@@ -27,7 +27,9 @@ def show_book(request, id):
     return render(request, 'books_view.html', context)
 
 def add_author2book(request, id):
-    added_author = request.POST['author_select']
+    select_tag = request.POST['author_select']
+    author_id = select_tag
+    author2add = Author.objects.get(id = author_id)
     this_book = Book.objects.get(id=id)
-    this_book.publishers.add(added_author)
-    return redirect('/')
+    this_book.publishers.add(author2add)
+    return redirect('/books/{{id}}')
