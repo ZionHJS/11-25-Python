@@ -17,6 +17,7 @@ def add_book(reqeust):
 
 def show_book(request):
     context={
-        
+        'book_name':Book.object.
+        'Authors':Author.objects.all(),
     }
-    return render(request, 'books_view.html')
+    return render(request, 'books_view.html', context)
