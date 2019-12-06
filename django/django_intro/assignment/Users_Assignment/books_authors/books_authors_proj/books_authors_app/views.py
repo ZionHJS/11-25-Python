@@ -15,9 +15,15 @@ def add_book(reqeust):
     Book.objects.create(title=book_title, desc_TEXT=book_des)
     return redirect('/')
 
-def show_book(request):
+def show_book(request, id):
     context={
-        'book_name':Book.object.
+        'book_title':Book.object.get(id=id).title,
+        'book_id':id,
+        'book_des':Book.object.get(id=id).desc_TEXT,
+        'book_author':Book.publishers.all(),
         'Authors':Author.objects.all(),
     }
     return render(request, 'books_view.html', context)
+
+def add_author2book(request, id):
+    
