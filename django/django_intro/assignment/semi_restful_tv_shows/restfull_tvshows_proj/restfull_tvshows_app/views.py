@@ -5,6 +5,13 @@ from .models import Show
 def index(request):
     return render(request, 'index.html')
 
+def shows(request):
+    all_shows = Show.objects.all()
+    context = {
+        'all_shows':all_shows
+    }
+    return render(request, 'shows.html', context)
+
 def shows_new(request):
     return render(request, 'shows_new.html')
 
@@ -42,5 +49,5 @@ def edit_show_update(request, id):
 def delete_show(request, id):
     this_show = Show.objects.get(id = id)
     this_show.delete()
-    return redirect('/shows/new')
+    return redirect('/shows')
 

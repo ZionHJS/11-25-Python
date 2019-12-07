@@ -19,17 +19,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{{ this_show.id }}</td>
-                <td>{{ this_show.title }}</td>
-                <td>{{ this_show.network }}</td>
-                <td>{{ this_show.release_date }}</td>
-                <td>
-                    <a href="/shows/{{ this_show.id }}">Show</a> | 
-                    <a href="/shows/{{ this_show.id }}/edit">Edit</a> |
-                    <a href="/shows/{{ this_show.id }}/delete">Delete</a>
-                </td>
-            </tr>
+            {% for this_show in all_shows %}
+                <tr>
+                    <td>{{ this_show.id }}</td>
+                    <td>{{ this_show.title }}</td>
+                    <td>{{ this_show.network }}</td>
+                    <td>{{ this_show.release_date }}</td>
+                    <td>
+                        <a href="/shows/{{ this_show.id }}">Show</a> | 
+                        <a href="/shows/{{ this_show.id }}/edit">Edit</a> |
+                        <a href="/shows/{{ this_show.id }}/delete">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
     <a href="/shows/new">Add a New Show</a>
