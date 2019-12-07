@@ -10,6 +10,7 @@
     <h1>Add a New Show</h1>
     <a href="/">GoBack</a>
     <form action="/shows/create_show" method="post">
+        {% csrf_token %}
         <h2>Title</h2>
         <input type="text" name="add_title">
         <h2>Network</h2>
