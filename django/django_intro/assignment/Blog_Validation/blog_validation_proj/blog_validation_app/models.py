@@ -6,6 +6,7 @@ class Blog(models.Model):
     desc = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
+    objects = BlogManager()   #add this line we are override the existing object property
 
 class BlogManager(models.Manager):
     def basic_validator(self, postData):
