@@ -24,10 +24,10 @@ def show_this_show(request, id):
     }
     return render(request, 'shows_this_show.html', context)
 
-def edit_tvshow(request):
-    #not done
-    return render(request, 'edit_show.html')
+def edit_show(request, id):
+    this_show = Show.objects.get(id = id)
+    return render(request, 'edit_show.html', context)
 
-def delete_tvshow(request):
+def delete_show(request):
     #not done
     return redirect('/shows/new')

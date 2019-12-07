@@ -7,14 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>TV Show {{ id }}</h1>
+    <h1>TV Show {{ this_show.id }}</h1>
     <h2>Title: {{ this_show.title }}</h2>
     <h2>Nerwork: {{ this_show.network }}</h2>
     <h2>Release Date: {{ this_show.date }}</h2>
-    <h2>Description: {{ this_show.des }} </h2>
+    <h2>Description: {{ this_show.description }} </h2>
     <hr>
     <h2>Last Updated: {{ this_show.updated_at}}</h2>
     <a href="/shows/{{ this_show.id }}/edit">Edit</a>
-    <a href="/shows/{{this_show.id }}/delete">Delete</a>
+    <a href="/shows/{{ this_show.id }}/delete">Delete</a>
 </body>
 </html>
