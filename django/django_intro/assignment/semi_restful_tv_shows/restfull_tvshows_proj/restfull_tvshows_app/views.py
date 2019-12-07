@@ -14,7 +14,7 @@ def create_show(request):
     new_date = request.POST['add_date']
     new_des = request.POST['add_des']
     this_new_show = Show.objects.create(title=new_title, network=new_network, release_date=new_date, description=new_des)
-    return redirect('/shows/{{int(this_new_show.id)}}')
+    return redirect(f'/shows/{this_new_show.id}')
     
 def show_this_show(request, id):
     this_show = Show.objects.get(id = id)
@@ -37,9 +37,10 @@ def edit_show_update(request, id):
     this_show.network = request.POST['update_network']
     this_show.date = request.POST['update_date']
     this_show.description = request.POST['update_des']
-    return redirect('/shows/{{this_show.id}}')
+    return redirect(f'/shows/{this_show.id}')
 
 def delete_show(request, id):
     this_show = Show.objects.get(id = id)
     this_show.delete()
     return redirect('/shows/new')
+

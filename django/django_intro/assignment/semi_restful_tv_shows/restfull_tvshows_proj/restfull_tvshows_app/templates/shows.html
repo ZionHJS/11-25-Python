@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Shows</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Network</th>
+                <th>Release Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ this_show.id }}</td>
+                <td>{{ this_show.title }}</td>
+                <td>{{ this_show.network }}</td>
+                <td>{{ this_show.release_date }}</td>
+                <td>
+                    <a href="/shows/{{ this_show.id }}">Show</a> | 
+                    <a href="/shows/{{ this_show.id }}/edit">Edit</a> |
+                    <a href="/shows/{{ this_show.id }}/delete">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/shows/new">Add a New Show</a>
+</body>
+</html>
