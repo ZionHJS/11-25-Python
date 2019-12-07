@@ -26,6 +26,20 @@ def show_this_show(request, id):
 
 def edit_show(request, id):
     this_show = Show.objects.get(id = id)
+    context = {
+        'this_show':this_show
+    }
+    return render(request, 'edit_show.html', context)
+
+def edit_show_update(request, id):
+    this_show = Show.objects.get(id = id)
+    this_show.title = request.POST['update_title']
+    this_show.network = request.POST['update_network']
+    this_show.date = request.POST['update_date']
+    this_show.description = request.POST['update_des']
+    context = {
+        'this_show':this_show
+    }
     return render(request, 'edit_show.html', context)
 
 def delete_show(request):

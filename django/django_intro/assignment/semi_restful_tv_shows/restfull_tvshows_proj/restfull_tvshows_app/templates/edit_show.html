@@ -9,7 +9,7 @@
 <body>
     <h1>Edit Show {{ this_show.id}}</h1>
     <a href="/shows/{{ this_show.id }}">GoBack</a>
-    <form action="/shows/update_show" method="post">
+    <form action="/shows/{{ this_show.id }}/edit/update" method="post">
         <h2>Title</h2>
         <input type="text" name="update_title" placeholder="{{ this_show.title }}">
         <h2>Network</h2>
