@@ -14,7 +14,7 @@
     <h2>Description: {{ this_tvshow.des }} </h2>
     <hr>
     <h2>Last Updated: {{ this_tvshow.updated_at}}</h2>
-    <a href="/edit_tvshow">Edit</a>
-    <a href="/delete_tvshow">Delete</a>
+    <a href="/shows/{{ this_tvshow.id }}/edit">Edit</a>
+    <a href="/shows/{{this_tvshow.id }}/delete">Delete</a>
 </body>
 </html>
