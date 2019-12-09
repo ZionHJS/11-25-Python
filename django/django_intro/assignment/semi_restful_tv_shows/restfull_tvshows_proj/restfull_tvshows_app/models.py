@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
-class ShowManager(models.manager):
+class ShowManager(models.Manager):
     def basic_validator(self, postData):
         errors:{}
         if len(postData['title']) <= 2:
