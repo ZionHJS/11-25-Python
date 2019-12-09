@@ -13,9 +13,8 @@ class ShowManager(models.Manager):
         if len(postData['add_des']) <= 10 and len(postData['add_des']) >= 0:
             errors['add_des'] = 'Description needs be at least 10 characters'
         nowtime = datetime.now()
-        if postData['add_date']:
-            if nowtime - postData['add_date'] <= 0:
-                errors['add_date'] = 'Date-time needs be in the past'
+        if nowtime <= datetime.strptime(postData['add_date'], '%Y-%m-%d'):
+            errors['add_date'] = 'Date-time needs be in the past'
         return errors
 
 class Show(models.Model):

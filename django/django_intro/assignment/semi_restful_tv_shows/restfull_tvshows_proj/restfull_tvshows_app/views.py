@@ -21,15 +21,18 @@ def create_show(request):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('shows/new')
+        print('messages')
+        print(messages)
+        return redirect('/shows/new')
     else:
         new_title = request.POST['add_title']
         new_network = request.POST['add_network']
         new_date = request.POST['add_date']
-        print(new_date)
+        #print(new_date)
         new_des = request.POST['add_des']
         this_new_show = Show.objects.create(title=new_title, network=new_network, release_date=new_date, description=new_des)
         messages.success(request, 'Show successfully updated!')
+        print(messages)
     return redirect(f'/shows/{this_new_show.id}')
 
 def show_this_show(request, id):
