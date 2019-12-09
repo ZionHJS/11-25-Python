@@ -17,13 +17,21 @@ def shows_new(request):
     return render(request, 'shows_new.html')
 
 def create_show(request):
-    new_title = request.POST['add_title']
-    new_network = request.POST['add_network']
-    new_date = request.POST['add_date']
-    new_des = request.POST['add_des']
-    this_new_show = Show.objects.create(title=new_title, network=new_network, release_date=new_date, description=new_des)
+    errors = Show.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('shows/new')
+    else:
+        new_title = request.POST['add_title']
+        new_network = request.POST['add_network']
+        new_date = request.POST['add_date']
+        print(new_date)
+        new_des = request.POST['add_des']
+        this_new_show = Show.objects.create(title=new_title, network=new_network, release_date=new_date, description=new_des)
+        message.success(request, 'Show successfully updated!')
     return redirect(f'/shows/{this_new_show.id}')
-    
+
 def show_this_show(request, id):
     this_show = Show.objects.get(id = id)
     #print(this_show)
