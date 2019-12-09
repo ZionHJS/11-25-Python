@@ -53,7 +53,7 @@ def edit_show_update(request, id):
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect(f'shows/{id}/edit')
+        return redirect(f'/shows/{id}/edit')
     else:
         this_show = Show.objects.get(id = id)
         this_show.title = request.POST['update_title']

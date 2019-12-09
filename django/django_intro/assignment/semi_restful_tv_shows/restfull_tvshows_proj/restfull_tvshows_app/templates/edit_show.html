@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        .messages {
+            color: red
+        }
+    </style>
 </head>
+
 <body>
     <h1>Edit Show {{ this_show.id}}</h1>
     <a href="/shows/{{ this_show.id }}">GoBack</a>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form action="/shows/{{ this_show.id }}/edit/update" method="post">
         {% csrf_token %}
         <h2>Title</h2>
@@ -23,4 +37,5 @@
     </form>
     <a href="/shows/new">Go to Show</a>
 </body>
+
 </html>

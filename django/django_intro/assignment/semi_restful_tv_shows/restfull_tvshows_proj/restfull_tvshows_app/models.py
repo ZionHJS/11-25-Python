@@ -10,7 +10,7 @@ class ShowManager(models.Manager):
             errors['add_title'] = 'Title name needs be at least 2 characters'
         if len(postData['add_network']) <= 3:
             errors['add_network'] = 'Network needs be at least 2 characters'
-        if len(postData['add_des']) <= 10 and len(postData['add_des']) >= 0:
+        if len(postData['add_des']) <= 10 and len(postData['add_des']) > 0:
             errors['add_des'] = 'Description needs be at least 10 characters'
         nowtime = datetime.now()
         if nowtime <= datetime.strptime(postData['add_date'], '%Y-%m-%d'):
@@ -23,11 +23,12 @@ class ShowManager(models.Manager):
             errors['updaet_title'] = 'Title name needs be at least 2 characters'
         if len(postData['update_network']) <= 3:
             errors['update_network'] = 'Network needs be at least 2 characters'
-        if len(postData['update_des']) <= 10 and len(postData['update_des']) >= 0:
+        if len(postData['update_des']) <= 10 and len(postData['update_des']) > 0:
             errors['update_des'] = 'Description needs be at least 10 characters'
         nowtime = datetime.now()
-        if nowtime <= datetime.strptime(postData['update_date'], '%Y-%m-%d'):
-            errors['update_date'] = 'Date-time needs be in the past'
+        if postData['update_date']:
+            if nowtime <= datetime.strptime(postData['update_date'], '%Y-%m-%d'):
+                errors['update_date'] = 'Date-time needs be in the past'
         return errors
 
 class Show(models.Model):
