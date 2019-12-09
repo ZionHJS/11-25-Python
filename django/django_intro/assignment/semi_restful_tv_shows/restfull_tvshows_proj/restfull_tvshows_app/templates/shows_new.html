@@ -9,11 +9,6 @@
 <body>
     <h1>Add a New Show</h1>
     <a href="/">GoBack</a>
-    {% if messages %}
-       {% for message in messages %}
-           <li {% if message.tags %} class = "{{ message.tags }}" {% endif %}>{{ message }}</li>
-       {% endfor%}
-    {% endf i%}
     <form action="/shows/create_show" method="post">
         {% csrf_token %}
         <h2>Title</h2>

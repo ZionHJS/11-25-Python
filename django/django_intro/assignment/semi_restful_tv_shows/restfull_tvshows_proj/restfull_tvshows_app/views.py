@@ -29,7 +29,7 @@ def create_show(request):
         print(new_date)
         new_des = request.POST['add_des']
         this_new_show = Show.objects.create(title=new_title, network=new_network, release_date=new_date, description=new_des)
-        message.success(request, 'Show successfully updated!')
+        messages.success(request, 'Show successfully updated!')
     return redirect(f'/shows/{this_new_show.id}')
 
 def show_this_show(request, id):

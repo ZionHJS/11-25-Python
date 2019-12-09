@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+from datetime import datetime, timedelta
 
 # Create your models here.
 class ShowManager(models.Manager):
@@ -9,8 +10,11 @@ class ShowManager(models.Manager):
             errors['add_title'] = 'Title name needs be at least 2 characters'
         if len(postData['add_network']) <= 3:
             errors['add_network'] = 'Network needs be at least 2 characters'
-        if len(postData['add_des']) <= 10:
+        if len(postData['add_des']) <= 10 and len(postData['add_des']) >= 0:
             errors['add_des'] = 'Description needs be at least 10 characters'
+        ticks = datetime.now()
+        if postData['add_date']
+            
         return errors
 
 class Show(models.Model):
