@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Course
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -10,6 +11,10 @@ def index(request):
     return render(request, 'index.html',context)
 
 def add_course(request):
+    errors = Course.objects.basic_validators(request.POST)
+    
+
+
     course_name = request.POST['add_name']
     course_des = request.POST['add_des']
     Course.objects.create(course_name=course_name, description=course_des)
@@ -28,8 +33,6 @@ def show_remove(request, id):
 
 def remove(request, id):
     remove_obj = Course.objects.get(id = id)
-    if request.POST['no']:
-        return redirect('/')
-    elif request.POST['yes']:
-        remove_obj.remove()
-        return redirect('/')
+    remove_obj.delete()
+    return redirect('/')
+

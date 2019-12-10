@@ -12,8 +12,8 @@
     <h2>Descriotion: {{ this_course.description }}</h2>
     <form action="/real_remove/{{ this_course.id }}" method="post">
         {% csrf_token %}
-        <input type="submit" value="No" name="no">
-        <input type="sutmit" value="Yes!I want to delete this!" name="yes">
+        <a href="/">No</a>
+        <input type="submit" value="Yes!I want to delete this!" name="yes">
     </form>
 </body>
 </html>
