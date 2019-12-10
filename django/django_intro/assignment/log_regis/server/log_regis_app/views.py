@@ -27,7 +27,17 @@ def regisration(request):
         return redirect('/success')
 
 def login(request):
-    
+    found_user = User.objects.filter(email = request.POST['email'])
+    if len(found_user) < 1:
+        messages.error(request, 'Invalid Credentials')
+    else:
+        logged_user = found_user[0]
+        if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
+            request.session['this_user_id'] = logged_user.id
+            return redirect('/success')
+        else:
+            message.error(request, 'Invalid Credentials')
+            return redirect('/')
 
 def success(request):
     #this_id = request.session['this_user_id']  the way to get data from session
