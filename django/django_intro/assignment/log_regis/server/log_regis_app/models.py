@@ -8,6 +8,10 @@ class UserManager(models.Manager):
             errors['first_name'] = " First Name should be at least 2 characters and letters only!"
         if len(postData['last_name']) <2:
             errors['last_name'] = "Last Name should be at least 2 characters and letters only!"
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['email']):
+            errors['email'] = ("Invalid email address!")
+        return errors
 
 class User(models.Model):
     first_name = models.CharField(max_length=45)
