@@ -10,6 +10,7 @@ def index(request):
 def checkout(request):
     request.session['purchase'] = items[request.POST['product_id']] * int(request.POST['quantity'])
 
+    # initialization
 	if 'item_count' not in request.session:
         request.session['item_count'] = 0
 	if 'total_spent' not in request.session:

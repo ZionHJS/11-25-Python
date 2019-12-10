@@ -23,7 +23,7 @@
                 <form action="/amadon/checkout" method="post">
                     {% csrf_token %}
                     <td>{{product.description}}</td>
-                    <td><input type="hidden" name="price" value="{{product.price}}">{{product.price}}</td>
+                    <td><input type="hidden" name="product_id" value="{{product.id}}">{{product.price}}</td>
                     <td><select name="quantity">
                         <option value="1">1</option>              
                         <option value="2">2</option>              
@@ -37,3 +37,4 @@
     </table>
 </body>
 </html>
+
