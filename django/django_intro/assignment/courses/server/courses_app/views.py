@@ -36,4 +36,3 @@ def remove(request, id):
     remove_obj = Course.objects.get(id = id)
     remove_obj.delete()
     return redirect('/')
-
