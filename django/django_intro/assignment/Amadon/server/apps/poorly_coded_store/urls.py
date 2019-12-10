@@ -1,8 +1,8 @@
-from django.conf.urls import url
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    url('amadon', views.index),
-    url('amadon/checkout', views.checkout)
+    path('amadon', views.index),
+    path('amadon/checkout', views.checkout),
+    path('amadon/checkout/thankyou<dic:context>', views.thankyou),
 ]
-
