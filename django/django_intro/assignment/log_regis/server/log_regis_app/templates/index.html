@@ -27,10 +27,10 @@
     <form action="/login" method="post">
         {% csrf_token %}
         <h3>Email:</h3>
-        <input type="text" value="email">
+        <input type="text" name="email">
         <h3>Password</h3>
-        <input type="text" value="password">
-        <input type="submit" value="Log In">
+        <input type="text" name="password">
+        <input type="submit" name="Log In">
     </form>
 </body>
 </html>
