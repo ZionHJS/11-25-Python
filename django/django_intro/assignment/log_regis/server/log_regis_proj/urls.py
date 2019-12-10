@@ -20,3 +20,4 @@ urlpatterns = [
     path('', include('log_regis_app.urls')),
 ]
 
+
