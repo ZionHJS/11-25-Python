@@ -14,3 +14,4 @@ def checkout(request):
     print("Charging credit card...")
     Order.objects.create(quantity_ordered=quantity_from_form, total_price=total_charge)
     return render(request, "store/checkout.html")
+
