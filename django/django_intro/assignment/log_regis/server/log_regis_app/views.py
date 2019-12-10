@@ -26,8 +26,12 @@ def regisration(request):
         messages.success(request, "Register successfully!")
         return redirect('/success')
 
+def login(request):
+    
+
 def success(request):
-    this_id = request.session['this_user_id']
+    #this_id = request.session['this_user_id']  the way to get data from session
+    this_id = request.session.get('this_user_id')
     if this_id is None:
         return redirect('/')
     else:
