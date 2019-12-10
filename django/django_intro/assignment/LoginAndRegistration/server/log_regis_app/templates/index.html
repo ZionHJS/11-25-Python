@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Registration</h1>
-    <form action="/registration" method='post'>
+    <form action="/registration" method="post">
+        {% csrf_token %}
         <h3>First Name:</h3>
         <input type="text" name="first_name">
         <h3>Last Name:</h3>
@@ -23,7 +24,8 @@
     </form>
     <hr />
     <h1>Login</h1>
-    <form action="/login">
+    <form action="/login" method="post">
+        {% csrf_token %}
         <h3>Email:</h3>
         <input type="text" value="email">
         <h3>Password</h3>
