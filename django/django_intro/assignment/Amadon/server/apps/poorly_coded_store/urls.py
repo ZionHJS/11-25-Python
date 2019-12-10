@@ -5,3 +5,4 @@ urlpatterns = [
     url('amadon', views.index),
     url('amadon/checkout', views.checkout)
 ]
+
