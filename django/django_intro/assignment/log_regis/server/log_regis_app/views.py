@@ -20,7 +20,7 @@ def regisration(request):
         last_name = request.POST['last_name']
         email = request.POST['email']
         password = request.POST['password']
-        user_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode
+        user_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
         this_user = User.objects.create(first_name=first_name, last_name=last_name, email=email, password=user_pwd)
         request.session['this_user_id'] = this_user.id
         messages.success(request, "Register successfully!")
