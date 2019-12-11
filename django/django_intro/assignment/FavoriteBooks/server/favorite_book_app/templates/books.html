@@ -11,14 +11,21 @@
     <h3>Successfully registered(or logged in)</h3>
     <a href="/logout">Log Out</a>
     <hr />
-    <form action="/post_post" method="post">
+    <form action="/add_book" method="post">
         {% csrf_token %}
         <h1>Add a Favorite Book</h1>
         <h2>Title:</h2>
         <input type="text" name="book_title">
         <h2>Description</h2>
         <textarea name="post_content"cols="300" rows="6"></textarea>
-        <input type="submit" value="Post a message">
+        <input type="submit" value="Add">
     </form>
+    <hr />
+    <h1>All Books</h1>
+    {% for book in this_user.books.all %}
+    <a href="books/{{ book.id }}">{{book.title}}</a>
+    <p>added by {{this_user.first_name}} {{this_user.last_name}}</p>
+    <p>this is one of your favorites</p>
+    {% endfor %}
 </body>
 </html>
