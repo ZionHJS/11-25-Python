@@ -48,6 +48,7 @@ def books(request):
         this_user = User.objects.get(id = this_id)
         context={
             "this_user":this_user,
+            "books":Books.objects.all()
         }
         return render(request, 'books.html', context)
 

@@ -22,7 +22,7 @@
     </form>
     <hr />
     <h1>All Books</h1>
-    {% for book in this_user.books.all %}
+    {% for book in books %}
     <a href="books/{{ book.id }}">{{book.title}}</a>
     <p>added by {{this_user.first_name}} {{this_user.last_name}}</p>
     <p>this is one of your favorites</p>
