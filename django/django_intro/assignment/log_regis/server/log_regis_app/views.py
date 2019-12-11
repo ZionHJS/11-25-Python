@@ -50,7 +50,7 @@ def success(request):
         posts = request.session['posts']
         context={
             "this_user":this_user,
-            "posts":posts if not null 
+            "posts":'' if posts is None else posts
         }
         return render(request, 'success.html', context)
 
@@ -64,4 +64,12 @@ def post_post(request):
     post_content = request.POST['post_content']
     new_post = Post.objects.create(content=post_content, user=this_user)
     request.session['posts'] = Post.objects.all()
+    return redirect('/success')
+
+def post_comment(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    comment_content = request.POST['comment_content']
+    new_comment = Comment.objects.create(content=comment_content, user=this_user, post= this_post)
+    request.session['comments'] = Comments.objects.all()
     return redirect('/success')
