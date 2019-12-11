@@ -19,21 +19,21 @@
     <hr />
     <form action="/post_post" method="post">
         <h2>post a message</h2>
-        <textarea name="post_post"cols="300" rows="6"></textarea>
+        <textarea name="post_content"cols="300" rows="6"></textarea>
         <input type="submit" value="Post a message">
     </form>
     <hr />
     {% for post in posts%}
     <h3>{{ post.user.first_name }} {{ post.user.last_name }} - {{ post.created_at }}</h3>
     <p>{{ post.content }}</p>
-        {% for comment in this_post_comments %}
+        {% for comment in post.comments.all %}
             <h3>{{ comment.user.first_name }} {{ comment.user.last_name }} - {{comment.created_at}}</h3>
             <p>{{ comment.content }}</p>
         {%endfor%}
     {%endfor%}
     <form action="/post_comment" method="post">
         <h3>Post a comment</h3>
-        <textarea name="post_comment"cols="300" rows="6"></textarea>
+        <textarea name="comment_content"cols="300" rows="6"></textarea>
         <input type="submit" value="submit">
     </form>
 </body>
