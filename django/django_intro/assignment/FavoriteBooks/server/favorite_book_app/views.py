@@ -48,7 +48,7 @@ def books(request):
         this_user = User.objects.get(id = this_id)
         context={
             "this_user":this_user,
-            "books":Books.objects.all()
+            "books":Book.objects.all()
         }
         return render(request, 'books.html', context)
 
@@ -62,3 +62,11 @@ def add_book(request):
 def logout(request):
     request.session.clear()
     return redirect('/')
+
+def show_book(request, id):
+    this_id = request.session.get('this_user_id')
+    this_book = Book.objects.get(id=id)
+    context = {
+        'this_book':this_book
+    }
+    return render(request, 'show_book.html', context)
