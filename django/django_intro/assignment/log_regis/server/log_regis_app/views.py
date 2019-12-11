@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User, Post, Comments
+from .models import User, Post, Comment
 import bcrypt
 
 # Create your views here.
@@ -47,9 +47,10 @@ def success(request):
         return redirect('/')
     else:
         this_user = User.objects.get(id = this_id)
+        posts = request.session['posts']
         context={
             "this_user":this_user,
-            "posts":request.session['posts']
+            "posts":posts if not null 
         }
         return render(request, 'success.html', context)
 
