@@ -29,6 +29,6 @@ class Book(models.Model):
     title = models.CharField(max_length=55)
     description = models.CharField(max_length=255)
     user = models.ForeignKey(User, related_name="books", on_delete = models.CASCADE)
-    users = models.ManyToManyField(User, related_name="many_books")
+    liked_users = models.ManyToManyField(User, related_name="liked_books")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

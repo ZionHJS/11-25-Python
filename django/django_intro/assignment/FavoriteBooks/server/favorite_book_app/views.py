@@ -52,8 +52,10 @@ def books(request):
         return render(request, 'books.html', context)
 
 def add_book(request):
+    this_id = request.session.get('this_user_id')
     book_title = request.POST['book_title']
-    book_des = request.POST['book_description']
+    book_des = request.POST['book_des']
+    Book.objects.create(title=book_title, description=book_des, user=User.objects.get(id=this_id))
 
 def logout(request):
     request.session.clear()
