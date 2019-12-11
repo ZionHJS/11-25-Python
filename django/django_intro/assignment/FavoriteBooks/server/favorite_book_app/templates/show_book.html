@@ -13,7 +13,7 @@
     <h3>Successfully registered(or logged in)</h3>
     <a href="/logout">Log Out</a>
     <hr />
-    <form action="/update_book/{{ this_book.id }}"></form>
+    <form action="/update_book/{{ this_book.id }}">
        {% csrf_token %}
        <input type="text" name="book_title" placeholder="{{ this_book.title }}">
        <p>Added by: {{ this_book.user.first_name }}-{{ this_book.user.last_name }}</p>
