@@ -49,7 +49,11 @@ def books(request):
         context={
             "this_user":this_user,
         }
-        return render(request, 'success.html', context)
+        return render(request, 'books.html', context)
+
+def add_book(request):
+    book_title = request.POST['book_title']
+    book_des = request.POST['book_description']
 
 def logout(request):
     request.session.clear()
