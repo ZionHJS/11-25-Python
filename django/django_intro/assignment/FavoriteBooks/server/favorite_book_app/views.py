@@ -76,7 +76,8 @@ def update_book(request, id):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     this_book = Book.objects.get(id=id)
-    this_book.title = request.POST['book_title']
-    this_book.description = request.POST['book_des']
+    this_book.title = request.POST['update_title']
+    this_book.description = request.POST['update_des']
     this_book.save()
     return redirect('/books')
+
