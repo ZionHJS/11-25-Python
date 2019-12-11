@@ -64,13 +64,19 @@ def unfavorite(request, id):
     return redirect(f'/books/{id}')
 
 def add_book(request):
-    this_id = request.session.get('this_user_id')
-    this_user = User.objects.get(id=this_id)
-    book_title = request.POST['book_title']
-    book_des = request.POST['book_des']
-    this_book = Book.objects.create(title=book_title, description=book_des, user=this_user)
-    this_book.liked_users.add(this_user)
-    return redirect('/books')
+    errors = Book.objects.basic_validator_book(request.POST)
+    if len(errors)>0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/books')
+    else:
+        this_id = request.session.get('this_user_id')
+        this_user = User.objects.get(id=this_id)
+        book_title = request.POST['book_title']
+        book_des = request.POST['book_des']
+        this_book = Book.objects.create(title=book_title, description=book_des, user=this_user)
+        this_book.liked_users.add(this_user)
+        return redirect('/books')
 
 def show_book(request, id):
     this_id = request.session.get('this_user_id')
@@ -80,12 +86,20 @@ def show_book(request, id):
     }
     return render(request, 'show_book.html', context)
 
-def update_book(request, id):
-    this_id = request.session.get('this_user_id')
-    this_user = User.objects.get(id=this_id)
-    this_book = Book.objects.get(id=id)
-    this_book.title = request.POST['update_title']
-    this_book.description = request.POST['update_des']
-    this_book.save()
-    return redirect('/books')
+def update_delete(request, id):
+    update_name = request.POST['Update']
+    delete_name = request.POST['Delete']
+    errors = Book.objects.basic_validator_book(request.POST)
+    if len(errors)>0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/books')
+    else:
+        this_id = request.session.get('this_user_id')
+        this_user = User.objects.get(id=this_id)
+        this_book = Book.objects.get(id=id)
+        this_book.title = request.POST['book_title']
+        this_book.description = request.POST['book_des']
+        this_book.save()
+        return redirect('/books')
 

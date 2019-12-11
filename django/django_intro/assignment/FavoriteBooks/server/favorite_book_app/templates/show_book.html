@@ -13,16 +13,23 @@
     <h3>Successfully registered(or logged in)</h3>
     <a href="/logout">Log Out</a>
     <hr />
-    <form action="/update_book/{{ this_book.id }}" method="post">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="/update_delete/{{ this_book.id }}" method="post">
        {% csrf_token %}
-       <input type="text" name="update_title" placeholder="{{ this_book.title }}" />
+       <input type="text" name="book_title" placeholder="{{ this_book.title }}" />
        <p>Added by: {{ this_book.user.first_name }}-{{ this_book.user.last_name }}</p>
        <p>Added on: {{ this_book.created_at }}</p>
        <p>Last updated on: {{ this_book.updated_at }}</p>
        <p>Description:</p>
-       <textarea name="update_des"cols="120" rows="20">{{ this_book.description}}</textarea>
-       <input type="submit" value="Update" />
-       <button>Delete</button>
+       <textarea name="book_des"cols="120" rows="20">{{ this_book.description}}</textarea>
+       <input type="submit" value="Update" name="Update" />
+       <input type="submit" value="Delete" name="Delete" />
     </form>
     <hr />
     <h1>Users Who Like This Book</h1>

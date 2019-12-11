@@ -1,23 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Welcome, {{ this_user.first_name}}!</h1>
     <h3>Successfully registered(or logged in)</h3>
     <a href="/logout">Log Out</a>
     <hr />
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <form action="/add_book" method="post">
         {% csrf_token %}
         <h1>Add a Favorite Book</h1>
         <h2>Title:</h2>
         <input type="text" name="book_title">
         <h2>Description</h2>
-        <textarea name="book_des"cols="300" rows="6"></textarea>
+        <textarea name="book_des" cols="300" rows="6"></textarea>
         <input type="submit" value="Add">
     </form>
     <hr />
@@ -28,4 +37,5 @@
     <p>this is one of your favorites</p>
     {% endfor %}
 </body>
+
 </html>

@@ -10,5 +10,5 @@ urlpatterns = [
     path('books/unfavorite/<int:id>', views.unfavorite),
     path('add_book', views.add_book),
     path('books/<int:id>', views.show_book),
-    path('update_book/<int:id>', views.update_book)
+    path('update_delete/<int:id>', views.update_delete)
 ]

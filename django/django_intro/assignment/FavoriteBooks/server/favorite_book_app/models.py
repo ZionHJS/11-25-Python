@@ -25,6 +25,15 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
+class BookManager(models.Manager):
+    def basic_validator_book(self, postData):
+        errors = {}
+        if len(postData['book_title']) < 4:
+            errors['book_title'] = " First Name should be at least 4 characters and letters only!"
+        if len(postData['book_des']) < 12:
+            errors['book_des'] = "Last Name should be at least 12 characters and letters only!"
+        return errors
+
 class Book(models.Model):
     title = models.CharField(max_length=55)
     description = models.CharField(max_length=255)
@@ -32,3 +41,4 @@ class Book(models.Model):
     liked_users = models.ManyToManyField(User, related_name="liked_books", default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = BookManager()
