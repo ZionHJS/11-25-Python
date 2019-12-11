@@ -87,19 +87,18 @@ def show_book(request, id):
     return render(request, 'show_book.html', context)
 
 def update_delete(request, id):
-    update_name = request.POST['Update']
-    delete_name = request.POST['Delete']
-    errors = Book.objects.basic_validator_book(request.POST)
-    if len(errors)>0:
-        for key, value in errors.items():
-            messages.error(request, value)
-        return redirect('/books')
-    else:
-        this_id = request.session.get('this_user_id')
-        this_user = User.objects.get(id=this_id)
-        this_book = Book.objects.get(id=id)
-        this_book.title = request.POST['book_title']
-        this_book.description = request.POST['book_des']
-        this_book.save()
-        return redirect('/books')
-
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    this_book = Book.objects.get(id=id)
+    if request.POST['Update']:
+        errors = Book.objects.basic_validator_book(request.POST)
+        if len(errors)>0:
+            for key, value in errors.items():
+                messages.error(request, value)
+        else:
+            this_book.title = request.POST['book_title']
+            this_book.description = request.POST['book_des']
+            this_book.save()
+    elif request.POST['Delete']:
+        this_book.delete()
+    return redirect('books')
