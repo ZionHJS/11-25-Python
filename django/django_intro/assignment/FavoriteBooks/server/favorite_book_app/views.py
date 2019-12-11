@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User
+from .models import User, Book
 import bcrypt
 
 # Create your views here.
@@ -57,6 +57,7 @@ def add_book(request):
     book_title = request.POST['book_title']
     book_des = request.POST['book_des']
     Book.objects.create(title=book_title, description=book_des, user=User.objects.get(id=this_id))
+    return redirect('/books')
 
 def logout(request):
     request.session.clear()
