@@ -27,7 +27,7 @@ class User(models.Model):
 
 class Post(models.Model):
     content = models.CharField(max_length=255)
-    user = models.ForeignKey(User, related_name='post', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

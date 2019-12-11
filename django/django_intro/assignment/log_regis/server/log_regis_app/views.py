@@ -47,10 +47,10 @@ def success(request):
         return redirect('/')
     else:
         this_user = User.objects.get(id = this_id)
-        posts = request.session['posts']
+        posts = Post.objects.all()
         context={
             "this_user":this_user,
-            "posts":'' if posts is None else posts
+            "posts": posts,
         }
         return render(request, 'success.html', context)
 
@@ -63,7 +63,7 @@ def post_post(request):
     this_user = User.objects.get(id = this_id)
     post_content = request.POST['post_content']
     Post.objects.create(content=post_content, user=this_user)
-    request.session['posts'] = Post.objects.all()
+    #request.session['posts'] = Post.objects.all()
     return redirect('/success')
 
 def post_comment(request, id):
@@ -72,7 +72,6 @@ def post_comment(request, id):
     this_post = Post.objects.get(id = id)
     comment_content = request.POST['comment_content']
     Comment.objects.create(content=comment_content, post= this_post, user=this_user)
-    request.session['comments'] = Comment.objects.all()
     return redirect('/success')
 
-    
+

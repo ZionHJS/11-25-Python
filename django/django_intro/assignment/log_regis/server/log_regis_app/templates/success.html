@@ -18,12 +18,13 @@
     <a href="/logout">Log Out</a>
     <hr />
     <form action="/post_post" method="post">
+        {% csrf_token %}
         <h2>post a message</h2>
         <textarea name="post_content"cols="300" rows="6"></textarea>
         <input type="submit" value="Post a message">
     </form>
     <hr />
-    {% for post in posts%}
+    {% for post in posts %}
     <h3>{{ post.user.first_name }} {{ post.user.last_name }} - {{ post.created_at }}</h3>
     <p>{{ post.content }}</p>
         {% for comment in post.comments.all %}
@@ -31,6 +32,7 @@
             <p>{{ comment.content }}</p>
         {%endfor%}
         <form action="/post_comment/{{post.id}}" method="post">
+            {% csrf_token %}
             <h3>Post a comment</h3>
             <textarea name="comment_content"cols="300" rows="6"></textarea>
             <input type="submit" value="submit">
