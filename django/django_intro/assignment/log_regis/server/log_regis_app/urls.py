@@ -8,6 +8,6 @@ urlpatterns = [
     path('success', views.success),
     path('logout', views.logout),
     path('post_post', views.post_post),
-    path('post_comment', view.post_comment)
+    path('post_comment/<int:id>', view.post_comment)
 ]
 

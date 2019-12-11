@@ -62,14 +62,17 @@ def post_post(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     post_content = request.POST['post_content']
-    new_post = Post.objects.create(content=post_content, user=this_user)
+    Post.objects.create(content=post_content, user=this_user)
     request.session['posts'] = Post.objects.all()
     return redirect('/success')
 
-def post_comment(request):
+def post_comment(request, id):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
+    this_post = Post.objects.get(id = id)
     comment_content = request.POST['comment_content']
-    new_comment = Comment.objects.create(content=comment_content, user=this_user, post= this_post)
-    request.session['comments'] = Comments.objects.all()
+    Comment.objects.create(content=comment_content, post= this_post, user=this_user)
+    request.session['comments'] = Comment.objects.all()
     return redirect('/success')
+
+    
