@@ -54,9 +54,10 @@ def books(request):
 
 def add_book(request):
     this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
     book_title = request.POST['book_title']
     book_des = request.POST['book_des']
-    Book.objects.create(title=book_title, description=book_des, user=User.objects.get(id=this_id))
+    Book.objects.create(title=book_title, description=book_des, user=this_user, liked_user=this_user)
     return redirect('/books')
 
 def logout(request):
@@ -73,6 +74,8 @@ def show_book(request, id):
 
 def update_book(request, id):
     this_id = request.session.get('this_user_id')
-    update_book = Book.objects.get(id=id)
-    book_title = request.POST['book_title']
-    book_des = reqeust.POST['book_des']
+    this_book = Book.objects.get(id=id)
+    this_book.title = request.POST['book_title']
+    this_book.description = request.POST['book_des']
+    this_book.save()
+    return redirect('/books')
