@@ -70,3 +70,9 @@ def show_book(request, id):
         'this_book':this_book
     }
     return render(request, 'show_book.html', context)
+
+def update_book(request, id):
+    this_id = request.session.get('this_user_id')
+    update_book = Book.objects.get(id=id)
+    book_title = request.POST['book_title']
+    book_des = reqeust.POST['book_des']

@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <h1>Welcome, {{ this_user.first_name}}!</h1>
     <h3>Successfully registered(or logged in)</h3>
     <a href="/logout">Log Out</a>
     <hr />
-    <h1>{{ this_book.title }}</h1>
-    <p>Added by: {{ this_book.user.first_name }}-{{ this_book.user.last_name }}</p>
-    <p>Added on: {{ this_book.created_at }}</p>
-    <p>Last updated on: {{ this_book.updated_at }}</p>
-    <form action="/update_book">
-        <p>Description:</p>
-        
+    <form action="/update_book/{{ this_book.id }}"></form>
+       {% csrf_token %}
+       <input type="text" name="book_title" placeholder="{{ this_book.title }}">
+       <p>Added by: {{ this_book.user.first_name }}-{{ this_book.user.last_name }}</p>
+       <p>Added on: {{ this_book.created_at }}</p>
+       <p>Last updated on: {{ this_book.updated_at }}</p>
+       <p>Description:</p>
+       <textarea name="book_des"cols="120" rows="20">{{ this_book.description}}</textarea>
+       <input type="submit" value="Update">
+       <button>Delete</button>
     </form>
 </body>
+
 </html>
