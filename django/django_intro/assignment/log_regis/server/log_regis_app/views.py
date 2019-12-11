@@ -47,7 +47,7 @@ def success(request):
         return redirect('/')
     else:
         this_user = User.objects.get(id = this_id)
-        posts = Post.objects.all()
+        posts = Post.objects.all().order_by('created_at')
         context={
             "this_user":this_user,
             "posts": posts,
