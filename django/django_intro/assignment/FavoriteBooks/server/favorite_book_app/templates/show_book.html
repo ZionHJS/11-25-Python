@@ -24,6 +24,13 @@
        <input type="submit" value="Update" />
        <button>Delete</button>
     </form>
+    <hr />
+    <h1>Users Who Like This Book</h1>
+    <ul>
+        {% for user in this_book.liked_users.all %}
+            <li>{{ user.first_name }} - {{ user.last_name }} <a href="/books/unfavorite/{{this_book.id}}">Un-Favorite</a></li>
+        {% endfor %}
+    </ul>
 </body>
 
 </html>

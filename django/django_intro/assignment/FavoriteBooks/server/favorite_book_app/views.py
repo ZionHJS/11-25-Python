@@ -40,6 +40,10 @@ def login(request):
             messages.error(request, 'Invalid Credentials')
             return redirect('/')
 
+def logout(request):
+    request.session.clear()
+    return redirect('/')
+
 def books(request):
     this_id = request.session.get('this_user_id')
     if this_id is None:
@@ -52,17 +56,21 @@ def books(request):
         }
         return render(request, 'books.html', context)
 
+def unfavorite(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    this_book = Book.objects.get(id=id)
+    this_book.liked_users.remove(this_user)
+    return redirect(f'/books/{id}')
+
 def add_book(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     book_title = request.POST['book_title']
     book_des = request.POST['book_des']
-    Book.objects.create(title=book_title, description=book_des, user=this_user, liked_user=this_user)
+    this_book = Book.objects.create(title=book_title, description=book_des, user=this_user)
+    this_book.liked_users.add(this_user)
     return redirect('/books')
-
-def logout(request):
-    request.session.clear()
-    return redirect('/')
 
 def show_book(request, id):
     this_id = request.session.get('this_user_id')
