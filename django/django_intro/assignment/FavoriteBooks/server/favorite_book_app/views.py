@@ -63,6 +63,13 @@ def unfavorite(request, id):
     this_book.liked_users.remove(this_user)
     return redirect(f'/books/{id}')
 
+def addfavorite(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    this_book = Book.objects.get(id=id)
+    this_book.liked_users.add(this_user)
+    return redirect(f'/books/{id}')
+
 def add_book(request):
     errors = Book.objects.basic_validator_book(request.POST)
     if len(errors)>0:
@@ -80,17 +87,22 @@ def add_book(request):
 
 def show_book(request, id):
     this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
     this_book = Book.objects.get(id=id)
+    inOrnot = this_user in this_book.liked_users.all()
     context = {
         'this_book':this_book
     }
-    return render(request, 'show_book.html', context)
+    if inOrnot:
+        return render(request, 'show_book_unfavorite.html', context)
+    else:
+        return render(request, 'show_book_addfavorite.html', context)
 
 def update_delete(request, id):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     this_book = Book.objects.get(id=id)
-    if request.POST['Update']:
+    if 'Update' in request.POST:
         errors = Book.objects.basic_validator_book(request.POST)
         if len(errors)>0:
             for key, value in errors.items():
@@ -99,6 +111,6 @@ def update_delete(request, id):
             this_book.title = request.POST['book_title']
             this_book.description = request.POST['book_des']
             this_book.save()
-    elif request.POST['Delete']:
+    elif 'Delete' in request.POST:
         this_book.delete()
-    return redirect('books')
+    return redirect('/books')

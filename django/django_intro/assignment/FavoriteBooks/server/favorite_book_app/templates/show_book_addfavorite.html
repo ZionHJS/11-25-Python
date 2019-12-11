@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome, {{ this_book.user.first_name}}!</h1>
+    <h3>Successfully registered(or logged in)</h3>
+    <a href="/logout">Log Out</a>
+    <hr />
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="/update_delete/{{ this_book.id }}" method="post">
+       {% csrf_token %}
+       <input type="text" name="book_title" placeholder="{{ this_book.title }}" />
+       <p>Added by: {{ this_book.user.first_name }}-{{ this_book.user.last_name }}</p>
+       <p>Added on: {{ this_book.created_at }}</p>
+       <p>Last updated on: {{ this_book.updated_at }}</p>
+       <p>Description:</p>
+       <textarea name="book_des"cols="120" rows="20">{{ this_book.description}}</textarea>
+       <input type="submit" value="Update" name="Update" />
+       <input type="submit" value="Delete" name="Delete" />
+    </form>
+    <hr />
+    <h1>Users Who Like This Book</h1>
+    <ul>
+        {% for user in this_book.liked_users.all %}
+            <li>{{ user.first_name }} - {{ user.last_name }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/books/addfavorite/{{this_book.id}}">Add-To-Favorite</a>
+</body>
+
+</html>
