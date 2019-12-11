@@ -24,7 +24,7 @@
     <h1>All Books</h1>
     {% for book in books %}
     <a href="books/{{ book.id }}">{{book.title}}</a>
-    <p>added by {{this_user.first_name}} {{this_user.last_name}}</p>
+    <p>added by {{book.user.first_name}} {{book.user.last_name}}</p>
     <p>this is one of your favorites</p>
     {% endfor %}
 </body>
