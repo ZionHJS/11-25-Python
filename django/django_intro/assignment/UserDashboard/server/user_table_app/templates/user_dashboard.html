@@ -44,7 +44,7 @@
                         <td>{{ user.first_name }} {{ user.last_name }}</td>
                         <td>{{ user.email }}</td>
                         <td>{{ user.created_at }}</td>
-                        <td>{% if user.user_level < admin_num %} normal {% elif %} admin {% endif% }</td>
+
                     </tr>
                 {% endfor %}
             </tbody>
