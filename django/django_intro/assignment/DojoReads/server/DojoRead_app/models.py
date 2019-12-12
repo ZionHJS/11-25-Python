@@ -42,3 +42,19 @@ class Book(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = BookManager()
+
+class ReviewManager(models.Manager):
+    def basic_validator_review(self, postData):
+        errors = {}
+        if len(postData['review_des']) < 12:
+            errors['review_des'] = "Review should be at least 12 characters and letters only!"
+        return errors
+
+class Review(models.Model):
+    description = models.CharField(max_length=255)
+    rating = models.IntegerField(default=0)
+    user = models.ForeignKey(User, related_name="reviews", on_delete = models.CASCADE)
+    book = models.ForeignKey(Book, related_name="reviews", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = ReviewManager()

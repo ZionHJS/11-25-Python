@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User, Book
+from .models import User, Book, Review
 import bcrypt
 
 # Create your views here.
@@ -55,3 +55,11 @@ def books(request):
             "books":Book.objects.all()
         }
         return render(request, 'books.html', context)
+
+def add(request):
+    this_id = request.session.get('this_user_id')
+    context={
+            "this_user":this_user,
+            "books":Book.objects.all()
+    }
+    return render(request, 'add.html')

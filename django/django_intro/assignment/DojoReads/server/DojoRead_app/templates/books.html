@@ -17,10 +17,12 @@
     <h1>Recent Book Reviews:</h1>
     {% for book in books %}
     <a href="books/{{ book.id }}">{{book.title}}</a>
-    <p>Rating: {{ book.rating }}</p>
+    <p>Rating: {{ book.reviews.rating }}</p>
     <p>added by {{book.user.first_name}} {{book.user.last_name}}</p>
     <p>this is one of your favorites</p>
     {% endfor %}
+    <hr />
+    <h1>Other Books with Reviews:</h1>
 </body>
 
 </html>
