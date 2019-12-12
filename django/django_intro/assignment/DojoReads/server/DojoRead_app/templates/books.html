@@ -23,6 +23,11 @@
     {% endfor %}
     <hr />
     <h1>Other Books with Reviews:</h1>
+    <div style="border:1px solid black; overflow-x:hidden; height:120px;">
+        {% for review in reviews %}
+            <a href="/books/{{review.book.id}}" style="display:block">{{ review.book.title}}</a>
+        {% endfor %}
+    </div>
 </body>
 
 </html>
