@@ -1,9 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User, Book, Review
+from django.template.defaulttags import register
 import bcrypt
 
 # Create your views here.
+def get_range(value):
+    return range(value)
+    
 def index(request):
     return render(request, 'index.html')
 
@@ -50,10 +54,18 @@ def books(request):
         return redirect('/')
     else:
         this_user = User.objects.get(id = this_id)
+        reviews = Review.objects.all().order_by('-created_at')   #order by negative date order
+        recent_reviews = []
+        count = 0 
+        for review in reviews:
+            if count < 3:
+                recent_reviews.append(review)
+            count += 1
         context={
             "this_user":this_user,
             "reviews":Review.objects.all(),
-            "books":Book.objects.all()
+            "books":Book.objects.all(),
+            "recent_reviews":recent_reviews
         }
         return render(request, 'books.html', context)
 
@@ -91,13 +103,29 @@ def show_cur_book(request, id):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     this_book = Book.objects.get(id = id)
-    reviews = Review.objects.all()
+    reviews = Review.objects.all().order_by('-created_at')   #order by negative date order
+    recent_reviews = []
+    count = 0 
+    for review in reviews:
+        if count < 3:
+            recent_reviews.append(review)
+        count += 1
     context={
-            "this_book":this_book,
-            "this_user":this_user,
-            "reviews":reviews
+        "this_book":this_book,
+        "this_user":this_user,
+        "reviews":reviews,
+        "recent_reviews":recent_reviews
     }
     return render(request, 'show_cur_book.html', context)
+
+def book_add_review(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    this_book = Book.objects.get(id = id)
+    review_des = request.POST['review_des']
+    review_rating = request.POST['review_rating']
+    new_review = Review.objects.create(description=review_des, rating=review_rating, user=this_user, book=this_book)
+    return redirect('/books')
 
 def show_cur_user(request, id):
     this_user = User.objects.get(id = id)
@@ -113,3 +141,4 @@ def delete_review(request, bid, rid):
     delete_review = Review.objects.get(id=rid)
     delete_review.delete()
     return redirect(f'/books/{bid}')
+
