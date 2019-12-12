@@ -58,8 +58,25 @@ def books(request):
 
 def add(request):
     this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    authors = []
+    books = Book.objects.all()
+    if len(books):
+        for book in books:
+            authors.push(book.author)
+    book_title = request.POST['book_title']
+    if request.POST['select_book_author']:
+        book_author = request.POST['select_book_author']
+    else:
+        book_author = request.POST['book_author']
+    new_book = Book.objects.create(title=book_title, author=book_author)
+    review_des = request.POST['review_des']
+    review_rating = request.POST['review_rating']
+    print(review_rating)
+    new_review = Review.Objects.create(description=review_des, rating=review_rating, user=this_user, book=new_book)
     context={
             "this_user":this_user,
-            "books":Book.objects.all()
+            "books":books,
+            "authors":authors
     }
     return render(request, 'add.html')

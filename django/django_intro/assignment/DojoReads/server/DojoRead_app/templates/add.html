@@ -26,13 +26,18 @@
         <input type="text" name="book_title">
         <h2>Author:</h2>
         Choose from the list:
-        <select name="add_author">
-            <option value=""></option>
+        <select name="select_book_author">
+            <option value="">--Please Choose an Author</option>
+            {% for author in authors %}
+                <option value="{{ author }}">{{ author }}</option>
+            {% endfor %}
         </select>
+        Or add a new author:
+        <input type="text" name="book_author">
         <h2>Review</h2>
         <textarea name="review_des" cols="300" rows="6"></textarea>
         <h2>Rating:</h2>
-        <select name="add_rating">
+        <select name="review_rating">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

@@ -30,15 +30,13 @@ class BookManager(models.Manager):
         errors = {}
         if len(postData['book_title']) < 4:
             errors['book_title'] = " First Name should be at least 4 characters and letters only!"
-        if len(postData['book_des']) < 12:
-            errors['book_des'] = "Last Name should be at least 12 characters and letters only!"
+        if len(postData['book_author']) < 6:
+            errors['book_author'] = "author should be at least 6 characters and letters only!"
         return errors
 
 class Book(models.Model):
     title = models.CharField(max_length=55)
-    description = models.CharField(max_length=255)
-    user = models.ForeignKey(User, related_name="books", on_delete = models.CASCADE)
-    liked_users = models.ManyToManyField(User, related_name="liked_books", default=None)
+    author = models.CharField(max_length=55)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = BookManager()
