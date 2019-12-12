@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User, Book, Review
-from django.template.defaulttags import register
 import bcrypt
+from django.template.defaulttags import register
+@register.filter
 
 # Create your views here.
 def get_range(value):
