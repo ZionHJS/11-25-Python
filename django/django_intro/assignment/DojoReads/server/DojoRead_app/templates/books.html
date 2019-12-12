@@ -27,9 +27,10 @@
     <a href="books/{{ review.book.id }}">{{ review.book.title }}</a>
     <p>Rating: {{ review.rating }}</p>
     <div class="star-rating">
-        {% for i in review.rating|get_range %}
-            <div class="star glyphicon glyphicon-star"></div>
+        {% for i in stars_range %}
+            <div class="{%if i <= review.rating %} star {% endif %}glyphicon glyphicon-star"></div>
         {% endfor %}
+
     </div>
     <h3> <a href="/users/{{review.user.id}}">{{ review.user.first_name }}</a> says:{{ review.description }}</h3>
     <h4>Posted on {{ review.created_at | date:"F d, Y" }} </h4>

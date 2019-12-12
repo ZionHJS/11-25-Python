@@ -66,7 +66,8 @@ def books(request):
             "this_user":this_user,
             "reviews":Review.objects.all(),
             "books":Book.objects.all(),
-            "recent_reviews":recent_reviews
+            "recent_reviews":recent_reviews,
+            "stars_range":range(1,6)
         }
         return render(request, 'books.html', context)
 
