@@ -21,7 +21,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     password = models.CharField(max_length=255)
-    isAdmin = models.BooleanField(default=False)
+    user_level = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
