@@ -43,3 +43,15 @@ def login(request):
 def logout(request):
     request.session.clear()
     return redirect('/')
+
+def books(request):
+    this_id = request.session.get('this_user_id')
+    if this_id is None:
+        return redirect('/')
+    else:
+        this_user = User.objects.get(id = this_id)
+        context={
+            "this_user":this_user,
+            "books":Book.objects.all()
+        }
+        return render(request, 'books.html', context)

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome, {{ this_user.first_name}}!</h1>
+    <h3>Successfully registered(or logged in)</h3>
+    <a href="add_book">Add Book and Review</a>
+    <a href="/logout">Log Out</a>
+    <hr />
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <hr />
+    <h1>All Books</h1>
+    {% for book in books %}
+    <a href="books/{{ book.id }}">{{book.title}}</a>
+    <p>added by {{book.user.first_name}} {{book.user.last_name}}</p>
+    <p>this is one of your favorites</p>
+    {% endfor %}
+</body>
+
+</html>
