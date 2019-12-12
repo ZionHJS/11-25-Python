@@ -52,6 +52,7 @@ def books(request):
         this_user = User.objects.get(id = this_id)
         context={
             "this_user":this_user,
+            "reviews":Review.objects.all(),
             "books":Book.objects.all()
         }
         return render(request, 'books.html', context)
@@ -63,20 +64,52 @@ def add(request):
     books = Book.objects.all()
     if len(books):
         for book in books:
-            authors.push(book.author)
-    book_title = request.POST['book_title']
-    if request.POST['select_book_author']:
-        book_author = request.POST['select_book_author']
-    else:
-        book_author = request.POST['book_author']
-    new_book = Book.objects.create(title=book_title, author=book_author)
-    review_des = request.POST['review_des']
-    review_rating = request.POST['review_rating']
-    print(review_rating)
-    new_review = Review.Objects.create(description=review_des, rating=review_rating, user=this_user, book=new_book)
+            authors.append(book.author)
     context={
             "this_user":this_user,
             "books":books,
             "authors":authors
     }
-    return render(request, 'add.html')
+    return render(request, 'add.html', context)
+
+def add_validate(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    book_title = request.POST['book_title']
+    if request.POST['select_book_author']:
+        book_author = request.POST['select_book_author']
+    else:
+        book_author = request.POST['book_author']
+        new_book = Book.objects.create(title=book_title, author=book_author)
+        review_des = request.POST['review_des']
+        review_rating = request.POST['review_rating']
+        print(review_rating)
+        new_review = Review.objects.create(description=review_des, rating=review_rating, user=this_user, book=new_book)
+        return redirect(f'/books/{new_book.id}')
+
+def show_cur_book(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    this_book = Book.objects.get(id = id)
+    reviews = Review.objects.all()
+    context={
+            "this_book":this_book,
+            "this_user":this_user,
+            "reviews":reviews
+    }
+    return render(request, 'show_cur_book.html', context)
+
+def show_cur_user(request, id):
+    this_user = User.objects.get(id = id)
+    this_user_reviews = this_user.reviews.all()
+    context={
+            "this_user":this_user,
+            "this_user_reviews":this_user_reviews,
+            "user_total_reviews":len(this_user_reviews),
+    }
+    return render(request, 'show_cur_user.html', context)
+
+def delete_review(request, bid, rid):
+    delete_review = Review.objects.get(id=rid)
+    delete_review.delete()
+    return redirect(f'/books/{bid}')

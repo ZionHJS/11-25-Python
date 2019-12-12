@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+    <hr />
+    <h1>{{ this_book.title }}</h1>
+    <h2>Author: {{ this_book.author }}</h2>
+    <hr />
+    <h1>Reviews:</h1>
+    {% for review in reviews %}
+    <hr />
+    <h3>Rating: {{ review.rating }}</h3>
+    <h3> <a href="/users/{{review.user.id}}">{{ review.user.first_name }}</a> says:{{ review.description }}</h3>
+    <h4>Posted on {{ review.created_at | date:"F d, Y" }} </h4>
+    {% if this_user is review.user %}
+        <a href="/delete_review/{{this_book.id}}/{{review.id}}">Delete this Review</a>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>
