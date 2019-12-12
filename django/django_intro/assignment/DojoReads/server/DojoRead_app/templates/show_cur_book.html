@@ -27,9 +27,6 @@
     {% for i in review.rating|get_range %}
     <div class="star glyphicon-star"></div>
     {% endfor%}
-    {% for k in 5-int(review.rating)|get_range %}
-    <div class="star glyphicon-star-empty"></div>
-    {% %}
     <h3> <a href="/users/{{review.user.id}}">{{ review.user.first_name }}</a> says:{{ review.description }}</h3>
     <h4>Posted on {{ review.created_at | date:"F d, Y" }} </h4>
     {% if this_user == review.user %}
