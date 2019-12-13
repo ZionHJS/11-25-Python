@@ -20,19 +20,14 @@
 
 <body>
     <div class="header">
-        <h1>Hello {{ this_user.first_name }}! Make a wish!</h1>
+        <h1>Hello {{ this_user.first_name }}! These are your stats!</h1>
+        <a href="/wishes">Dashboard</a>
         <a href="/logout">Logout</a>
     </div>
     <div class="content">
-        <form action="/wishes/new/verify" method="post">
-            {% csrf_token %}
-            <h4>I wish for:</h4>
-            <input type="text" name="item">
-            <h4>Description:</h4>
-            <input type="text" name="description">
-            <input type="submit" value="Submit"name="Submit">
-        </form>
-        <a href="/wishes">Cancel</a>
+        <h3>Total wishes granted so far for all users: {{ total_wish_count }}</h3>
+        <h5>Your granted wishes: {{ granted_wish_count }}</h5>
+        <h5>Your granted wishes: {{ ungranted_wish_count }}</h5>
     </div>
 </body>
 

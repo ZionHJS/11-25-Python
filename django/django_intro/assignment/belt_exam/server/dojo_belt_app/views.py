@@ -56,6 +56,27 @@ def wishes(request):
     }
     return render(request, 'wishes.html', context)
 
+def user_stats(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    user_wishes = this_user.wishes.all()
+    total_wish_count = 0
+    for wish in user_wishes:
+        total_wish_count += 1
+    granted_wish = Wish.objects.filter(granted = True)
+    granted_wish_count = 0
+    for wish in granted_wish:
+        granted_wish_count += 1
+    ungranted_wish_count = total_wish_count - granted_wish_count
+    context={
+        "this_user":this_user,
+        "user_wishes":user_wishes,
+        "total_wish_count":total_wish_count,
+        "granted_wish_count":granted_wish_count,
+        "ungranted_wish_count":ungranted_wish_count
+    }
+    return render(request, 'user_stats.html', context)
+
 def wish_new(request):
     return render(request, 'wish_new.html')
 
@@ -77,6 +98,17 @@ def wish_new_verify(request):
     else:
         return redirect('/')
 
+def wish_granted(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if this_user is not None:
+        this_wish = Wish.objects.get(id = id)
+        this_wish.granted = True
+        this_wish.save()
+        return redirect('/wishes')
+    else:
+        return redirect('/')
+
 def wish_remove(request, id):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
@@ -95,7 +127,25 @@ def wish_edit(request, id):
         context={
             "this_wish":this_wish
         }
-        return render(request, 'edit_wish.html')
+        return render(request, 'edit_wish.html', context)
     else:
         return redirect('/')
 
+def wish_edit_verify(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if this_user is not None:
+        errors = Wish.objects.basic_validator_wish(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+                return redirect('/')
+        else:
+            this_wish = Wish.objects.get(id = id)
+            this_wish.item = request.POST['item']
+            this_wish.description = request.POST['description']
+            this_wish.user = this_user
+            this_wish.save()
+            return redirect('/wishes')
+    else:
+        return redirect('/')
