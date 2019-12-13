@@ -51,7 +51,7 @@
             {% csrf_token %}
             <h3>{{ message.msg_author.first_name }} {{ message.msg_author.last_name }} wrote: {{ message.content }}</h3>
             {% for comment in message.comments.all %}
-                <h4>{{ comment.user.first_name }} {{ comment.user.last_name }} wrote:</h4>
+                <h4>{{ comment.author.first_name }} {{ comment.author.last_name }} wrote:</h4>
                 <p>{{ comment.content }}</p>
             {% endfor %}
             <textarea name="comment_content" cols="120" rows="3"></textarea>

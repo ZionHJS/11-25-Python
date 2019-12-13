@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admin Edit User</title>
+    <style>
+        .nav {
+            border: 1px solid black;
+            width: 100vw;
+        }
+
+        .content {
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <h1>Test App</h1>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/users/edit">Profile</a>
+        <a href="/logoff">Log Off</a>
+    </div>
+    <div class="content">
+        <h1>Edit User #{{ edit_user.id }}</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/admin_update_info/{{ edit_user.id }}" method="post">
+            {% csrf_token %}
+            <h2>Edit Information</h2>
+            <h3>Email Address</h3>
+            <input type="text" placeholder="{{ edit_user.email }}" name="update_email">
+            <h3>First Name:</h3>
+            <input type="text" placeholder="{{ edit_user.first_name }}" name="update_first_name">
+            <h3>Last Name:</h3>
+            <input type="text" placeholder="{{ edit_user.last_name }}" name="update_last_name">
+            <select name="admin_normal">
+                <option value="">--select authority for user--</option>
+                <option value="normal">Normal</option>
+                <option value="admin">Admin</option>
+            </select>
+            <input type="submit" value="Save">
+        </form>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/admin_update_password/{{ edit_user.id }}" method="post">
+            {% csrf_token %}
+            <h2>Change Password</h2>
+            <h3>Password</h3>
+            <input type="text" name="update_password" placeholder="{{ this_user.password }}">
+            <h3>Password Confirmation</h3>
+            <input type="text" name="update_password_confirm">
+            <input type="submit" value="Update Password">
+        </form>
+    </div>
+</body>
+
+</html>
