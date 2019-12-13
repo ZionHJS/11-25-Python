@@ -70,7 +70,7 @@ def show_user(request, id):
         context={
             "this_user":this_user,
             "show_user":show_user,
-            "messages":show_user.messages_own.all()
+            "messages_all":show_user.messages_own.all()
         }
         return render(request, 'show_user.html', context)
     else:
@@ -88,6 +88,21 @@ def leave_message(request, id):
         show_user = User.objects.get(id = id)
         message_content = request.POST['message_content']
         new_message = Message.objects.create(content=message_content, msg_author=this_user, msg_owner=show_user)
+        return redirect(f'/users/show/{id}')
+
+def leave_comment(request, uid, mid):
+    errors = Comment.objects.basic_validator_comment(request.POST)
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/users/show/{uid}')
+    elif this_user is not None:
+        show_user = User.objects.get(id = uid)
+        this_message = Message.objects.get(id = mid)
+        comment_content = request.POST['comment_content']
+        new_message = Comment.objects.create(content=message_content, user=this_user, message=this_message)
         return redirect(f'/users/show/{id}')
 
 def update_info(request):
