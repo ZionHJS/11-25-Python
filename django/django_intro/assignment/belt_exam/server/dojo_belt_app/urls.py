@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout', views.logout),
     path('wishes', views.wishes),
     path('wishes/stats', views.user_stats),
+    path('wishes/like/<int:id>', views.like),
     path('wishes/new', views.wish_new),
     path('wishes/granted/<int:id>', views.wish_granted),
     path('wishes/new/verify', views.wish_new_verify),

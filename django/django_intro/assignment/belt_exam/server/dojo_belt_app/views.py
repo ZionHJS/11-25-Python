@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User, Wish
+from .models import User, Wish, Like
 import bcrypt
 
 # Create your views here.
@@ -26,7 +26,7 @@ def register_verify(request):
         first_user = User.objects.first()
         first_user.user_level = 9
         messages.success(request, "Register successfully!")
-        return redirect('/dashboard')
+        return redirect('/wishes')
 
 def login_verify(request):
     found_user = User.objects.filter(email=request.POST['email'])
@@ -52,7 +52,8 @@ def wishes(request):
     this_user = User.objects.get(id = this_id)
     context={
         "this_user":this_user,
-        "user_wishes":this_user.wishes.all()
+        "user_wishes":this_user.wishes.all(),
+        "granted_wishes":Wish.objects.filter(granted=True)
     }
     return render(request, 'wishes.html', context)
 
@@ -76,6 +77,21 @@ def user_stats(request):
         "ungranted_wish_count":ungranted_wish_count
     }
     return render(request, 'user_stats.html', context)
+
+def like(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    this_wish = Wish.objects.get(id = id)
+    this_like = Like.object.create(user=this_user, wish=this_wish)
+    wish_like_users = []
+    for user in this_wish.likes.user.all():
+        wish_like_user.append(user)
+    if this_user in with_like_users:
+        this_wish.like += 1
+        this_wish.save()
+        return redirect('/wishes')
+    else:
+        return redirect('/wishes')
 
 def wish_new(request):
     return render(request, 'wish_new.html')

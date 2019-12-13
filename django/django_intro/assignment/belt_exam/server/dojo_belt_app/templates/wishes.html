@@ -49,6 +49,38 @@
                 </tr>
                 {% endfor %}
             </tbody>
+        </table>
+        <hr />
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Wisher</th>
+                    <th>Date_added</th>
+                    <th>Date_Granted</th>
+                    <th>Likes</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for wish in granted_wishes %}
+                <tr>
+                    <td>{{ wish.item }}</td>
+                    <td>{{ wish.user.first_name }}</td>
+                    <td>{{ wish.created_at | date:"F d Y" }}</td>
+                    <td>{{ wish.updated_at | date:"F d Y" }}</td>
+                    <td>{{ wish.like }}</td>
+                    <td>
+                        {% if wish.user != this_user %}
+                            <a href="/wishes/like/{{ wish.id }}">Like</a>
+                        {% else %}
+                            <a href="/wishes"></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 

@@ -37,8 +37,15 @@ class WishManager(models.Manager):
 class Wish(models.Model):
     item = models.CharField(max_length=45)
     description = models.CharField(max_length=255)
+    like = models.IntegerField(default=0)
     granted = models.BooleanField(default=False)
     user = models.ForeignKey(User, related_name="wishes", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = WishManager()
+
+class Like(models.Model):
+    user = models.ForeignKey(User, related_name="likes", on_delete = models.CASCADE)
+    wish = models.ForeignKey(Wish, related_name="likes", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
