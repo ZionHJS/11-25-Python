@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User
+from .models import User, Message, Comment
 import bcrypt
 
 # Create your views here.
@@ -61,7 +61,35 @@ def edit_self(request):
         return render(request, 'edit_self.html', context)
     else:
         return redirect('/')
-        
+
+def show_user(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    show_user = User.objects.get(id = id)
+    if this_user is not None:
+        context={
+            "this_user":this_user,
+            "show_user":show_user,
+            "messages":show_user.message_own.all()
+        }
+        return render(request, 'show_user.html', context)
+    else:
+        return redirect('/')
+
+def leave_message(request, id):
+    errors = Message.objects.basic_validator_message(request.POST)
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/users/show/{id}')
+    elif this_user is not None:
+        show_user = User.objects.get(id = id)
+        message_content = request.POST['message_content']
+        new_message = Message.objects.create(content=message_content, msg_author=this_user, msg_owner=show_user)
+        return redirect(f'/users/show/{id}')
+
 def update_info(request):
     errors = User.objects.basic_validator_info(request.POST)
     this_id = request.session.get('this_user_id')

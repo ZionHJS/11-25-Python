@@ -48,21 +48,22 @@ class MessageManager(models.Manager):
     def basic_validator_message(self, postData):
         errors = {}
         if len(postData['message_content']) < 4:
-            errors['book_title'] = " First Name should be at least 4 characters and letters only!"
+            errors['message_content'] = " Message should be at least 4 characters and letters only!"
         return errors
 
 class Message(models.Model):
     content = models.CharField(max_length=255)
-    user = models.ForeignKey(User, related_name="messages", on_delete = models.CASCADE)
+    msg_author = models.ForeignKey(User, related_name="messages_wrote", on_delete = models.CASCADE)
+    msg_owner = models.ForeignKey(User, related_name="messages_own", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = MessageManager()
 
 class CommentManager(models.Manager):
-    def basic_validator_message(self, postData):
+    def basic_validator_comment(self, postData):
         errors = {}
         if len(postData['comment_content']) < 4:
-            errors['book_title'] = " First Name should be at least 4 characters and letters only!"
+            errors['comment_content'] = " Comment should be at least 4 characters and letters only!"
         return errors
 
 class Comment(models.Model):
