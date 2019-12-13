@@ -70,7 +70,7 @@ def show_user(request, id):
         context={
             "this_user":this_user,
             "show_user":show_user,
-            "messages":show_user.message_own.all()
+            "messages":show_user.messages_own.all()
         }
         return render(request, 'show_user.html', context)
     else:
