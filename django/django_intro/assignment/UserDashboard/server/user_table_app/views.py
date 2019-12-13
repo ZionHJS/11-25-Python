@@ -92,7 +92,7 @@ def update_password(request):
         for key, value in errors.items():
             messages.error(request, value)
         return redirect('/users/edit')
-    elif request.POST['password_confirm'] != request.POST['password']:
+    elif request.POST['update_password_confirm'] != request.POST['update_password']:
         messages.error(request, 'The password entered twice must be the same!')
     elif this_user is not None:
         this_user.password = request.POST['update_password']
@@ -117,6 +117,6 @@ def update_des(request):
             "users":users,
             "admin_num":9
         }
-        return render(request, 'dashboard.html', context)
+        return render(request, 'user_dashboard.html', context)
     else:
         return redirect('/')

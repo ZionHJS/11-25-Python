@@ -43,7 +43,7 @@
             <input type="text" placeholder="{{ this_user.first_name }}" name="update_first_name">
             <h3>Last Name:</h3>
             <input type="text" placeholder="{{ this_user.last_name }}" name="update_last_name">
-            <input type="submit" value="Save">
+            <input type="submit" value="Update_user_info">
         </form>
         {% if messages %}
         <ul class="messages">
@@ -56,9 +56,10 @@
             {% csrf_token %}
             <h2>Change Password</h2>
             <h3>Password</h3>
-            <input type="text" name="update_password">
+            <input type="text" name="update_password" placeholder="{{ this_user.password }}">
             <h3>Password Confirmation</h3>
             <input type="text" name="update_password_confirm">
+            <input type="submit" value="Update Password">
         </form>
         {% if messages %}
         <ul class="messages">
@@ -70,7 +71,8 @@
         <form action="/update_des" method="post">
             {% csrf_token %}
             <h3>Edit Description</h3>
-            <textarea name="update_des" cols="30" rows="10"></textarea>
+            <textarea name="update_des" cols="30" rows="10" placeholder="{{ this_user.description }}"></textarea>
+            <input type="submit" value="Save">
         </form>
     </div>
 </body>

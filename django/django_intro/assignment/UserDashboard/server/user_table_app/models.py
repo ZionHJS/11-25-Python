@@ -44,3 +44,31 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
+class MessageManager(models.Manager):
+    def basic_validator_message(self, postData):
+        errors = {}
+        if len(postData['message_content']) < 4:
+            errors['book_title'] = " First Name should be at least 4 characters and letters only!"
+        return errors
+
+class Message(models.Model):
+    content = models.CharField(max_length=255)
+    user = models.ForeignKey(User, related_name="messages", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = MessageManager()
+
+class CommentManager(models.Manager):
+    def basic_validator_message(self, postData):
+        errors = {}
+        if len(postData['message_content']) < 4:
+            errors['book_title'] = " First Name should be at least 4 characters and letters only!"
+        return errors
+
+class Comment(models.Model):
+    content = models.CharField(max_length=255)
+    user = models.ForeignKey(User, related_name="comments", on_delete = models.CASCADE)
+    message = models.ForeignKey(Message, related_name="comments", on_delete = models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    objects = CommentManager()
