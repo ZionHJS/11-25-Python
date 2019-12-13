@@ -58,19 +58,18 @@ def edit_self(request):
         context={
             "this_user":this_user
         }
-        return render(request, 'user_dashboard.html', context)
+        return render(request, 'edit_self.html', context)
     else:
         return redirect('/')
-    return render(request, 'edit_self.html')
-
+        
 def update_info(request):
+    errors = User.objects.basic_validator_info(request.POST)
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
-    errors = User.objects.basic_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/users/edit')
     elif this_user is not None:
         this_user.email = request.POST['update_email']
         this_user.first_name = request.POST['update_first_name']
@@ -81,21 +80,37 @@ def update_info(request):
             "users":users,
             "admin_num":9
         }
-        return render(request, 'dashboard.html', context)
+        return render(request, 'user_dashboard.html', context)
     else:
         return redirect('/')
 
 def update_password(request):
+    errors = User.objects.basic_validator_password(request.POST)
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     if len(errors) > 0:
         for key, value in errors.items():
             messages.error(request, value)
-        return redirect('/')
+        return redirect('/users/edit')
     elif request.POST['password_confirm'] != request.POST['password']:
         messages.error(request, 'The password entered twice must be the same!')
     elif this_user is not None:
         this_user.password = request.POST['update_password']
+        this_user.save()
+        users = User.objects.all()
+        context={
+            "users":users,
+            "admin_num":9
+        }
+        return render(request, 'user_dashboard.html', context)
+    else:
+        return redirect('/')
+
+def update_des(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if this_user is not None:
+        this_user.des = request.POST['update_des']
         this_user.save()
         users = User.objects.all()
         context={

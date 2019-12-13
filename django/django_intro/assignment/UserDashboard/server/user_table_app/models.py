@@ -16,6 +16,23 @@ class UserManager(models.Manager):
             errors['password'] = "Password should be at least 8 characters!"
         return errors
 
+    def basic_validator_info(self, postData):
+        errors = {}
+        EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
+        if not EMAIL_REGEX.match(postData['update_email']):
+            errors['update_email'] = ("Invalid email address!")
+        if len(postData['update_first_name']) < 2:
+            errors['update_first_name'] = " First Name should be at least 2 characters and letters only!"
+        if len(postData['update_last_name']) <2:
+            errors['update_last_name'] = "Last Name should be at least 2 characters and letters only!"
+        return errors
+
+    def basic_validator_password(self, postData):
+        errors = {}
+        if len(postData['update_password']) < 8:
+            errors['update_password'] = "Password should be at least 8 characters!"
+        return errors
+
 class User(models.Model):
     email = models.CharField(max_length=125)
     first_name = models.CharField(max_length=45)
