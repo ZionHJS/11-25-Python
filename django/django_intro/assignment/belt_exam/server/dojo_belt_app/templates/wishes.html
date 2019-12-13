@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .nav {
+            border: 1px solid black;
+            width: 100vw;
+        }
+
+        .content {
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Welcome! {{ this_user.first_name }}</h1>
+        <a href="/wishes/stats">View stats</a>
+        <a href="/wishes/new">Make a wish!</a>
+    </div>
+    <div class="content">
+    </div>
+</body>
+
+</html>
