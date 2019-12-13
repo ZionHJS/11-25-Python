@@ -38,13 +38,20 @@
             {% csrf_token %}
             <h2>Edit Information</h2>
             <h3>Email Address</h3>
-            <input type="text" value="{{ this_user.email }}" name="update_email">
+            <input type="text" placeholder="{{ this_user.email }}" name="update_email">
             <h3>First Name:</h3>
-            <input type="text" value="{{ this_user.first_name }}" name="update_first_name">
+            <input type="text" placeholder="{{ this_user.first_name }}" name="update_first_name">
             <h3>Last Name:</h3>
-            <input type="text" value="{{ this_user.last_name }}" name="update_last_name">
+            <input type="text" placeholder="{{ this_user.last_name }}" name="update_last_name">
             <input type="submit" value="Save">
         </form>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <form action="/update_password" method="post">
             {% csrf_token %}
             <h2>Change Password</h2>
