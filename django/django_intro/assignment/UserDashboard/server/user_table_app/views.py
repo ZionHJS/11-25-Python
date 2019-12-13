@@ -52,5 +52,16 @@ def dashboard(request):
         return redirect('/')
 
 def edit_self(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    users = User.objects.all()
+    if this_user is not None:
+        context={
+            "users":users,
+            "this_user":this_user
+        }
+        return render(request, 'user_dashboard.html', context)
+    else:
+        return redirect('/')
     return render(request, 'edit_self.html')
 
