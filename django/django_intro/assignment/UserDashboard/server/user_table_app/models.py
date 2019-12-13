@@ -61,7 +61,7 @@ class Message(models.Model):
 class CommentManager(models.Manager):
     def basic_validator_message(self, postData):
         errors = {}
-        if len(postData['message_content']) < 4:
+        if len(postData['comment_content']) < 4:
             errors['book_title'] = " First Name should be at least 4 characters and letters only!"
         return errors
 
