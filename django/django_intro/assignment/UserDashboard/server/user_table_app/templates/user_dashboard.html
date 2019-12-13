@@ -43,8 +43,8 @@
                         <td>{{ user.id }}</td>
                         <td>{{ user.first_name }} {{ user.last_name }}</td>
                         <td>{{ user.email }}</td>
-                        <td>{{ user.created_at }}</td>
-
+                        <td>{{ user.created_at | date:"F d Y" }}</td>
+                        <td>{% if user.user_level < admin_num %} normal {% else %} admin {% endif %}</td>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register Page</title>
+    <style>
+        .nav {
+            border: 1px solid black;
+            width: 100vw;
+        }
+
+        .content {
+            width: 100vw;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <h1>Test App</h1>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/users/edit">Profile</a>
+        <a href="/logoff">Log Off</a>
+    </div>
+    <div class="content">
+        <h1>Edit Profile</h1>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/update_info" method="post">
+            {% csrf_token %}
+            <h2>Edit Information</h2>
+            <h3>Email Address</h3>
+            <input type="text" value="{{ this_user.email }}" name="update_email">
+            <h3>First Name:</h3>
+            <input type="text" value="{{ this_user.first_name }}" name="update_first_name">
+            <h3>Last Name:</h3>
+            <input type="text" value="{{ this_user.last_name }}" name="update_last_name">
+            <input type="submit" value="Save">
+        </form>
+        <form action="/update_password" method="post">
+            {% csrf_token %}
+            <h2>Change Password</h2>
+            <h3>Password</h3>
+            <input type="text" name="update_password">
+            <h3>Password Confirmation</h3>
+            <input type="text" name="update_password_confirm">
+        </form>
+    </div>
+</body>
+
+</html>

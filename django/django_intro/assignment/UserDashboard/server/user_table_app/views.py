@@ -50,3 +50,7 @@ def dashboard(request):
         return render(request, 'user_dashboard.html', context)
     else:
         return redirect('/')
+
+def edit_self(request):
+    return render(request, 'edit_self.html')
+
