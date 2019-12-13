@@ -28,15 +28,15 @@ class User(models.Model):
 class WishManager(models.Manager):
     def basic_validator_wish(self, postData):
         errors = {}
-        if len(postData['wish_name']) < 3:
-            errors['wish_name'] = "A wish must consist of at least 3 characters!"
-        if len(postData['wish_des']) < 1:
-            errors['wish_des'] = "A description must be provided!"
+        if len(postData['item']) < 3:
+            errors['item'] = "A wish must consist of at least 3 characters!"
+        if len(postData['description']) < 1:
+            errors['description'] = "A description must be provided!"
         return errors
 
 class Wish(models.Model):
-    wish_name = models.CharField(max_length=45)
-    wish_des = models.CharField(max_length=255)
+    item = models.CharField(max_length=45)
+    description = models.CharField(max_length=255)
     granted = models.BooleanField(default=False)
     user = models.ForeignKey(User, related_name="wishes", on_delete = models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

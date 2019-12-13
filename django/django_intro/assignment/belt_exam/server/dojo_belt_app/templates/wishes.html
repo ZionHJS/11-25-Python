@@ -21,10 +21,34 @@
 <body>
     <div class="header">
         <h1>Welcome! {{ this_user.first_name }}</h1>
+        <a href="/logout">Logout</a>
         <a href="/wishes/stats">View stats</a>
         <a href="/wishes/new">Make a wish!</a>
     </div>
+    <hr />
     <div class="content">
+        <h3>Your wish list</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Date_added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for wish in user_wishes %}
+                <tr>
+                    <td>{{ wish.item }}</td>
+                    <td>{{ wish.created_at | date:"F d Y" }}</td>
+                    <td>
+                        <a href="/wishes/remove/{{ wish.id }}">Remove</a> |
+                        <a href="/wishes/edit/{{ wish.id }}">Edit</a> |
+                        <a href="/wishes/new">Granted!</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
     </div>
 </body>
 

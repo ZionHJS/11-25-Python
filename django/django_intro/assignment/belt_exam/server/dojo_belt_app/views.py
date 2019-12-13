@@ -43,7 +43,59 @@ def login_verify(request):
             messages.error(request, 'Invalid Credentials')
             return redirect('/')
 
+def logout(request):
+    request.session.clear()
+    return redirect('/')
+
 def wishes(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
-    return render(request, 'wishes.html')
+    context={
+        "this_user":this_user,
+        "user_wishes":this_user.wishes.all()
+    }
+    return render(request, 'wishes.html', context)
+
+def wish_new(request):
+    return render(request, 'wish_new.html')
+
+def wish_new_verify(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if this_user is not None:
+        errors = Wish.objects.basic_validator_wish(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/')
+        else:
+            item = request.POST['item']
+            description = request.POST['description']
+            new_wish = Wish.objects.create(item=item, description=description, user=this_user)
+            messages.success(request, "Add wish successfully!")
+            return redirect('/wishes')
+    else:
+        return redirect('/')
+
+def wish_remove(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if this_user is not None:
+        this_wish = Wish.objects.get(id = id)
+        this_wish.delete()
+        return redirect('/wishes')
+    else:
+        return redirect('/')
+
+def wish_edit(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    if this_user is not None:
+        this_wish = Wish.objects.get(id = id)
+        context={
+            "this_wish":this_wish
+        }
+        return render(request, 'edit_wish.html')
+    else:
+        return redirect('/')
+
