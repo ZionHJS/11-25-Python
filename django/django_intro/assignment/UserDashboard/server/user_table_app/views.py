@@ -102,8 +102,8 @@ def leave_comment(request, uid, mid):
         show_user = User.objects.get(id = uid)
         this_message = Message.objects.get(id = mid)
         comment_content = request.POST['comment_content']
-        new_message = Comment.objects.create(content=message_content, user=this_user, message=this_message)
-        return redirect(f'/users/show/{id}')
+        new_comment = Comment.objects.create(content=message_content, author=this_user, message=this_message)
+        return redirect(f'/users/show/{uid}')
 
 def update_info(request):
     errors = User.objects.basic_validator_info(request.POST)

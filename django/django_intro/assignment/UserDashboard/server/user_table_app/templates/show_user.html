@@ -47,7 +47,7 @@
     </form>
     <hr />
     {% for message in messages_all %}
-        <form action="/users/show/{{ show_user.id}}/leave_comment/{{ message.id }}" method="post">
+        <form action="/users/show/{{ show_user.id }}/leave_comment/{{ message.id }}" method="post">
             {% csrf_token %}
             <h3>{{ message.msg_author.first_name }} {{ message.msg_author.last_name }} wrote: {{ message.content }}</h3>
             {% for comment in message.comments.all %}
