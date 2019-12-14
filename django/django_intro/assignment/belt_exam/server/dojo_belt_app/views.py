@@ -15,6 +15,7 @@ def register_verify(request):
         return redirect('/')
     elif request.POST['password_confirm'] != request.POST['password']:
         messages.error(request, 'The password entered twice must be the same!')
+        return redirect('/')
     else:
         email = request.POST['email']
         first_name = request.POST['first_name']
@@ -60,21 +61,31 @@ def wishes(request):
 def user_stats(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
-    user_wishes = this_user.wishes.all()
+
+    total_wish = Wish.objects.all()
     total_wish_count = 0
-    for wish in user_wishes:
+    for wish in total_wish:
         total_wish_count += 1
-    granted_wish = Wish.objects.filter(granted = True)
-    granted_wish_count = 0
-    for wish in granted_wish:
-        granted_wish_count += 1
-    ungranted_wish_count = total_wish_count - granted_wish_count
+    
+    user_total_wish = total_wish.filter(user = this_user)
+    user_total_wish_count = 0
+    for wish in user_total_wish:
+        user_total_wish_count += 1
+
+    total_granted_wish = Wish.objects.filter(granted = True)
+    user_granted_wish = total_granted_wish.filter(user = this_user)
+    user_granted_wish_count = 0
+    for wish in user_granted_wish:
+       user_granted_wish_count += 1
+
+    user_ungranted_wish_count = user_total_wish_count - user_granted_wish_count
+    if user_ungranted_wish_count < 0:
+        user_ungranted_wish_count = 0
     context={
         "this_user":this_user,
-        "user_wishes":user_wishes,
         "total_wish_count":total_wish_count,
-        "granted_wish_count":granted_wish_count,
-        "ungranted_wish_count":ungranted_wish_count
+        "granted_wish_count":user_granted_wish_count,
+        "ungranted_wish_count":user_ungranted_wish_count
     }
     return render(request, 'user_stats.html', context)
 
@@ -82,15 +93,13 @@ def like(request, id):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     this_wish = Wish.objects.get(id = id)
-    this_like = Like.object.create(user=this_user, wish=this_wish)
-    wish_like_users = []
-    for user in this_wish.likes.user.all():
-        wish_like_user.append(user)
-    if this_user in with_like_users:
-        this_wish.like += 1
-        this_wish.save()
+    InorNot = this_wish.likes.filter(user=this_user)
+    if InorNot:
         return redirect('/wishes')
     else:
+        this_like = Like.objects.create(user=this_user, wish=this_wish)
+        this_wish.like += 1
+        this_wish.save()
         return redirect('/wishes')
 
 def wish_new(request):
@@ -104,7 +113,7 @@ def wish_new_verify(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request, value)
-            return redirect('/')
+            return redirect('/wishes/new')
         else:
             item = request.POST['item']
             description = request.POST['description']

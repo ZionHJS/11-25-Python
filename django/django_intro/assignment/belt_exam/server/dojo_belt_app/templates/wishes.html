@@ -38,6 +38,7 @@
             </thead>
             <tbody>
                 {% for wish in user_wishes %}
+                {% if wish.granted == False %}
                 <tr>
                     <td>{{ wish.item }}</td>
                     <td>{{ wish.created_at | date:"F d Y" }}</td>
@@ -47,6 +48,7 @@
                         <a href="/wishes/granted/{{ wish.id}}">Granted!</a>
                     </td>
                 </tr>
+                {% endif %}
                 {% endfor %}
             </tbody>
         </table>
@@ -72,9 +74,9 @@
                     <td>{{ wish.like }}</td>
                     <td>
                         {% if wish.user != this_user %}
-                            <a href="/wishes/like/{{ wish.id }}">Like</a>
+                        <a href="/wishes/like/{{ wish.id }}">Like</a>
                         {% else %}
-                            <a href="/wishes"></a>
+                        <a href="/wishes"></a>
                         {% endif %}
                     </td>
                 </tr>

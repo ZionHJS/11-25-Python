@@ -14,13 +14,13 @@
 
         .content {
             width: 100vw;
-            position:relative;
+            position: relative;
         }
 
-        .btn{
+        .btn {
             position: absolute;
-            left:140px;
-            top:120px;
+            left: 140px;
+            top: 120px;
         }
     </style>
 </head>
@@ -31,6 +31,13 @@
         <a href="/logout">Logout</a>
     </div>
     <div class="content">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <form action="/wishes/new/verify" method="post">
             {% csrf_token %}
             <h4>I wish for:</h4>
@@ -38,7 +45,7 @@
             <h4>Description:</h4>
             <input type="text" name="description">
             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-            <input type="submit" value="Submit"name="Submit">
+            <input type="submit" value="Submit" name="Submit">
         </form>
         <input class="btn" type="button" value="Cancel" onclick="location.href='/wishes'">
     </div>

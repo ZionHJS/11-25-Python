@@ -16,7 +16,7 @@
             width: 100vw;
             position:relative;
         }
-        
+
         .btn{
             position: absolute;
             left:140px;
@@ -34,9 +34,9 @@
         <form action="/wishes/edit/{{ this_wish.id }}/verify" method="post">
             {% csrf_token %}
             <h4>I wish for:</h4>
-            <input type="text" name="item" placeholder="{{ this_wish.item }}">
+            <input type="text" name="item" value="{{ this_wish.item }}">
             <h4>Description:</h4>
-            <input type="text" name="description" placeholder="{{ this_wish.description }}">
+            <input type="text" name="description" value="{{ this_wish.description }}">
             &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
             <input type="submit" value="Edit" name="Edit">
         </form>
