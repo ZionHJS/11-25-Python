@@ -9,10 +9,9 @@ ExecStart=/home/ubuntu/dojo_belt_deployment/env/bin/gunicorn --workers 3 --bind 
 [Install]
 WantedBy=multi-user.target
 
-
 server {
   listen 80;
-  server_name ec2-13-52-81-107.us-west-1.compute.amazonaws.com;
+  server_name 52.53.151.106;
   location = /favicon.ico { access_log off; log_not_found off; }
   location /static/ {
       root /home/ubuntu/dojo_belt_deployment;
@@ -23,4 +22,8 @@ server {
   }
 }
 
+sudo vim /etc/nginx/sites-available/dojo_belt_proj
+
 sudo ln -s /etc/nginx/sites-available/dojo_belt_proj /etc/nginx/sites-enabled
+
+gunicorn dojo_belt_proj.wsgi
