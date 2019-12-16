@@ -21,8 +21,24 @@ class User(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     password = models.CharField(max_length=255)
+    points = models.IntegerField(default=0)
     description = models.CharField(max_length=255, default="default description")
     user_level = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+
+class DailyReport(models.Model):
+    done  = models.CharField(max_length=255)
+    challenges = models.CharField(max_length=255)
+    suggestion = models.CharField(max_length=255)
+    user = models.ForeignKey(User, related_name="reports", on_delete = models.CASCADE)   #one to many
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Clock(models.Model):
+    clockin = models.DateTimeField(auto_now=True)
+    clockout = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, related_name="reports", on_delete = models.CASCADE)   #one to many
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
