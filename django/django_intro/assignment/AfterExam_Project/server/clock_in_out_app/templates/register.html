@@ -39,7 +39,7 @@
             {% endfor %}
         </ul>
         {% endif %}
-        <form action="/regisration" method="post">
+        <form action="/register_verify" method="post">
             {% csrf_token %}
             <h3>Email Address:</h3>
             <input type="text" name="email">

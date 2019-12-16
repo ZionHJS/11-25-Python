@@ -24,7 +24,7 @@ def login_verify(request):
             messages.error(request, 'Invalid Credentials')
             return redirect('/')
 
-def register(request):
+def register_verify(request):
     errors = User.objects.basic_validator(request.POST)
     if len(errors) > 0:
         for key, value in errors.items():
@@ -42,5 +42,7 @@ def register(request):
         request.session['this_user_id'] = this_user.id
         first_user = User.objects.first()
         first_user.user_level = 9
+        first_user.save()
         messages.success(request, "Register successfully!")
-        return redirect('/dashboard')
+        return redirect('/clockinout')
+
