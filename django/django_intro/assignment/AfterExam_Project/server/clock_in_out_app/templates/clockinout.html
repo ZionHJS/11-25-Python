@@ -42,11 +42,23 @@
                     <input type="submit" value="Clockin">
                 </form>
                 {% else %}
-                <form action="/clockin" method="post">
+                <form action="/clockout" method="post">
                     <p>{{ cur_time_date }}</p>
                     <input type="submit" value="Clockout">
                 </form>
                 {% endif %}
+                <a href="#">Forgot to Clock Out Yesterday?</a>
+            </div>
+            <div class="left-row">
+                <h2>My Points</h2>
+                <h2>{{ this_user_points }}</h2>
+                <h2>Vilage Points</h2>
+                <h2>{{ allusers_points }}</h2>
+            </div>
+            <div class="left-row">
+                <p>{{ random_quote.quote }}</p>
+                -
+                <p>{{ random_quote.author}}</p>
             </div>
         </div>
         <div class="col-md-8">.col-md-6</div>

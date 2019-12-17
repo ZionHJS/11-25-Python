@@ -54,4 +54,18 @@ def register_verify(request):
         return redirect('/clockinout')
 
 def clockinout(request):
-    return render(request, 'clockinout.html')
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id = this_id)
+    user_clocks = this.user.clocks.all()
+    total_points = 0 
+    for clock in user_clocks:
+        clock_hour = clockout - clockin
+        clock_points = clock_hour*this_user.points_rate
+        total_points += clock_points
+    
+    random_quote = Quote.objects.order_by("?").first()
+    context={
+        "this_user":this_user,
+        "random_quote":random_quote,
+    }
+    return render(request, 'clockinout.html', context)
