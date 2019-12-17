@@ -21,6 +21,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     password = models.CharField(max_length=255)
+    points_rate = models.IntegerField(default=1)
     total_points = models.IntegerField(default=0)
     description = models.CharField(max_length=255, default="default description")
     user_level = models.IntegerField(default=0)
@@ -47,6 +48,6 @@ class Clock(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Quote(models.Model):
-    quotes = models.ChoiceField()
+    quotes = models.MultipleChoiceField(default=['Happiness lies not in the', 'But in the thrill of the creatice', 'Heaven-Franklin'])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
