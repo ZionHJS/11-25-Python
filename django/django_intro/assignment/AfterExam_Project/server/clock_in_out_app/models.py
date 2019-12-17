@@ -39,15 +39,17 @@ class DailyReport(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Clock(models.Model):
-    clockin = models.DateTimeField(auto_now=False)
-    clockout = models.DateTimeField(auto_now=False)
+    clockin = models.DateTimeField(default=None)
+    clockout = models.DateTimeField(default=None)
     task_des = models.CharField(max_length=255)
-    points = models.IntegerField(default=0)
     user = models.ForeignKey(User, related_name="clocks", on_delete = models.CASCADE)   #one to many
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 class Quote(models.Model):
-    quotes = models.MultipleChoiceField(default=['Happiness lies not in the', 'But in the thrill of the creatice', 'Heaven-Franklin'])
+    quote = models.CharField(max_length=255)
+    author =  models.CharField(max_length=55)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
