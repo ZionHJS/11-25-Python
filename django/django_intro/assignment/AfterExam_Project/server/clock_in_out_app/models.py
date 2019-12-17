@@ -41,7 +41,7 @@ class DailyReport(models.Model):
 class Clock(models.Model):
     clockin = models.DateTimeField(default=None)
     clockout = models.DateTimeField(default=None)
-    task_des = models.CharField(max_length=255)
+    task_des = models.CharField(max_length=255, default="")
     user = models.ForeignKey(User, related_name="clocks", on_delete = models.CASCADE)   #one to many
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

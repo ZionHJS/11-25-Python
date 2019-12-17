@@ -87,7 +87,10 @@ def clockin(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     print('Now-Time:', datetime.datetime.now())
-    #new_clock = Clock.objects.create(user=this_user, clockin = datetime.datetime.now())
+    new_clock = Clock.objects.create(user=this_user)
+    # date_time = new_clock.created_at
+    # new_clock.clockin = date_time
+    # new_clock.save()
     return redirect('/clockinout')
 
 def clockout(request):
