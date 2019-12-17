@@ -78,6 +78,8 @@ def clockinout(request):   #unfinished
     all_users = User.objects.all()
     for user in all_users:
         all_users_points += user.total_points
+        #print(user)
+        #print(all_users_points)
     
     random_quote = Quote.objects.order_by("?").first()
 
@@ -89,7 +91,9 @@ def clockinout(request):   #unfinished
         "this_user_points":this_user.total_points,
         "all_users_points":all_users_points,
         "clocks":clocks,
-        "last_clock":last_clock
+        "last_clock":last_clock,
+        "clock_hours":clock_hours,
+        "clock_points":clock_points,
     }
     return render(request, 'clockinout.html', context)
 
@@ -110,3 +114,4 @@ def clockout(request):
         last_clock.clockout = datetime.datetime.now()
         last_clock.save()
         return redirect('/clockinout')
+

@@ -71,15 +71,15 @@
         </div>
         <div class="col-md-8">
             <h1>Clock Records</h1>
-            <table>
-                <thead>
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="table-dark">
                     <tr>
-                        <th>Date</th>
-                        <th>Clock-in</th>
-                        <th>Clock-out</th>
-                        <th>Time Spent</th>
-                        <th>Points Earned</th>
-                        <th>Task Description</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Clock-in</th>
+                        <th scope="col">Clock-out</th>
+                        <th scope="col">Time Spent</th>
+                        <th scope="col">Points Earned</th>
+                        <th scope="col">Task Description</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +88,9 @@
                         <td>{{ clock.created_at }}</td>
                         <td>{{ clock.clockin }}</td>
                         <td>{{ clock.clockout }}</td>
+                        <td>{{ clock_hours }}</td>
+                        <td>{{ clock_points }}</td>
+                        <td>{{ clock.task_des }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
