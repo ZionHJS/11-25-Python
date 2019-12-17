@@ -73,7 +73,7 @@ def clockinout(request):   #unfinished
     
     random_quote = Quote.objects.order_by("?").first()
 
-    clocks = Clock.object.all()
+    clocks = Clock.objects.all()
     context={
         "this_user":this_user,
         "random_quote":random_quote,
@@ -94,6 +94,6 @@ def clockout(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     print('Now-Time:', datetime.datetime.now())
-    last_clock = Clock.object.all().last()
+    last_clock = Clock.objects.all().last()
     last_clock.clockout = datetime.datetime.now()
     return redirect('/clockinout')

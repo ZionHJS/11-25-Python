@@ -61,7 +61,26 @@
                 <p>{{ random_quote.author}}</p>
             </div>
         </div>
-        <div class="col-md-8">.col-md-6</div>
+        <div class="col-md-8">
+            <h1>Clock Records</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Clock-in</th>
+                        <th>Clock-out</th>
+                        <th>Time Spent</th>
+                        <th>Points Earned</th>
+                        <th>Task Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for clock in clocks %}
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
