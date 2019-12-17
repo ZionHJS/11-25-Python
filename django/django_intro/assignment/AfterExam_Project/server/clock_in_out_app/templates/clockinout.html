@@ -36,17 +36,23 @@
                 <h2>{{ this_user.first_name }} {{ this_user.last_name }}</h2>
             </div>
             <div class="left-row">
-                {% if not this_clock.clockin %}
+                {% if not last_clock.clockin and not last_clock.clockout %}
                 <form action="/clockin" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
                     <input type="submit" value="Clockin">
                 </form>
-                {% else %}
+                {% elif last_clock.clockin and not last_clock.clockout %}
                 <form action="/clockout" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
                     <input type="submit" value="Clockout">
+                </form>
+                {% else %}
+                <form action="/clockin" method="post">
+                    {% csrf_token %}
+                    <p>{{ cur_time_date }}</p>
+                    <input type="submit" value="Clockin">
                 </form>
                 {% endif %}
                 <a href="#">Forgot to Clock Out Yesterday?</a>
@@ -55,7 +61,7 @@
                 <h2>My Points</h2>
                 <h2>{{ this_user_points }}</h2>
                 <h2>Vilage Points</h2>
-                <h2>{{ allusers_points }}</h2>
+                <h2>{{ all_users_points }}</h2>
             </div>
             <div class="left-row">
                 <p>{{ random_quote.quote }}</p>

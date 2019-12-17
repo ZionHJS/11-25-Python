@@ -61,28 +61,35 @@ def clockinout(request):   #unfinished
     total_points = 0 
     for clock in user_clocks:   
         if clock.clockin is not None and clock.clockout is not None:   #judgement statement
-            clock_hour = int(clock.clockout) - int(clock.clockin)
-            clock_points = clock_hour*this_user.points_rate
+            time1 = clock.clockin
+            time2 = clock.clockout
+            time_delta = time2-time1
+            total_secondes = int(time_delta.total_seconds())
+            clock_hours = total_secondes/3600
+            clock_points = clock_hours*this_user.points_rate
         else:
             clock_points = 0
         total_points += clock_points
+    print("Total_Points:", total_points)
     this_user.total_points = total_points
     this_user.save()
 
-    allusers_points = 0
-    allusers = User.objects.all()
-    for user in allusers:
-        allusers_points += user.total_points
+    all_users_points = 0
+    all_users = User.objects.all()
+    for user in all_users:
+        all_users_points += user.total_points
     
     random_quote = Quote.objects.order_by("?").first()
 
-    clocks = Clock.objects.all()
+    clocks = Clock.objects.all().order_by('-created_at')
+    last_clock = Clock.objects.last()
     context={
         "this_user":this_user,
         "random_quote":random_quote,
         "this_user_points":this_user.total_points,
-        "allusers_points":allusers_points,
-        "clocks":clocks
+        "all_users_points":all_users_points,
+        "clocks":clocks,
+        "last_clock":last_clock
     }
     return render(request, 'clockinout.html', context)
 
@@ -94,11 +101,12 @@ def clockin(request): #works
     return redirect('/clockinout')
 
 def clockout(request):
-    this_id = request.session.get('this_user_id')
-    this_user = User.objects.get(id = this_id)
-    print('Now-Time:', datetime.datetime.now())
     last_clock = Clock.objects.all().last()
-    #last_clock.clockout = datetime.datetime.now()
-    last_clock.save()
-    return redirect('/clockinout')
-
+    if not last_clock.clockin:
+        return redirect('/clockinout')
+    else:
+        this_id = request.session.get('this_user_id')
+        this_user = User.objects.get(id = this_id)
+        last_clock.clockout = datetime.datetime.now()
+        last_clock.save()
+        return redirect('/clockinout')
