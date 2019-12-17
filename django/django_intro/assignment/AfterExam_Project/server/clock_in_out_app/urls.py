@@ -9,4 +9,6 @@ urlpatterns = [
     path('register', views.register),
     path('register_verify', views.register_verify),
     path('clockinout', views.clockinout),
+    path('clockin', views.clockin),
+    path('clockout', views.clockout)
 ]
