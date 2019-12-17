@@ -59,9 +59,12 @@ def clockinout(request):   #unfinished
     this_user = User.objects.get(id = this_id)
     user_clocks = this_user.clocks.all()
     total_points = 0 
-    for clock in user_clocks:
-        clock_hour = clockout - clockin
-        clock_points = clock_hour*this_user.points_rate
+    for clock in user_clocks:   
+        if clock.clockin is not None and clock.clockout is not None:   #judgement statement
+            clock_hour = int(clock.clockout) - int(clock.clockin)
+            clock_points = clock_hour*this_user.points_rate
+        else:
+            clock_points = 0
         total_points += clock_points
     this_user.total_points = total_points
     this_user.save()
@@ -83,14 +86,11 @@ def clockinout(request):   #unfinished
     }
     return render(request, 'clockinout.html', context)
 
-def clockin(request):
+def clockin(request): #works
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id = this_id)
     print('Now-Time:', datetime.datetime.now())
-    new_clock = Clock.objects.create(user=this_user)
-    # date_time = new_clock.created_at
-    # new_clock.clockin = date_time
-    # new_clock.save()
+    new_clock = Clock.objects.create(user=this_user, clockin=datetime.datetime.now())
     return redirect('/clockinout')
 
 def clockout(request):
