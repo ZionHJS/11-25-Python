@@ -38,11 +38,13 @@
             <div class="left-row">
                 {% if not this_clock.clockin %}
                 <form action="/clockin" method="post">
+                    {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
                     <input type="submit" value="Clockin">
                 </form>
                 {% else %}
                 <form action="/clockout" method="post">
+                    {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
                     <input type="submit" value="Clockout">
                 </form>
@@ -76,7 +78,11 @@
                 </thead>
                 <tbody>
                     {% for clock in clocks %}
-                    
+                    <tr>
+                        <td>{{ clock.created_at }}</td>
+                        <td>{{ clock.clockin }}</td>
+                        <td>{{ clock.clockout }}</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
