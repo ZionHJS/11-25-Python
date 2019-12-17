@@ -30,7 +30,7 @@ class User(models.Model):
     objects = UserManager()
 
 class DailyReport(models.Model):
-    recipients = models.ChoiceField()
+    recipients = models.CharField(max_length=255)
     done  = models.CharField(max_length=255)
     challenges = models.CharField(max_length=255)
     helps = models.CharField(max_length=255)
@@ -51,5 +51,3 @@ class Quote(models.Model):
     author =  models.CharField(max_length=55)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-

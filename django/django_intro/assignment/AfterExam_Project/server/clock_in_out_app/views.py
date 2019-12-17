@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User
+from .models import User, DailyReport, Clock, Quote
 import bcrypt
 
 # Create your views here.
