@@ -126,17 +126,6 @@ def clockout_yesterday(request):
         return redirect('/clockinout')
 
 
-def points_test(request):
-    all_users_points = 0
-    all_users = User.objects.all()
-
-    for user in all_users:
-        all_users_points += user.total_points
-        print('USER POINTS RATE', user.points_rate)
-        print('USER POINTS TEST', all_users_points)
-    return render(request, 'clockinout.html')
-
-
 def clockin(request):  # works
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
