@@ -112,7 +112,7 @@ def clockinout(request):  # unfinished
     return render(request, 'clockinout.html', context)
 
 
-def clockout_yesterday(request):
+def clockout_lasttime(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     last_clock = Clock.objects.all().last()
@@ -153,5 +153,5 @@ def clockout(request):
             return redirect('/clockinout')
     else:
         messages.error(
-            request, 'the clockout time is not today, please check if "forgot to clock out yesterday"')
+            request, 'the clockout time is not today, please check "forgot to clock out yesterday"')
         return redirect('/clockinout')

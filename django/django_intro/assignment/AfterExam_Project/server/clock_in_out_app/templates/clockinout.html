@@ -71,7 +71,7 @@
                 {% endif %}
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal">
-                    Forgot to Clock Out Yesterday?
+                    Forgot to Clock Out LastTime?
                 </button>
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -82,7 +82,7 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
                             </div>
-                            <form action="/clockout_yesterday" method="post">
+                            <form action="/clockout_lasttime" method="post">
                                 {% csrf_token %}
                                 <div class="modal-body">
                                     <button type="submit" style="min-width: 100%" class="btn btn-danger btn-lg">Clock

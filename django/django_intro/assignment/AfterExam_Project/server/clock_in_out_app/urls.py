@@ -11,5 +11,5 @@ urlpatterns = [
     path('clockinout', views.clockinout),
     path('clockin', views.clockin),
     path('clockout', views.clockout),
-    path('clockout_yesterday', views.clockout_yesterday)
+    path('clockout_lasttime', views.clockout_lasttime)
 ]
