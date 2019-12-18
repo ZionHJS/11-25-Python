@@ -152,4 +152,6 @@ def clockout(request):
             last_clock.save()
             return redirect('/clockinout')
     else:
-        return redirect('/')
+        messages.error(
+            request, 'the clockout time is not today, please check if "forgot to clock out yesterday"')
+        return redirect('/clockinout')
