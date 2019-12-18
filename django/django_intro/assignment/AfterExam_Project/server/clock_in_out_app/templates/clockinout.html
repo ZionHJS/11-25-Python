@@ -47,10 +47,20 @@
                     <button class="btn btn-info btn-lg" type="submit" value="Clockin">Clockin</button>
                 </form>
                 {% elif last_clock.clockin and not last_clock.clockout %}
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
                 <form action="/clockout" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
-                    <button class="btn btn-success btn-lg" type="submit" value="Clockout">Clockout</button>
+                    <button class="btn btn-success btn-lg btn-block" type="submit" value="Clockout">Clockout</button>
+                    <textarea style="min-width: 100%" name="task_des"
+                        placeholder="Task Description(e.g. Completed wireframes for EPS user side" cols="30"
+                        rows="10"></textarea>
                 </form>
                 {% else %}
                 <form action="/clockin" method="post">
@@ -68,16 +78,17 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">{{ date_cur | date:'H:i | d M Y'}}</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">{{ date_cur | date:'H:i | d M Y'}}</h4>
                             </div>
                             <div class="modal-body">
-                                ...
+                                <button style="min-width: 100%" class="btn btn-danger btn-lg">Check Out</button>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <textarea style="min-width: 100%" name="task_des"
+                                    placeholder="Task Description(e.g. Completed wireframes for EPS user side" cols="30"
+                                    rows="10"></textarea>
                             </div>
                         </div>
                     </div>
@@ -114,8 +125,8 @@
                         <td>{{ clock.created_at }}</td>
                         <td>{{ clock.clockin }}</td>
                         <td>{{ clock.clockout }}</td>
-                        <td>{{ clock_hours }}</td>
-                        <td>{{ clock_points }}</td>
+                        <td>{{ clock.clock_hours }}</td>
+                        <td>{{ clock.clock_points }}</td>
                         <td>{{ clock.task_des }}</td>
                     </tr>
                     {% endfor %}
