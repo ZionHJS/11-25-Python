@@ -67,91 +67,104 @@ def register_verify(request):
 def clockinout(request):  # unfinished
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
-    user_clocks = this_user.clocks.all()
-    clock_hours = 0
-    clock_points = 0
-    total_points = 0
-    for clock in user_clocks:
-        if clock.clockin is not None and clock.clockout is not None:  # judgement statement
-            time1 = clock.clockin
-            time2 = clock.clockout
-            time_delta = time2-time1
-            total_secondes = int(time_delta.total_seconds())
-            clock_hours = total_secondes/3600
-            clock.clock_hours = clock_hours
-            clock_points = clock_hours*this_user.points_rate
-            clock.clock_points = clock_points
-            clock.save()
-            total_points += clock_points
-        else:
-            clock_points = 0
-    print("Total_Points:", total_points)
-    this_user.total_points = total_points
-    this_user.save()
+    if this_id:  # check login
+        user_clocks = this_user.clocks.all()
+        clock_hours = 0
+        clock_points = 0
+        total_points = 0
+        for clock in user_clocks:
+            if clock.clockin is not None and clock.clockout is not None:  # judgement statement
+                time1 = clock.clockin
+                time2 = clock.clockout
+                time_delta = time2-time1
+                total_secondes = int(time_delta.total_seconds())
+                clock_hours = round(total_secondes/3600, 3)
+                clock.clock_hours = clock_hours
+                clock_points = round(clock_hours*this_user.points_rate, 3)
+                clock.clock_points = clock_points
+                clock.save()
+                total_points += clock_points
+            else:
+                clock_points = 0
+        this_user.total_points = total_points
+        this_user.save()
 
-    all_users_points = float(0)
-    all_users = User.objects.all()
-    for user in all_users:
-        all_users_points += user.total_points
-        # print(user)
-        # print(all_users_points)
+        all_users_points = float(0.01)
+        all_users = User.objects.all()
+        for user in all_users:
+            all_users_points += round(user.total_points, 2)
 
-    random_quote = Quote.objects.order_by("?").first()
+        random_quote = Quote.objects.order_by("?").first()
 
-    clocks = Clock.objects.all().order_by('-created_at')
-    last_clock = Clock.objects.last()
-    context = {
-        "this_user": this_user,
-        "random_quote": random_quote,
-        "this_user_points": this_user.total_points,
-        "all_users_points": all_users_points,
-        "clocks": clocks,
-        "last_clock": last_clock,
-        "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f]]")
-    }
-    return render(request, 'clockinout.html', context)
+        clocks = Clock.objects.all().order_by('-created_at')
+        last_clock = Clock.objects.last()
+        context = {
+            "this_user": this_user,
+            "random_quote": random_quote,
+            "this_user_points": round(this_user.total_points, 2),
+            "all_users_points": all_users_points,
+            "clocks": clocks,
+            "last_clock": last_clock,
+            "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f]]")
+        }
+        return render(request, 'clockinout.html', context)
+    else:
+        return redirect('/')
 
 
 def clockout_lasttime(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     last_clock = Clock.objects.all().last()
-    if not last_clock.clockout:
-        last_clock.clockout = datetime.strptime(
-            request.POST['clock_out'], "%Y-%m-%d %H:%M[:%S[.%f]]")
-        last_clock.task_des = request.POST['task_des']
-        last_clock.save()
-        return redirect('/clockinout')
+    if this_id:  # check login
+        if not last_clock.clockout:
+            last_clock.clockout = datetime.strptime(
+                request.POST['clock_out'], "%Y-%m-%d %H:%M[:%S[.%f]]")
+            last_clock.task_des = request.POST['task_des']
+            last_clock.save()
+            return redirect('/clockinout')
+        else:
+            messages.error(
+                request, 'The last clockout is finished or the last clockin is today, please use clockout button for today or just clockin!')
+            return redirect('/clockinout')
     else:
-        return redirect('/clockinout')
+        return redirect('/')
 
 
 def clockin(request):  # works
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
-    new_clock = Clock.objects.create(
-        user=this_user, clockin=datetime.now())
-    return redirect('/clockinout')
+    if this_id:  # check login
+        new_clock = Clock.objects.create(
+            user=this_user, clockin=datetime.now())
+        return redirect('/clockinout')
+    else:
+        return redirect('/')
 
 
 def clockout(request):
-    last_clock = Clock.objects.all().last()
-    cur_date = datetime.now()
-    if last_clock.clockin.date() == cur_date.date():
-        task_des = request.POST['task_des']
-        if not task_des:
-            messages.error(request, 'Must Provide Task Description')
-            return redirect('/clockinout')
-        if not last_clock.clockin:
-            return redirect('/clockinout')
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:  # check login
+        last_clock = Clock.objects.all().last()
+        cur_date = datetime.now()
+        if last_clock.clockin.date() == cur_date.date():
+            task_des = request.POST['task_des']
+            if not task_des:
+                messages.error(request, 'Must Provide Task Description')
+                return redirect('/clockinout')
+            if not last_clock.clockin:
+                return redirect('/clockinout')
+            else:
+                this_id = request.session.get('this_user_id')
+                this_user = User.objects.get(id=this_id)
+                last_clock.clockout = datetime.now()
+                last_clock.task_des = task_des
+                last_clock.save()
+                return redirect('/clockinout')
         else:
-            this_id = request.session.get('this_user_id')
-            this_user = User.objects.get(id=this_id)
-            last_clock.clockout = datetime.now()
-            last_clock.task_des = task_des
-            last_clock.save()
+            messages.error(
+                request, 'the clockout time is not today, please check "forgot to clock out yesterday"')
             return redirect('/clockinout')
     else:
-        messages.error(
-            request, 'the clockout time is not today, please check "forgot to clock out yesterday"')
-        return redirect('/clockinout')
+        return redirect('/')
