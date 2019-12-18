@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User, DailyReport, Clock, Quote
 import bcrypt
-import datetime
+from datetime import datetime
 from decimal import Decimal
 
 # Create your views here.
@@ -78,7 +78,7 @@ def clockinout(request):  # unfinished
             time_delta = time2-time1
             total_secondes = int(time_delta.total_seconds())
             clock_hours = total_secondes/3600
-            clock.clock_housrs = clock_hours
+            clock.clock_hours = clock_hours
             clock_points = clock_hours*this_user.points_rate
             clock.clock_points = clock_points
             clock.save()
@@ -107,7 +107,7 @@ def clockinout(request):  # unfinished
         "all_users_points": all_users_points,
         "clocks": clocks,
         "last_clock": last_clock,
-        "date_cur": datetime.datetime.now()
+        "date_cur": datetime.now()
     }
     return render(request, 'clockinout.html', context)
 
@@ -126,14 +126,14 @@ def points_test(request):
 def clockin(request):  # works
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
-    print('Now-Time:', datetime.datetime.now())
     new_clock = Clock.objects.create(
-        user=this_user, clockin=datetime.datetime.now())
+        user=this_user, clockin=datetime.now())
     return redirect('/clockinout')
 
 
 def clockout(request):
     last_clock = Clock.objects.all().last()
+    cur_date = datetime.now()
     task_des = request.POST['task_des']
     if not task_des:
         messages.error(request, 'Must Provide Task Description')
@@ -143,7 +143,7 @@ def clockout(request):
     else:
         this_id = request.session.get('this_user_id')
         this_user = User.objects.get(id=this_id)
-        last_clock.clockout = datetime.datetime.now()
+        last_clock.clockout = datetime.now()
         last_clock.task_des = task_des
         last_clock.save()
         return redirect('/clockinout')
