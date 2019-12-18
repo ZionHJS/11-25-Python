@@ -100,7 +100,7 @@ def clockinout(request):  # unfinished
         last_clock = Clock.objects.last()
         last_clockin = last_clock.clockin
         last_clockout_choices = []
-
+        # print(last_clockin.date())  # 2019-12-18
         context = {
             "this_user": this_user,
             "random_quote": random_quote,
