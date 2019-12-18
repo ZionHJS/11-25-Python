@@ -99,10 +99,14 @@ def clockinout(request):  # unfinished
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
         last_clockout_choice = last_clock.clockin
+        print("timestamp", f"{last_clock.clockin.date()}" +
+              " 23:59:59+00:00")
+        lastclock_midnight_time = datetime.strptime(f"{last_clock.clockin.date()}" +
+                                                    " 23:59:59+00:00", "%Y-%m-%d %H:%M[:%S[.%f]]")
         last_clockout_choices = []
-        if last_clockout_choice < lastclock_endclock:
-            last_clockout_choice += timedelta(minutes=30)
-            alst_clockout_choices.push(last_clockout_choice)
+        # if last_clockout_choice < lastclock_midnight_time:
+        #     last_clockout_choice += timedelta(minutes=30)
+        #     alst_clockout_choices.push(last_clockout_choice)
         # print(last_clockin.date())  # 2019-12-18
         context = {
             "this_user": this_user,
@@ -112,7 +116,7 @@ def clockinout(request):  # unfinished
             "clocks": clocks,
             "last_clock": last_clock,
             "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f]]"),
-            "last_clockout_choices": last_clockout_choices
+            # "last_clockout_choices": last_clockout_choices
         }
         return render(request, 'clockinout.html', context)
     else:
