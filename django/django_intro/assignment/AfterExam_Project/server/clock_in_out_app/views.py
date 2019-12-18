@@ -107,7 +107,7 @@ def clockinout(request):  # unfinished
         "all_users_points": all_users_points,
         "clocks": clocks,
         "last_clock": last_clock,
-        "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f][TZ]]")
+        "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f]]")
     }
     return render(request, 'clockinout.html', context)
 
@@ -117,12 +117,13 @@ def clockout_yesterday(request):
     this_user = User.objects.get(id=this_id)
     last_clock = Clock.objects.all().last()
     if not last_clock.clockout:
-        last_clock.clockout = request.POST['clock_out']
+        last_clock.clockout = datetime.strptime(
+            request.POST['clock_out'], "%Y-%m-%d %H:%M[:%S[.%f]]")
         last_clock.task_des = request.POST['task_des']
         last_clock.save()
-        return redirect('clockinout')
+        return redirect('/clockinout')
     else:
-        return redirect('clockinout')
+        return redirect('/clockinout')
 
 
 def points_test(request):
