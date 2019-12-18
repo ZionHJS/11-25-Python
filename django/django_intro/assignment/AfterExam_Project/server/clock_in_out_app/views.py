@@ -134,16 +134,19 @@ def clockin(request):  # works
 def clockout(request):
     last_clock = Clock.objects.all().last()
     cur_date = datetime.now()
-    task_des = request.POST['task_des']
-    if not task_des:
-        messages.error(request, 'Must Provide Task Description')
-        return redirect('/clockinout')
-    if not last_clock.clockin:
-        return redirect('/clockinout')
+    if last_clock.clockin.date() == cur_date.date():
+        task_des = request.POST['task_des']
+        if not task_des:
+            messages.error(request, 'Must Provide Task Description')
+            return redirect('/clockinout')
+        if not last_clock.clockin:
+            return redirect('/clockinout')
+        else:
+            this_id = request.session.get('this_user_id')
+            this_user = User.objects.get(id=this_id)
+            last_clock.clockout = datetime.now()
+            last_clock.task_des = task_des
+            last_clock.save()
+            return redirect('/clockinout')
     else:
-        this_id = request.session.get('this_user_id')
-        this_user = User.objects.get(id=this_id)
-        last_clock.clockout = datetime.now()
-        last_clock.task_des = task_des
-        last_clock.save()
-        return redirect('/clockinout')
+        return redirect('/')

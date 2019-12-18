@@ -11,5 +11,5 @@ urlpatterns = [
     path('clockinout', views.clockinout),
     path('clockin', views.clockin),
     path('clockout', views.clockout),
-    path('test', views.points_test),
+    path('clockout_yesterday', views.clockout_yesterday)
 ]
