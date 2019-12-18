@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap  CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <title>Home Page</title>
     <style>
-        body{
-            padding:0 60px;
+        body {
+            padding: 0 60px;
         }
-        .navbar{
-            background:lightgray;
+
+        .navbar {
+            background: lightgray;
         }
     </style>
 </head>
@@ -55,48 +58,69 @@
                     <input type="submit" value="Clockin">
                 </form>
                 {% endif %}
-                <a href="#">Forgot to Clock Out Yesterday?</a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    Forgot to Clock Out Yesterday?
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="left-row">
+                    <h2>My Points</h2>
+                    <h2>{{ this_user_points }}</h2>
+                    <h2>Vilage Points</h2>
+                    <h2>{{ all_users_points }}</h2>
+                </div>
+                <div class="left-row">
+                    <p>{{ random_quote.quote }}</p>
+                    -
+                    <p>{{ random_quote.author}}</p>
+                </div>
             </div>
-            <div class="left-row">
-                <h2>My Points</h2>
-                <h2>{{ this_user_points }}</h2>
-                <h2>Vilage Points</h2>
-                <h2>{{ all_users_points }}</h2>
-            </div>
-            <div class="left-row">
-                <p>{{ random_quote.quote }}</p>
-                -
-                <p>{{ random_quote.author}}</p>
+            <div class="col-md-8">
+                <h1>Clock Records</h1>
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Clock-in</th>
+                            <th scope="col">Clock-out</th>
+                            <th scope="col">Time Spent</th>
+                            <th scope="col">Points Earned</th>
+                            <th scope="col">Task Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for clock in clocks %}
+                        <tr>
+                            <td>{{ clock.created_at }}</td>
+                            <td>{{ clock.clockin }}</td>
+                            <td>{{ clock.clockout }}</td>
+                            <td>{{ clock_hours }}</td>
+                            <td>{{ clock_points }}</td>
+                            <td>{{ clock.task_des }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="col-md-8">
-            <h1>Clock Records</h1>
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Clock-in</th>
-                        <th scope="col">Clock-out</th>
-                        <th scope="col">Time Spent</th>
-                        <th scope="col">Points Earned</th>
-                        <th scope="col">Task Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for clock in clocks %}
-                    <tr>
-                        <td>{{ clock.created_at }}</td>
-                        <td>{{ clock.clockin }}</td>
-                        <td>{{ clock.clockout }}</td>
-                        <td>{{ clock_hours }}</td>
-                        <td>{{ clock_points }}</td>
-                        <td>{{ clock.task_des }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
 </body>
 
 </html>

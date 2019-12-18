@@ -3,20 +3,27 @@ from django.contrib import messages
 from .models import User, DailyReport, Clock, Quote
 import bcrypt
 import datetime
+from decimal import Decimal
 
 # Create your views here.
+
+
 def index(request):
     return render(request, 'index.html')
 
+
 def login(request):
     return render(request, 'login.html')
+
 
 def logout(request):
     request.session.clear()
     return redirect('/')
 
+
 def register(request):
     return render(request, 'register.html')
+
 
 def login_verify(request):
     found_user = User.objects.filter(email=request.POST['email'])
@@ -32,6 +39,7 @@ def login_verify(request):
             messages.error(request, 'Invalid Credentials')
             return redirect('/login')
 
+
 def register_verify(request):
     errors = User.objects.basic_validator(request.POST)
     if len(errors) > 0:
@@ -46,7 +54,8 @@ def register_verify(request):
         last_name = request.POST['last_name']
         password = request.POST['password']
         user_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        User.objects.create(email=email, first_name=first_name, last_name=last_name, password=user_pwd)
+        User.objects.create(email=email, first_name=first_name,
+                            last_name=last_name, password=user_pwd)
         request.session['this_user_id'] = this_user.id
         first_user = User.objects.first()
         first_user.user_level = 9
@@ -54,13 +63,14 @@ def register_verify(request):
         messages.success(request, "Register successfully!")
         return redirect('/clockinout')
 
-def clockinout(request):   #unfinished
+
+def clockinout(request):  # unfinished
     this_id = request.session.get('this_user_id')
-    this_user = User.objects.get(id = this_id)
+    this_user = User.objects.get(id=this_id)
     user_clocks = this_user.clocks.all()
-    total_points = 0 
-    for clock in user_clocks:   
-        if clock.clockin is not None and clock.clockout is not None:   #judgement statement
+    total_points = 0
+    for clock in user_clocks:
+        if clock.clockin is not None and clock.clockout is not None:  # judgement statement
             time1 = clock.clockin
             time2 = clock.clockout
             time_delta = time2-time1
@@ -74,35 +84,49 @@ def clockinout(request):   #unfinished
     this_user.total_points = total_points
     this_user.save()
 
-    all_users_points = 0
+    all_users_points = float(0)
     all_users = User.objects.all()
     for user in all_users:
-        all_users_points += user.total_points
-        #print(user)
-        #print(all_users_points)
-    
+        all_users_points += round(user.total_points)
+        # print(user)
+        # print(all_users_points)
+
     random_quote = Quote.objects.order_by("?").first()
 
     clocks = Clock.objects.all().order_by('-created_at')
     last_clock = Clock.objects.last()
-    context={
-        "this_user":this_user,
-        "random_quote":random_quote,
-        "this_user_points":this_user.total_points,
-        "all_users_points":all_users_points,
-        "clocks":clocks,
-        "last_clock":last_clock,
-        "clock_hours":clock_hours,
-        "clock_points":clock_points,
+    context = {
+        "this_user": this_user,
+        "random_quote": random_quote,
+        "this_user_points": round(this_user.total_points, 2),
+        "all_users_points": all_users_points,
+        "clocks": clocks,
+        "last_clock": last_clock,
+        "clock_hours": clock_hours,
+        "clock_points": clock_points,
     }
     return render(request, 'clockinout.html', context)
 
-def clockin(request): #works
+
+def points_test(request):
+    all_users_points = 0
+    all_users = User.objects.all()
+
+    for user in all_users:
+        all_users_points += user.total_points
+        print('USER POINTS RATE', user.points_rate)
+        print('USER POINTS TEST', all_users_points)
+    return render(request, 'clockinout.html')
+
+
+def clockin(request):  # works
     this_id = request.session.get('this_user_id')
-    this_user = User.objects.get(id = this_id)
+    this_user = User.objects.get(id=this_id)
     print('Now-Time:', datetime.datetime.now())
-    new_clock = Clock.objects.create(user=this_user, clockin=datetime.datetime.now())
+    new_clock = Clock.objects.create(
+        user=this_user, clockin=datetime.datetime.now())
     return redirect('/clockinout')
+
 
 def clockout(request):
     last_clock = Clock.objects.all().last()
@@ -110,8 +134,7 @@ def clockout(request):
         return redirect('/clockinout')
     else:
         this_id = request.session.get('this_user_id')
-        this_user = User.objects.get(id = this_id)
+        this_user = User.objects.get(id=this_id)
         last_clock.clockout = datetime.datetime.now()
         last_clock.save()
         return redirect('/clockinout')
-

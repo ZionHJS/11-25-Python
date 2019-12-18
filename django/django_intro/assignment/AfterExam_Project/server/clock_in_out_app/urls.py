@@ -10,5 +10,6 @@ urlpatterns = [
     path('register_verify', views.register_verify),
     path('clockinout', views.clockinout),
     path('clockin', views.clockin),
-    path('clockout', views.clockout)
+    path('clockout', views.clockout),
+    path('test', views.points_test),
 ]
