@@ -107,7 +107,7 @@ def clockinout(request):  # unfinished
         "all_users_points": all_users_points,
         "clocks": clocks,
         "last_clock": last_clock,
-        "date_cur": datetime.now()
+        "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f][TZ]]")
     }
     return render(request, 'clockinout.html', context)
 
