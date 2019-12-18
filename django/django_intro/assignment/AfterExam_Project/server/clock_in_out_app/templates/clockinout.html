@@ -43,23 +43,24 @@
                 <form action="/clockin" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
-                    <input type="submit" value="Clockin">
+
+                    <button class="btn btn-info btn-lg" type="submit" value="Clockin">Clockin</button>
                 </form>
                 {% elif last_clock.clockin and not last_clock.clockout %}
                 <form action="/clockout" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
-                    <input type="submit" value="Clockout">
+                    <button class="btn btn-success btn-lg" type="submit" value="Clockout">Clockout</button>
                 </form>
                 {% else %}
                 <form action="/clockin" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
-                    <input type="submit" value="Clockin">
+                    <button class="btn btn-info btn-lg" type="submit" value="Clockin">Clockin</button>
                 </form>
                 {% endif %}
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal">
                     Forgot to Clock Out Yesterday?
                 </button>
                 <!-- Modal -->
@@ -93,34 +94,35 @@
                     <p>{{ random_quote.author}}</p>
                 </div>
             </div>
-            <div class="col-md-8">
-                <h1>Clock Records</h1>
-                <table class="table table-striped table-bordered table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Clock-in</th>
-                            <th scope="col">Clock-out</th>
-                            <th scope="col">Time Spent</th>
-                            <th scope="col">Points Earned</th>
-                            <th scope="col">Task Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for clock in clocks %}
-                        <tr>
-                            <td>{{ clock.created_at }}</td>
-                            <td>{{ clock.clockin }}</td>
-                            <td>{{ clock.clockout }}</td>
-                            <td>{{ clock_hours }}</td>
-                            <td>{{ clock_points }}</td>
-                            <td>{{ clock.task_des }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
         </div>
+        <div class="col-md-8">
+            <h1>Clock Records</h1>
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Clock-in</th>
+                        <th scope="col">Clock-out</th>
+                        <th scope="col">Time Spent(hour)</th>
+                        <th scope="col">Points Earned</th>
+                        <th scope="col">Task Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for clock in clocks %}
+                    <tr>
+                        <td>{{ clock.created_at }}</td>
+                        <td>{{ clock.clockin }}</td>
+                        <td>{{ clock.clockout }}</td>
+                        <td>{{ clock_hours }}</td>
+                        <td>{{ clock_points }}</td>
+                        <td>{{ clock.task_des }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

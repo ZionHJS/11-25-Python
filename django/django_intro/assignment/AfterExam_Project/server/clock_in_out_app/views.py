@@ -102,8 +102,8 @@ def clockinout(request):  # unfinished
         "all_users_points": all_users_points,
         "clocks": clocks,
         "last_clock": last_clock,
-        "clock_hours": clock_hours,
-        "clock_points": clock_points,
+        "clock_hours": round(clock_hours, 3),
+        "clock_points": round(clock_points, 3),
     }
     return render(request, 'clockinout.html', context)
 
