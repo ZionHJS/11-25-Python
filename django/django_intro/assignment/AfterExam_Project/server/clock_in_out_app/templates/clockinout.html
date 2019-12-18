@@ -57,7 +57,7 @@
                 <form action="/clockout" method="post">
                     {% csrf_token %}
                     <p>{{ cur_time_date }}</p>
-                    <button class="btn btn-success btn-lg btn-block" type="submit" value="Clockout">Clockout</button>
+                    <button class="btn btn-danger btn-lg btn-block" type="submit" value="Clockout">Clockout</button>
                     <textarea style="min-width: 100%" name="task_des"
                         placeholder="Task Description(e.g. Completed wireframes for EPS user side" cols="30"
                         rows="10"></textarea>
