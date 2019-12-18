@@ -104,6 +104,7 @@ def clockinout(request):  # unfinished
         "last_clock": last_clock,
         "clock_hours": round(clock_hours, 3),
         "clock_points": round(clock_points, 3),
+        "date_cur": datetime.datetime.now()
     }
     return render(request, 'clockinout.html', context)
 
