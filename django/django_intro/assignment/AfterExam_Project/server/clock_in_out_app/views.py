@@ -108,13 +108,18 @@ def clockinout(request):  # unfinished
 
         last_clockout_choices = []
 
-        # print('last_clockout_choice:', last_clockout_choice)
-        # print('lastclock_midnight_time:', lastclock_midnight_time)
+        print('last_clockout_choice:', last_clockout_choice)
+        print('lastclock_midnight_time:', lastclock_midnight_time)
 
-        if last_clockout_choice < lastclock_midnight_time:
-            last_clockout_choice += timedelta(minutes=30)
+        time_options = [
+            '%s:%s%s' % (h, m, ap) for ap in ('am', 'pm')
+            for h in ([12] + list(range(1, 12))) for m in ('00', '30')
+        ]
+
+        while last_clockout_choice < lastclock_midnight_time:
             last_clockout_choices.append(last_clockout_choice)
-        print("time_choices:", last_clockout_choices)
+            last_clockout_choice += timedelta(minutes=30)
+
         context = {
             "this_user": this_user,
             "random_quote": random_quote,
@@ -136,14 +141,19 @@ def clockout_lasttime(request):
     last_clock = Clock.objects.all().last()
     if this_id:  # check login
         if not last_clock.clockout:
-            last_clock.clockout = datetime.strptime(
-                request.POST['clock_out'], "%Y-%m-%d %H:%M[:%S[.%f]]")
-            last_clock.task_des = request.POST['task_des']
-            last_clock.save()
-            return redirect('/clockinout')
+            if request.POST['task_des']:
+                last_clock.clockout = datetime.strptime(
+                    request.POST['clock_out'], "%Y-%m-%d %H:%M")
+                last_clock.task_des = request.POST['task_des']
+                last_clock.save()
+                return redirect('/clockinout')
+            else:
+                messages.error(
+                    request, 'Must Provide Task Description')
+                return redirect('/')
         else:
             messages.error(
-                request, 'The last clockout is finished or the last clockin is today, please use clockout button for today or just clockin!')
+                request, 'The last clockout is finished or the last clockin is in the same-day, please use clockout button for today or just clockin!')
             return redirect('/clockinout')
     else:
         return redirect('/')

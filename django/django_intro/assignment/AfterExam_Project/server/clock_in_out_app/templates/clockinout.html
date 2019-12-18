@@ -89,7 +89,8 @@
                                         Out</button>
                                     <select name="clock_out" style="min-width: 100%">
                                         {% for choice in last_clockout_choices %}
-                                        <option value="{{ date_cur }}">{{ choice }}</option>
+                                        <option value="{{ choice | date:'Y-m-d H:i' }}">{{ choice | date:'Y-m-d H:i' }}
+                                        </option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -132,8 +133,8 @@
                     {% for clock in clocks %}
                     <tr>
                         <td>{{ clock.created_at }}</td>
-                        <td>{{ clock.clockin }}</td>
-                        <td>{{ clock.clockout }}</td>
+                        <td>{{ clock.clockin | date:'Y-m-d H:i'}}</td>
+                        <td>{{ clock.clockout | date:'Y-m-d H:i'}}</td>
                         <td>{{ clock.clock_hours }}</td>
                         <td>{{ clock.clock_points }}</td>
                         <td>{{ clock.task_des }}</td>
