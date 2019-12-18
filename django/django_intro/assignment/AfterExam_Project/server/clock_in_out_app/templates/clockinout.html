@@ -89,7 +89,7 @@
                                         Out</button>
                                     <select name="clock_out" style="min-width: 100%">
                                         {% for choice in last_clockout_choices %}
-                                        <option value="{{ date_cur }}">-- plase select a time --</option>
+                                        <option value="{{ date_cur }}">{{ choice }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>

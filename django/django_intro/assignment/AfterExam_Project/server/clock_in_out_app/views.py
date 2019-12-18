@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import User, DailyReport, Clock, Quote
 import bcrypt
-from datetime import datetime
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 # Create your views here.
@@ -98,16 +98,23 @@ def clockinout(request):  # unfinished
 
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
+        last_clockout_choice = last_clock.clockin.replace(
+            tzinfo=None)  # remove the timezone
+
         last_clockout_choice = last_clock.clockin
-        print("timestamp", f"{last_clock.clockin.date()}" +
-              " 23:59:59+00:00")
-        lastclock_midnight_time = datetime.strptime(f"{last_clock.clockin.date()}" +
-                                                    " 23:59:59+00:00", "%Y-%m-%d %H:%M[:%S[.%f]]")
+
+        lastclock_midnight_time = last_clockout_choice.replace(
+            hour=23, minute=59, second=59, microsecond=0)
+
         last_clockout_choices = []
-        # if last_clockout_choice < lastclock_midnight_time:
-        #     last_clockout_choice += timedelta(minutes=30)
-        #     alst_clockout_choices.push(last_clockout_choice)
-        # print(last_clockin.date())  # 2019-12-18
+
+        # print('last_clockout_choice:', last_clockout_choice)
+        # print('lastclock_midnight_time:', lastclock_midnight_time)
+
+        if last_clockout_choice < lastclock_midnight_time:
+            last_clockout_choice += timedelta(minutes=30)
+            last_clockout_choices.append(last_clockout_choice)
+        print("time_choices:", last_clockout_choices)
         context = {
             "this_user": this_user,
             "random_quote": random_quote,
@@ -116,7 +123,7 @@ def clockinout(request):  # unfinished
             "clocks": clocks,
             "last_clock": last_clock,
             "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f]]"),
-            # "last_clockout_choices": last_clockout_choices
+            "last_clockout_choices": last_clockout_choices
         }
         return render(request, 'clockinout.html', context)
     else:
