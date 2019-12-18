@@ -82,18 +82,21 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
                             </div>
-                            <form action="/clockout_yesterday"></form>
-                            <div class="modal-body">
-                                <button style="min-width: 100%" class="btn btn-danger btn-lg">Clock Out</button>
-                                <select name="clock_out" style="min-width: 100%">
-                                    <option value="{{ cur_datetime }}">-- plase select a time --</option>
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                                <textarea style="min-width: 100%" name="task_des"
-                                    placeholder="Task Description(e.g. Completed wireframes for EPS user side" cols="30"
-                                    rows="10"></textarea>
-                            </div>
+                            <form action="/clockout_yesterday" method="post">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <button type="submit" style="min-width: 100%" class="btn btn-danger btn-lg">Clock
+                                        Out</button>
+                                    <select name="clock_out" style="min-width: 100%">
+                                        <option value="{{ date_cur }}">-- plase select a time --</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <textarea style="min-width: 100%" name="task_des"
+                                        placeholder="Task Description(e.g. Completed wireframes for EPS user side"
+                                        cols="30" rows="10"></textarea>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
