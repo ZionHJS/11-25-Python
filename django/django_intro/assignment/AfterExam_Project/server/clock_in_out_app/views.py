@@ -100,7 +100,7 @@ def clockinout(request):  # unfinished
         last_clock = Clock.objects.last()
         last_clockout_choice = last_clock.clockin
         last_clockout_choices = []
-        if last_clockout_choice < last_clock_00:
+        if last_clockout_choice < lastclock_endclock:
             last_clockout_choice += timedelta(minutes=30)
             alst_clockout_choices.push(last_clockout_choice)
         # print(last_clockin.date())  # 2019-12-18

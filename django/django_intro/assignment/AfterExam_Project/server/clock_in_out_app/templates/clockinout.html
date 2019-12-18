@@ -88,7 +88,9 @@
                                     <button type="submit" style="min-width: 100%" class="btn btn-danger btn-lg">Clock
                                         Out</button>
                                     <select name="clock_out" style="min-width: 100%">
+                                        {% for choice in last_clockout_choices %}
                                         <option value="{{ date_cur }}">-- plase select a time --</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                                 <div class="modal-footer">
