@@ -317,4 +317,9 @@ def report(request):
 
 
 def report_verify(request):
-    return redirect('/')
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+        return redirect('/report')
+    else:
+        return redirect('/')
