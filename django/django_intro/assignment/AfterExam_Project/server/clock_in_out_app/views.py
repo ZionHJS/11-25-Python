@@ -4,6 +4,8 @@ from .models import User, DailyReport, Clock, Quote, Award
 import bcrypt
 from datetime import datetime, timedelta
 from decimal import Decimal
+from random import choice
+from queue import Queue
 
 # Views
 
@@ -64,6 +66,23 @@ def register_verify(request):
         return redirect('/clockinout')
 
 
+def daily_quote():
+    all_quotes = Quote.objects.all()
+    quote_list = []
+    for quote in all_quotes:
+        quote_list.append(quote)
+    last_quote = quote_list[-1]
+    cur_date = datetime.now()
+    if last_quote.updated_at.date() == cur_date.date():
+        today_quote = last_quote
+    elif last_quote.updated_at.date() < cur_date.date():
+        today_quote = quote_list.pop(0)
+        today_quote.updated_at = cur_date
+        today_quote.save()
+        quote_list.append(today_quote)
+    return today_quote
+
+
 def clockinout(request):  # unfinished
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
@@ -94,7 +113,7 @@ def clockinout(request):  # unfinished
         for user in all_users:
             all_users_points += round(user.total_points, 2)
 
-        random_quote = Quote.objects.order_by("?").first()
+        today_quote = daily_quote()
 
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
@@ -114,7 +133,7 @@ def clockinout(request):  # unfinished
 
         context = {
             "this_user": this_user,
-            "random_quote": random_quote,
+            "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
             "clocks": clocks,
@@ -220,7 +239,7 @@ def points(request):
         for user in all_users:
             all_users_points += round(user.total_points, 2)
 
-        random_quote = Quote.objects.order_by("?").first()
+        today_quote = daily_quote()
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
 
@@ -240,7 +259,7 @@ def points(request):
 
         context = {
             "this_user": this_user,
-            "random_quote": random_quote,
+            "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
             "clocks": clocks,
@@ -283,7 +302,7 @@ def report(request):
         for user in all_users:
             all_users_points += round(user.total_points, 2)
 
-        random_quote = Quote.objects.order_by("?").first()
+        today_quote = daily_quote()
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
 
@@ -303,7 +322,7 @@ def report(request):
 
         context = {
             "this_user": this_user,
-            "random_quote": random_quote,
+            "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
             "clocks": clocks,
@@ -379,7 +398,7 @@ def settings(request):
         for user in all_users:
             all_users_points += round(user.total_points, 2)
 
-        random_quote = Quote.objects.order_by("?").first()
+        today_quote = daily_quote()
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
 
@@ -399,7 +418,7 @@ def settings(request):
 
         context = {
             "this_user": this_user,
-            "random_quote": random_quote,
+            "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
             # "clocks": clocks,
@@ -472,7 +491,7 @@ def admin(request):
         for user in all_users:
             all_users_points += round(user.total_points, 2)
 
-        random_quote = Quote.objects.order_by("?").first()
+        today_quote = daily_quote()
 
         clocks = Clock.objects.all().order_by('-created_at')
         last_clock = Clock.objects.last()
@@ -492,7 +511,7 @@ def admin(request):
 
         context = {
             "this_user": this_user,
-            "random_quote": random_quote,
+            "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
             "clocks": clocks,
@@ -527,6 +546,7 @@ def update_quote(request, id):
     if this_id and this_user.user_level == 9:
         this_quote = Quote.objects.get(id=id)
         this_quote.quote = request.POST['quote']
+        this_quote.author = request.POST['author']
         this_quote.onEdit = False
         this_quote.save()
         return redirect('/admin')
