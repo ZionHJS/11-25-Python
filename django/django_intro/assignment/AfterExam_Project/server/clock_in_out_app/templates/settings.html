@@ -125,17 +125,29 @@
                 {% endfor %}
             </ul>
             {% endif %}
-            <form action="/report/report_verify" method="post">
+            <form action="/settings/reset_password" method="post">
                 {% csrf_token %}
                 <div class="container-fluid">
                     <h3>Previous Password</h3>
                     <input class="form-control col-xs-12" type=" text" name="previous_password"
-                        placeholder="Add recipients here.">
+                        placeholder="You Previous Password Here.">
                     <h3>New Password</h3>
-                    <input type="text" name="new_password">
+                    <input class="form-control input-lg" type="text" name="password">
                     <h3>Confirm Password</h3>
-                    <input type="text" name="confirm_password">
+                    <input class="form-control input-lg" type="text" name="password_confirm">
                     <button class="btn-info btn-block" type="submit">Reset Password</button>
+                </div>
+            </form>
+            <form action="#" method="post">
+                {% csrf_token %}
+                <div class="container-fluid">
+                    <h3>Update Timezone</h3>
+                    <select class="form-control select-lg" name="time_zone">
+                        <option value="GMT">
+                            -- select a timezone from the list --
+                        </option>
+                    </select>
+                    <button class="btn-info btn-block" type="submit">Reset Timezone</button>
                 </div>
             </form>
         </div>

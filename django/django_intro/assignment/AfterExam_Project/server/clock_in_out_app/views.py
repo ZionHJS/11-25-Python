@@ -402,11 +402,41 @@ def settings(request):
             "random_quote": random_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
-            "clocks": clocks,
+            # "clocks": clocks,
             "last_clock": last_clock,
             "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
             "last_clockout_choices": last_clockout_choices
         }
         return render(request, 'settings.html', context)
+    else:
+        return redirect('/')
+
+
+def reset_password_verify(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+        if bcrypt.checkpw(request.POST['previous_password'].encode(), this_user.password.encode()):
+            errors = User.objects.basic_validator_password(request.POST)
+            if len(errors) > 0:
+                for key, value in errors.items():
+                    messages.error(request, value)
+                return redirect('/settings')
+            elif request.POST['password_confirm'] != request.POST['password']:
+                messages.error(
+                    request, 'The password entered twice must be the same!')
+                return redirect('/settings')
+            else:
+                new_password = request.POST['password']
+                user_pwd = bcrypt.hashpw(
+                    new_password.encode(), bcrypt.gensalt()).decode()
+                this_user.password = user_pwd
+                this_user.save()
+                messages.success(request, "Reset Password Successfully!")
+                return redirect('/settings')
+        else:
+            messages.error(
+                request, 'Please Type in the Correct Previous-Password!')
+            return redirect('/settings')
     else:
         return redirect('/')

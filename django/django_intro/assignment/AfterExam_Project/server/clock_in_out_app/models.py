@@ -19,6 +19,12 @@ class UserManager(models.Manager):
             errors['password'] = "Password should be at least 8 characters!"
         return errors
 
+    def basic_validator_password(self, postData):
+        errors = {}
+        if len(postData['password']) < 8:
+            errors['password'] = "Password should be at least 8 characters!"
+        return errors
+
 
 class User(models.Model):
     email = models.CharField(max_length=125)
