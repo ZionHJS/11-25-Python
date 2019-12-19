@@ -19,5 +19,7 @@ urlpatterns = [
     path('settings', views.settings),
     path('settings/reset_password', views.reset_password_verify),
 
-    path('admin', views.admin)
+    path('admin', views.admin),
+    path('admin/edit_quote/<int:id>', views.edit_quote),
+    path('admin/update_quote/<int:id>', views.update_quote),
 ]

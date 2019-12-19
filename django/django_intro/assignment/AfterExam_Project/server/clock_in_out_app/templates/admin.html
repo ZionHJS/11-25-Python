@@ -47,9 +47,22 @@
                     <h2>{{ all_users_points }}</h2>
                 </div>
                 <div class="left-row">
-                    <textarea name="quote" cols="60" rows="9"
-                        placeholder="{{ random_quote.quote }} - {{ random_quote.author}}"></textarea>
-                    <a href="/admin/edit_quote">Edit</a>
+                    {% if random_quote.onEdit == True %}
+                    <form action="/admin/update_quote/{{random_quote.id}}" method="post">
+                        {% csrf_token %}
+                        <textarea name="quote" cols="60" rows="9">{{ random_quote.quote }} - {{ random_quote.author}}
+                        </textarea>
+                        <button type="submit" class="btn btn-primary">Save Edit</button>
+                    </form>
+                    {% else %}
+                    <p>{{ random_quote.quote }}</p>
+                    -
+                    <p>{{ random_quote.author }}</p>
+                    <form action="/admin/edit_quote/{{random_quote.id}}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Edit Quote</button>
+                    </form>
+                    {% endif %}
                 </div>
             </div>
         </div>

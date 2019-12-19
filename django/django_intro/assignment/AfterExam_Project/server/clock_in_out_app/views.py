@@ -505,3 +505,32 @@ def admin(request):
         return redirect('/clockinout')
     else:
         return redirect('/')
+
+
+def edit_quote(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id and this_user.user_level == 9:
+        this_quote = Quote.objects.get(id=id)
+        this_quote.onEdit = True
+        this_quote.save()
+        return redirect('/admin')
+    elif this_user.user_level < 9:
+        return redirect('/clockinout')
+    else:
+        return redirect('/')
+
+
+def update_quote(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id and this_user.user_level == 9:
+        this_quote = Quote.objects.get(id=id)
+        this_quote.quote = request.POST['quote']
+        this_quote.onEdit = False
+        this_quote.save()
+        return redirect('/admin')
+    elif this_user.user_level < 9:
+        return redirect('/clockinout')
+    else:
+        return redirect('/')
