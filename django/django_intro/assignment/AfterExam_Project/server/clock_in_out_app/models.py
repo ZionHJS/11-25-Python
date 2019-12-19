@@ -33,6 +33,7 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     points_rate = models.IntegerField(default=1)
     total_points = models.IntegerField(default=0)
+    awarded_by = models.CharField(default="System")
     description = models.CharField(
         max_length=255, default="default description")
     user_level = models.IntegerField(default=0)

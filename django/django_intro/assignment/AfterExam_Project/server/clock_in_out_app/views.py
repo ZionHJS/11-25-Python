@@ -566,3 +566,11 @@ def update_quote(request, id):
 #         award_user = User.objects.get(id=id)
 #     else:
 #         return redirect('/')
+
+
+# str_1 = 'asd23423'
+# str_2 = '23423'
+# b = float(str_2)
+# print(b)
+# a = float(vatstr)
+# print(a)

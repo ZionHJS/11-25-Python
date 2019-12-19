@@ -105,22 +105,22 @@
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">{{ date_cur | date:'H:i | d M Y'}}
-                                            </h4>
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
                                         <form action="/admin/award_extra_verify/{{ employee.id }}" method="post">
                                             {% csrf_token %}
                                             <div class="modal-body">
-                                                <h2>AWARD EXTRA POINTS</h2>
+                                                <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
+                                                <p>{{ employee.email }}</p>
+                                                <h3>AWARD EXTRA POINTS</h3>
                                                 <input type="text" name="point_value" placeholder="Points Value">
                                                 <textarea name="reasons" cols="30" rows="10"
                                                     placeholder="Reason for adding points"></textarea>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" style="min-width: 100%"
-                                                    class="btn btn-danger btn-lg">ADD</button>
+                                                    class="btn btn-success btn-lg">ADD</button>
                                             </div>
                                         </form>
                                     </div>
