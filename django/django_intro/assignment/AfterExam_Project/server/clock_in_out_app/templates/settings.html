@@ -117,7 +117,7 @@
             </div>
         </div>
         <div class="col-md-8">
-            <h1>Compose Your Daily Update</h1>
+            <h1>Reset Password</h1>
             {% if messages %}
             <ul class="messages">
                 {% for message in messages %}
@@ -128,19 +128,14 @@
             <form action="/report/report_verify" method="post">
                 {% csrf_token %}
                 <div class="container-fluid">
-                    <h3>Recipients Lists</h3>
-                    <input class="form-control col-xs-12" type=" text" name="recipients"
+                    <h3>Previous Password</h3>
+                    <input class="form-control col-xs-12" type=" text" name="previous_password"
                         placeholder="Add recipients here.">
-                    <h3>What I Did Today</h3>
-                    <textarea class="form-control col-xs-12" name="done" cols="120" rows="6"
-                        placeholder="Type the things you did today here."></textarea>
-                    <h3>Challenges I encountered</h3>
-                    <textarea class="form-control col-xs-12" name="challenges" cols="120" rows="6"
-                        placeholder="Type the chanllenges you encountered today here."></textarea>
-                    <h3>What you can do to help</h3>
-                    <textarea class="form-control col-xs-12" name="helps" cols="120" rows="6"
-                        placeholder="Type the things you need admins to help you with here."></textarea>
-                    <button class="btn-info btn-block" type="submit">Submit Daily Report</button>
+                    <h3>New Password</h3>
+                    <input type="text" name="new_password">
+                    <h3>Confirm Password</h3>
+                    <input type="text" name="confirm_password">
+                    <button class="btn-info btn-block" type="submit">Reset Password</button>
                 </div>
             </form>
         </div>
