@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User, DailyReport, Clock, Quote
+from .models import User, DailyReport, Clock, Quote, Award
 import bcrypt
 from datetime import datetime, timedelta
 from decimal import Decimal
 
-# Create your views here.
+# Views
 
 
 def index(request):
@@ -320,6 +320,19 @@ def report_verify(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     if this_id:
+        cur_date = datetime.now().date()
+        last_reports = DailyReport.objects.last()
+        if last_reports.created_at.date() == cur_date:
+            messages.error(
+                request, 'Can\'t report twice in a single-day!')
+
+        recipients = request.POST['recipients']
+        done = request.POST['done']
+        chanllenges = request.POST['challenges']
+        helps = request.POST['helps']
+        user = this_user
+        new_daily_report = DailyReport.objects.create(
+            recipients=recipients, done=done, challenges=challenges, helps=helps, user=user)
         return redirect('/report')
     else:
         return redirect('/')
