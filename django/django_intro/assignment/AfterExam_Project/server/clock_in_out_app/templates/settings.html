@@ -37,6 +37,9 @@
         <div class="col-md-4">
             <div class="left-row">
                 <h2>{{ this_user.first_name }} {{ this_user.last_name }}</h2>
+                {% if this_user.user_level == 9 %}
+                <a href="#">Admin View</a>
+                {% endif %}
             </div>
             <div class="left-row">
                 {% if not last_clock.clockin and not last_clock.clockout %}
