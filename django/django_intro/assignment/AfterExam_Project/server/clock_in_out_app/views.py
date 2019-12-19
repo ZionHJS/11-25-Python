@@ -127,7 +127,7 @@ def clockinout(request):  # unfinished
             "all_users_points": all_users_points,
             "clocks": clocks,
             "last_clock": last_clock,
-            "date_cur": datetime.now().strftime("%Y-%m-%d %H:%M[:%S[.%f]]"),
+            "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
             "last_clockout_choices": last_clockout_choices
         }
         return render(request, 'clockinout.html', context)
@@ -196,3 +196,17 @@ def clockout(request):
             return redirect('/clockinout')
     else:
         return redirect('/')
+
+
+def points(request):
+    context = {
+        "this_user": this_user,
+        "random_quote": random_quote,
+        "this_user_points": round(this_user.total_points, 2),
+        "all_users_points": all_users_points,
+        "clocks": clocks,
+        "last_clock": last_clock,
+        "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
+        "last_clockout_choices": last_clockout_choices
+    }
+    return render(request, 'points.html', context)
