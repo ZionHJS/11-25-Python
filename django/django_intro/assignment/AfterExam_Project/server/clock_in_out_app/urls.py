@@ -17,5 +17,7 @@ urlpatterns = [
     path('report', views.report),
     path('report/report_verify', views.report_verify),
     path('settings', views.settings),
-    path('settings/reset_password', views.reset_password_verify)
+    path('settings/reset_password', views.reset_password_verify),
+
+    path('admin', views.admin)
 ]

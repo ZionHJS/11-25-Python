@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <title>Report Page</title>
+    <title>Settings Page</title>
     <style>
         body {
             padding: 0 60px;
@@ -38,7 +38,7 @@
             <div class="left-row">
                 <h2>{{ this_user.first_name }} {{ this_user.last_name }}</h2>
                 {% if this_user.user_level == 9 %}
-                <a href="#">Admin View</a>
+                <a href="/admin">Admin View</a>
                 {% endif %}
             </div>
             <div class="left-row">
