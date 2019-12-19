@@ -320,19 +320,30 @@ def report_verify(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     if this_id:
-        cur_date = datetime.now().date()
+        cur_date = datetime.now()
         last_reports = DailyReport.objects.last()
-        if last_reports.created_at.date() == cur_date:
-            messages.error(
-                request, 'Can\'t report twice in a single-day!')
-
-        recipients = request.POST['recipients']
-        done = request.POST['done']
-        chanllenges = request.POST['challenges']
-        helps = request.POST['helps']
-        user = this_user
-        new_daily_report = DailyReport.objects.create(
-            recipients=recipients, done=done, challenges=challenges, helps=helps, user=user)
-        return redirect('/report')
+        if not last_reports:
+            recipients = request.POST['recipients']
+            done = request.POST['done']
+            challenges = request.POST['challenges']
+            helps = request.POST['helps']
+            user = this_user
+            new_daily_report = DailyReport.objects.create(
+                recipients=recipients, done=done, challenges=challenges, helps=helps, user=user)
+            return redirect('/report')
+        else:
+            if last_reports.created_at.date() == cur_date.date():
+                messages.error(
+                    request, 'Can\'t report twice in a single-day!')
+                return redirect('/report')
+            else:
+                recipients = request.POST['recipients']
+                done = request.POST['done']
+                challenges = request.POST['challenges']
+                helps = request.POST['helps']
+                user = this_user
+                new_daily_report = DailyReport.objects.create(
+                    recipients=recipients, done=done, challenges=challenges, helps=helps, user=user)
+                return redirect('/report')
     else:
         return redirect('/')
