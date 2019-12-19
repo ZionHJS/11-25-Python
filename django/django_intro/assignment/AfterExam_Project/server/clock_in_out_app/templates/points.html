@@ -26,7 +26,7 @@
 <body>
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <a href="#">Clock In/Out</a>
+            <a href="/clockinout">Clock In/Out</a>
             <a href="/points">Points</a>
             <a href="#">Daily Report</a>
             <a href="#">Settings</a>
@@ -117,27 +117,23 @@
             </div>
         </div>
         <div class="col-md-8">
-            <h1>Clock Records</h1>
+            <h1>Points</h1>
             <table class="table table-striped table-bordered table-hover">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">Date</th>
-                        <th scope="col">Clock-in</th>
-                        <th scope="col">Clock-out</th>
                         <th scope="col">Time Spent(hour)</th>
                         <th scope="col">Points Earned</th>
-                        <th scope="col">Task Description</th>
+                        <th scope="col">Award by</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for clock in clocks %}
                     <tr>
                         <td>{{ clock.created_at }}</td>
-                        <td>{{ clock.clockin | date:'Y-m-d H:i'}}</td>
-                        <td>{{ clock.clockout | date:'Y-m-d H:i'}}</td>
                         <td>{{ clock.clock_hours }}</td>
                         <td>{{ clock.clock_points }}</td>
-                        <td>{{ clock.task_des }}</td>
+                        <td>system</td>
                     </tr>
                     {% endfor %}
                 </tbody>
