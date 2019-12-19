@@ -108,14 +108,6 @@ def clockinout(request):  # unfinished
 
         last_clockout_choices = []
 
-        print('last_clockout_choice:', last_clockout_choice)
-        print('lastclock_midnight_time:', lastclock_midnight_time)
-
-        time_options = [
-            '%s:%s%s' % (h, m, ap) for ap in ('am', 'pm')
-            for h in ([12] + list(range(1, 12))) for m in ('00', '30')
-        ]
-
         while last_clockout_choice < lastclock_midnight_time:
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
@@ -199,14 +191,20 @@ def clockout(request):
 
 
 def points(request):
-    context = {
-        "this_user": this_user,
-        "random_quote": random_quote,
-        "this_user_points": round(this_user.total_points, 2),
-        "all_users_points": all_users_points,
-        "clocks": clocks,
-        "last_clock": last_clock,
-        "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
-        "last_clockout_choices": last_clockout_choices
-    }
-    return render(request, 'points.html', context)
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+
+        context = {
+            "this_user": this_user,
+            "random_quote": random_quote,
+            "this_user_points": round(this_user.total_points, 2),
+            "all_users_points": all_users_points,
+            "clocks": clocks,
+            "last_clock": last_clock,
+            "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
+            "last_clockout_choices": last_clockout_choices
+        }
+        return render(request, 'points.html', context)
+    else:
+        return redirect('/')
