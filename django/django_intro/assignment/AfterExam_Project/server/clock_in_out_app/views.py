@@ -509,8 +509,11 @@ def admin(request):
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
 
+        employees = User.objects.all()
+
         context = {
             "this_user": this_user,
+            "employees": employees,
             "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,

@@ -81,14 +81,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for clock in clocks %}
+                    {% for employee in employees %}
                     <tr>
-                        <td>{{ clock.created_at }}</td>
-                        <td>{{ clock.clockin | date:'Y-m-d H:i'}}</td>
-                        <td>{{ clock.clockout | date:'Y-m-d H:i'}}</td>
-                        <td>{{ clock.clock_hours }}</td>
-                        <td>{{ clock.clock_points }}</td>
-                        <td>{{ clock.task_des }}</td>
+                        <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                        <td>{{ employee.email }}</td>
+                        <td>{{ employee.created_at | date:'Y-m-d H:i'}}</td>
+                        <td>{{ employee.total_points }}</td>
+                        <td>{{ employee.points_rate }}</td>
+                        <td><a href="#">Award Extra Points</a> <a href="#">Edit Employee</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
