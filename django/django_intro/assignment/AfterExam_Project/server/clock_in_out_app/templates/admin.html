@@ -91,12 +91,12 @@
                         <td>
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
                                 data-target="#Award_Extra_Modal">
-                                <a href="/admin/award_extra/{{ employee.id }}">Award Extra Points</a>
+                                <a href="#">Award Extra Points</a>
                             </button>
                             |
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
                                 data-target="#myModal">
-                                <a href="/admin/edit_employee/{{ employee.id }}">Edit
+                                <a href="#">Edit
                                     Employee</a>
                             </button>
                             <!-- Modal -->
@@ -110,24 +110,17 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
-                                        <form action="/clockout_lasttime" method="post">
+                                        <form action="/admin/award_extra_verify/{{ employee.id }}" method="post">
                                             {% csrf_token %}
                                             <div class="modal-body">
-                                                <button type="submit" style="min-width: 100%"
-                                                    class="btn btn-danger btn-lg">Clock
-                                                    Out</button>
-                                                <select name="clock_out" style="min-width: 100%">
-                                                    {% for choice in last_clockout_choices %}
-                                                    <option value="{{ choice | date:'Y-m-d H:i' }}">
-                                                        {{ choice | date:'Y-m-d H:i' }}
-                                                    </option>
-                                                    {% endfor %}
-                                                </select>
+                                                <h2>AWARD EXTRA POINTS</h2>
+                                                <input type="text" name="point_value" placeholder="Points Value">
+                                                <textarea name="reasons" cols="30" rows="10"
+                                                    placeholder="Reason for adding points"></textarea>
                                             </div>
                                             <div class="modal-footer">
-                                                <textarea style="min-width: 100%" name="task_des"
-                                                    placeholder="Task Description(e.g. Completed wireframes for EPS user side"
-                                                    cols="30" rows="10"></textarea>
+                                                <button type="submit" style="min-width: 100%"
+                                                    class="btn btn-danger btn-lg">ADD</button>
                                             </div>
                                         </form>
                                     </div>
