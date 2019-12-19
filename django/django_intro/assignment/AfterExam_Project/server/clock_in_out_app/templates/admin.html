@@ -47,9 +47,11 @@
                     <h2>{{ all_users_points }}</h2>
                 </div>
                 <div class="left-row">
-                    <p>{{ random_quote.quote }}</p>
-                    -
-                    <p>{{ random_quote.author}}</p>
+                    <textarea name="quote" cols="60" rows="9"
+                        placeholder="{{ random_quote.quote }} - {{ random_quote.author}}"></textarea>
+                    <button type="button" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
                 </div>
             </div>
         </div>
