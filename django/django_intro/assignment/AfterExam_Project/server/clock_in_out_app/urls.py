@@ -22,4 +22,7 @@ urlpatterns = [
     path('admin', views.admin),
     path('admin/edit_quote/<int:id>', views.edit_quote),
     path('admin/update_quote/<int:id>', views.update_quote),
+    ###
+    # path('admin/award_extra/<int:id>', views.award_extra),
+    # path('admin/edit_employee/<int:id>', views.edit_employee)
 ]

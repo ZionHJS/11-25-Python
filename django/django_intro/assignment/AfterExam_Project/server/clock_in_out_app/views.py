@@ -509,11 +509,9 @@ def admin(request):
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
 
-        employees = User.objects.all()
-
         context = {
             "this_user": this_user,
-            "employees": employees,
+            "employees": User.objects.all(),
             "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
@@ -557,3 +555,14 @@ def update_quote(request, id):
         return redirect('/clockinout')
     else:
         return redirect('/')
+
+###
+
+
+# def award_extra(request, id):
+#     this_id = request.session.get('this_user_id')
+#     this_user = User.objects.get(id=this_id)
+#     if this_id:
+#         award_user = User.objects.get(id=id)
+#     else:
+#         return redirect('/')
