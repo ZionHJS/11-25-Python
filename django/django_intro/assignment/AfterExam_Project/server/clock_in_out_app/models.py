@@ -58,6 +58,16 @@ class Clock(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
+class Award(models.Model):
+    points = models.FloatField(default=0.00)
+    admin = models.ForeignKey(
+        User, related_name="awards", on_delete=models.CASCADE)
+    clock = models.ForeignKey(
+        Clock, related_name="awards", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
 class Quote(models.Model):
     quote = models.CharField(max_length=255)
     author = models.CharField(max_length=55)

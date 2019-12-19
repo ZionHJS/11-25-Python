@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <title>Points Page</title>
+    <title>Report Page</title>
     <style>
         body {
             padding: 0 60px;
@@ -117,34 +117,25 @@
             </div>
         </div>
         <div class="col-md-8">
-            <h1>Points</h1>
-            <div class="container-fluid" style="height:300px; background:red;">
-                <h1>This is the Graph-Container!</h1>
-            </div>
-            <table class="table table-striped table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time Spent(hour)</th>
-                        <th scope="col">Points Earned</th>
-                        <th scope="col">Award by</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for clock in clocks %}
-                    <tr>
-                        <td>{{ clock.created_at }}</td>
-                        <td>{{ clock.clock_hours }}</td>
-                        <td>{{ clock.clock_points }}</td>
-                        <td>
-                            {% for award in clock.awards.all %}
-                            <p>{{ award.admin.first_name }} {{ award.admin.last_name }}</p>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <h1>Compose Your Daily Update</h1>
+            <form action="/report/report_verify" method="post">
+                {% csrf_token %}
+                <div class="container-fluid">
+                    <h3>Recipients Lists</h3>
+                    <input class="form-control col-xs-12" type=" text" name="recipients"
+                        placeholder="add recipients here.">
+                    <h3>What I Did Today</h3>
+                    <textarea class="form-control col-xs-12" name="done" cols="120" rows="6"
+                        placeholder="Type the things you did today here."></textarea>
+                    <h3>Challenges I encountered</h3>
+                    <textarea class="form-control col-xs-12" name="done" cols="120" rows="6"
+                        placeholder="Type the chanllenges you encountered today here."></textarea>
+                    <h3>What you can do to help</h3>
+                    <textarea class="form-control col-xs-12" name="done" cols="120" rows="6"
+                        placeholder="Type the things you need admins to help you with here."></textarea>
+                    <button class="btn-info btn-block" type="submit">Submit Daily Report</button>
+                </div>
+            </form>
         </div>
     </div>
 </body>

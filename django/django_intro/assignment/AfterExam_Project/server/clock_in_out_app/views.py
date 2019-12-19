@@ -251,3 +251,70 @@ def points(request):
         return render(request, 'points.html', context)
     else:
         return redirect('/')
+
+
+def report(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+        user_clocks = this_user.clocks.all()
+        clock_hours = 0
+        clock_points = 0
+        total_points = 0
+        for clock in user_clocks:
+            if clock.clockin is not None and clock.clockout is not None:  # judgement statement
+                time1 = clock.clockin
+                time2 = clock.clockout
+                time_delta = time2-time1
+                total_secondes = int(time_delta.total_seconds())
+                clock_hours = round(total_secondes/3600, 3)
+                clock.clock_hours = clock_hours
+                clock_points = round(clock_hours*this_user.points_rate, 3)
+                clock.clock_points = clock_points
+                clock.save()
+                total_points += clock_points
+            else:
+                clock_points = 0
+        this_user.total_points = total_points
+        this_user.save()
+
+        all_users_points = float(0.01)
+        all_users = User.objects.all()
+        for user in all_users:
+            all_users_points += round(user.total_points, 2)
+
+        random_quote = Quote.objects.order_by("?").first()
+        clocks = Clock.objects.all().order_by('-created_at')
+        last_clock = Clock.objects.last()
+
+        last_clockout_choice = last_clock.clockin.replace(
+            tzinfo=None)  # remove the timezone
+
+        last_clockout_choice = last_clock.clockin
+
+        lastclock_midnight_time = last_clockout_choice.replace(
+            hour=23, minute=59, second=59, microsecond=0)
+
+        last_clockout_choices = []
+
+        while last_clockout_choice < lastclock_midnight_time:
+            last_clockout_choices.append(last_clockout_choice)
+            last_clockout_choice += timedelta(minutes=30)
+
+        context = {
+            "this_user": this_user,
+            "random_quote": random_quote,
+            "this_user_points": round(this_user.total_points, 2),
+            "all_users_points": all_users_points,
+            "clocks": clocks,
+            "last_clock": last_clock,
+            "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
+            "last_clockout_choices": last_clockout_choices
+        }
+        return render(request, 'report.html', context)
+    else:
+        return redirect('/')
+
+
+def report_verify(request):
+    return redirect('/')
