@@ -82,17 +82,14 @@
                     <tr>
                         <td>{{ employee.first_name }} {{ employee.last_name }}</td>
                         <td>{{ employee.email }}</td>
-                        <td>{{ employee.created_at | date:'Y-m-d H:i'}}</td>
-                        <td>{{ employee.total_points }}</td>
-                        <td>{{ employee.points_rate }}</td>
                         <td>
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#Award_Extra_Modal">
+                                data-target="#View_Update">
                                 <a href="#">View Update</a>
                             </button>
 
                             <!-- Modal View Updates -->
-                            <div class="modal fade" id="Award_Extra_Modal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="View_Update" tabindex="-1" role="dialog"
                                 aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -100,7 +97,7 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
-                                        <form action="/admin/award_extra_verify/{{ employee.id }}" method="post">
+                                        <form action="/dailyupdates/verify/{{ employee.id }}" method="post">
                                             {% csrf_token %}
                                             <div class="modal-body">
                                                 <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>

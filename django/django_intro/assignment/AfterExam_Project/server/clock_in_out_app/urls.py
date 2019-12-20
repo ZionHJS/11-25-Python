@@ -25,4 +25,6 @@ urlpatterns = [
     path('admin/update_quote/<int:id>', views.update_quote),
     path('admin/award_extra_verify/<int:id>', views.award_extra_verify),
     path('admin/edit_employee_verify/<int:id>', views.edit_employee_verify),
+
+    path('dailyupdates', views.dailyupdates)
 ]
