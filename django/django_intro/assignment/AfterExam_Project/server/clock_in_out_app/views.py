@@ -131,8 +131,16 @@ def clockinout(request):  # unfinished
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
 
+        if request.session['show_employee_id']:
+            show_employee_id = request.session['show_employee_id']
+            show_employee = User.objects.get(id=show_employee_id)
+        else:
+            shiw_employee = {}
+
         context = {
             "this_user": this_user,
+            "employees": User.objects.all(),
+            "show_employee": show_employee,
             "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
@@ -142,6 +150,17 @@ def clockinout(request):  # unfinished
             "last_clockout_choices": last_clockout_choices
         }
         return render(request, 'clockinout.html', context)
+    else:
+        return redirect('/')
+
+
+def get_employee(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+        show_employee_id = request.POST['employee_id']
+        request.session['show_employee_id'] = show_employee_id
+        return redirect('/clockinout')
     else:
         return redirect('/')
 
@@ -523,16 +542,6 @@ def admin(request):
         return render(request, 'admin.html', context)
     elif this_user.user_level < 9:
         return redirect('/clockinout')
-    else:
-        return redirect('/')
-
-
-def get_employee(request):
-    this_id = request.session.get('this_user_id')
-    this_user = User.objects.get(id=this_id)
-    if this_id:
-        request.session['show_employee_id'] = request.POST['show_employee_id']
-        return redirect('/admin')
     else:
         return redirect('/')
 
