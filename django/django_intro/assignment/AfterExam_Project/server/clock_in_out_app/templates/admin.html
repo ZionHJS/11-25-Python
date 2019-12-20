@@ -87,11 +87,12 @@
                         <td>{{ clock.user.first_name }} {{ clock.user.last_name }}</td>
                         <td>{{ clock.user.email }}</td>
                         <td>{{ clock.created_at | date:'Y-m-d H:i'}}</td>
-                        <td>{{ clock.user.total_points }}</td>
+                        <!-- <td>{{ clock.user.total_points }}</td> -->
+                        <td>{{ clock.id }}</td>
                         <td>{{ clock.user.points_rate }}</td>
                         <td>
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#Award_Extra_Modal_{{ clock.user.id }}">
+                                data-target="#Award_Extra_Modal_{{ clock.id }}">
                                 <a href="#">Award Extra Points</a>
                             </button>
                             |
@@ -102,8 +103,8 @@
                             </button>
 
                             <!-- Modal Award-Extra-Points -->
-                            <div class="modal fade" id="Award_Extra_Modal_{{ clock.user.id }}" tabindex="-1"
-                                role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal fade" id="Award_Extra_Modal_{{ clock.id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

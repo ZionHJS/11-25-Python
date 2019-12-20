@@ -26,5 +26,5 @@ urlpatterns = [
     path('admin/award_extra_verify/<int:uid>/<int:cid>', views.award_extra_verify),
     path('admin/edit_employee_verify/<int:id>', views.edit_employee_verify),
 
-    path('dailyupdates', views.dailyupdates)
+    #path('dailyupdates', views.dailyupdates)
 ]

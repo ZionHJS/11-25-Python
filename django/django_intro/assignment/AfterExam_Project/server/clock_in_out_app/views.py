@@ -583,7 +583,7 @@ def award_extra_verify(request, uid, cid):
         reasons = request.POST['reasons']
         print(award_points)
         new_award = Award.objects.create(
-            admin=this_user, user=award_user,clock=award_clock, points=award_points, reasons=reasons)
+            admin=this_user, user=award_user, clock=award_clock, points=award_points, reasons=reasons)
         return redirect('/admin')
     else:
         return redirect('/')
