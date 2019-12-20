@@ -23,10 +23,6 @@ def logout(request):
     return redirect('/')
 
 
-def register(request):
-    return render(request, 'register.html')
-
-
 def login_verify(request):
     found_user = User.objects.filter(email=request.POST['email'])
     if len(found_user) < 1:
@@ -40,6 +36,10 @@ def login_verify(request):
         else:
             messages.error(request, 'Invalid Credentials')
             return redirect('/login')
+
+
+def register(request):
+    return render(request, 'register.html')
 
 
 def register_verify(request):
@@ -56,8 +56,8 @@ def register_verify(request):
         last_name = request.POST['last_name']
         password = request.POST['password']
         user_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        User.objects.create(email=email, first_name=first_name,
-                            last_name=last_name, password=user_pwd)
+        this_user = User.objects.create(email=email, first_name=first_name,
+                                        last_name=last_name, password=user_pwd)
         request.session['this_user_id'] = this_user.id
         first_user = User.objects.first()
         first_user.user_level = 9
@@ -135,7 +135,7 @@ def clockinout(request):  # unfinished
             show_employee_id = request.session.get('show_employee_id')
             show_employee = User.objects.get(id=show_employee_id)
         else:
-            show_employee = {}
+            show_employee = this_user
 
         context = {
             "this_user": this_user,
@@ -158,7 +158,7 @@ def get_employee(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     if this_id:
-        show_employee_id = request.POST['employee_id']
+        show_employee_id = request.POST.get('employee_id')
         request.session['show_employee_id'] = show_employee_id
         return redirect('/clockinout')
     else:
