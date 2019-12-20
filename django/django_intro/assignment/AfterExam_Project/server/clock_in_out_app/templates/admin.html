@@ -27,7 +27,7 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <a href="/admin">Manage Employee</a>
-            <a href="/report">Employee Daily Report</a>
+            <a href="/dailyupdates">Employee Daily Updates</a>
             <a href="/logout">Log Out</a>
         </div>
     </nav>
@@ -95,11 +95,11 @@
                             </button>
                             |
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#myModal">
+                                data-target="#Edit_Employee_Modal">
                                 <a href="#">Edit
                                     Employee</a>
                             </button>
-                            <!-- Modal -->
+                            <!-- Modal Award-Extra-Points -->
                             <div class="modal fade" id="Award_Extra_Modal" tabindex="-1" role="dialog"
                                 aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
@@ -117,6 +117,52 @@
                                                 <input type="text" name="point_value" placeholder="Points Value">
                                                 <textarea name="reasons" cols="30" rows="10"
                                                     placeholder="Reason for adding points"></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" style="min-width: 100%"
+                                                    class="btn btn-success btn-lg">ADD</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Edit-Employee -->
+                            <div class="modal fade" id="Edit_Employee_Modal" tabindex="-1" role="dialog"
+                                aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        </div>
+                                        <form action="/admin/award_extra_verify/{{ employee.id }}" method="post">
+                                            {% csrf_token %}
+                                            <div class="modal-body">
+                                                <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
+                                                <p>{{ employee.email }}</p>
+                                                <h4>Employee Profile</h4>
+                                                <p>First Name</p>
+                                                <input type="text" name="first_name"
+                                                    placeholder="{{ employee.first_name }}">
+                                                <p>Last Name</p>
+                                                <input type="text" name="last_name"
+                                                    placeholder="{{ employee.last_name }}">
+                                                <p>Email</p>
+                                                <input type="text" name="email" placeholder="{{ employee.email }}">
+                                                <p>User Level</p>
+                                                <select name="user_level">
+                                                    {% for i in level_range %}
+                                                    <option value="{{i}}">{{i}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <p>Date Joined</p>
+                                                <!-- leave this area empty for now -->
+                                                <p>Points Rate</p>
+                                                <input type="number" name="points_rate">
+                                                <p>Current Points</p>
+                                                <input type="number" name="total_points"
+                                                    value="{{ employee.total_points }}">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" style="min-width: 100%"

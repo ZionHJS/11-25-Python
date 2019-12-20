@@ -23,6 +23,10 @@ def logout(request):
     return redirect('/')
 
 
+def register(request):
+    return render(request, 'register.html')
+
+
 def login_verify(request):
     found_user = User.objects.filter(email=request.POST['email'])
     if len(found_user) < 1:
@@ -36,10 +40,6 @@ def login_verify(request):
         else:
             messages.error(request, 'Invalid Credentials')
             return redirect('/login')
-
-
-def register(request):
-    return render(request, 'register.html')
 
 
 def register_verify(request):
@@ -56,8 +56,8 @@ def register_verify(request):
         last_name = request.POST['last_name']
         password = request.POST['password']
         user_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        this_user = User.objects.create(email=email, first_name=first_name,
-                                        last_name=last_name, password=user_pwd)
+        User.objects.create(email=email, first_name=first_name,
+                            last_name=last_name, password=user_pwd)
         request.session['this_user_id'] = this_user.id
         first_user = User.objects.first()
         first_user.user_level = 9
@@ -131,15 +131,11 @@ def clockinout(request):  # unfinished
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
 
-        if request.session.get('show_employee_id'):
-            show_employee_id = request.session.get('show_employee_id')
-            show_employee = User.objects.get(id=show_employee_id)
-        else:
-            show_employee = this_user
+        show_employee_id = request.session['show_employee_id']
+        show_employee = User.objects.get(id=show_employee_id)
 
         context = {
             "this_user": this_user,
-            "employees": User.objects.all(),
             "show_employee": show_employee,
             "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
@@ -158,8 +154,8 @@ def get_employee(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     if this_id:
-        show_employee_id = request.POST.get('employee_id')
-        request.session['show_employee_id'] = show_employee_id
+        employee_id = request.POST['employee_id']
+        this_employee = User.objects.get(id=employee_id)
         return redirect('/clockinout')
     else:
         return redirect('/')
@@ -537,7 +533,8 @@ def admin(request):
             "clocks": clocks,
             "last_clock": last_clock,
             "date_cur": datetime.now().strftime("%H:%M %p. | %d-%M-%Y "),
-            "last_clockout_choices": last_clockout_choices
+            "last_clockout_choices": last_clockout_choices,
+            "level_range": [0,1,2,3,4,5,6,7,8,9]
         }
         return render(request, 'admin.html', context)
     elif this_user.user_level < 9:
@@ -585,6 +582,16 @@ def award_extra_verify(request, id):
         print(award_points)
         new_award = Award.objects.create(
             admin=this_user, user=award_user, points=award_points)
+        return redirect('/admin')
+    else:
+        return redirect('/')
+
+
+def edit_employee_verify(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+
         return redirect('/admin')
     else:
         return redirect('/')
