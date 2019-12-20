@@ -33,7 +33,6 @@ class User(models.Model):
     password = models.CharField(max_length=255)
     points_rate = models.IntegerField(default=1)
     total_points = models.IntegerField(default=0)
-    awarded_by = models.CharField(default="System")
     description = models.CharField(
         max_length=255, default="default description")
     user_level = models.IntegerField(default=0)
@@ -68,9 +67,13 @@ class Clock(models.Model):
 class Award(models.Model):
     points = models.FloatField(default=0.00)
     admin = models.ForeignKey(
-        User, related_name="awards", on_delete=models.CASCADE)
+        User, related_name="admin_awards", on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(
+        User, related_name="user_awards", on_delete=models.CASCADE, default=None)
     clock = models.ForeignKey(
-        Clock, related_name="awards", on_delete=models.CASCADE)
+        Clock, related_name="clock_awards", on_delete=models.CASCADE, default=None)
+    reasons = models.CharField(
+        max_length=255, default="some good default reason")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

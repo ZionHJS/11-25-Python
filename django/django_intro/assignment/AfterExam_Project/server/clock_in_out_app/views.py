@@ -556,21 +556,16 @@ def update_quote(request, id):
     else:
         return redirect('/')
 
-###
 
-
-# def award_extra(request, id):
-#     this_id = request.session.get('this_user_id')
-#     this_user = User.objects.get(id=this_id)
-#     if this_id:
-#         award_user = User.objects.get(id=id)
-#     else:
-#         return redirect('/')
-
-
-# str_1 = 'asd23423'
-# str_2 = '23423'
-# b = float(str_2)
-# print(b)
-# a = float(vatstr)
-# print(a)
+def award_extra_verify(request, id):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+        award_user = User.objects.get(id=id)
+        award_points = float(request.POST['point_value'])
+        print(award_points)
+        new_award = Award.objects.create(
+            admin=this_user, user=award_user, points=award_points)
+        return redirect('/admin')
+    else:
+        return redirect('/')
