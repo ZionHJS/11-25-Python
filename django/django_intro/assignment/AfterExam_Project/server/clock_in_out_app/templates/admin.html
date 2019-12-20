@@ -74,7 +74,7 @@
                     <tr>
                         <th scope="col">Employee Name</th>
                         <th scope="col">Email Address</th>
-                        <th scope="col">Joined Date</th>
+                        <th scope="col">Clockin Date</th>
                         <th scope="col">Current Points</th>
                         <th scope="col">Points Rate</th>
                         <th scope="col">Actions</th>
@@ -82,38 +82,40 @@
                 </thead>
                 <tbody>
                     {% for employee in employees %}
+                    {% for clock in employee.clocks.all %}
                     <tr>
-                        <td>{{ employee.first_name }} {{ employee.last_name }}</td>
-                        <td>{{ employee.email }}</td>
-                        <td>{{ employee.created_at | date:'Y-m-d H:i'}}</td>
-                        <td>{{ employee.total_points }}</td>
-                        <td>{{ employee.points_rate }}</td>
+                        <td>{{ clock.user.first_name }} {{ clock.user.last_name }}</td>
+                        <td>{{ clock.user.email }}</td>
+                        <td>{{ clock.created_at | date:'Y-m-d H:i'}}</td>
+                        <td>{{ clock.user.total_points }}</td>
+                        <td>{{ clock.user.points_rate }}</td>
                         <td>
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#Award_Extra_Modal_{{ employee.id }}">
+                                data-target="#Award_Extra_Modal_{{ clock.user.id }}">
                                 <a href="#">Award Extra Points</a>
                             </button>
                             |
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#Edit_Employee_Modal_{{ employee.id }}">
+                                data-target="#Edit_Employee_Modal_{{ clock.user.id }}">
                                 <a href="#">Edit
                                     Employee</a>
                             </button>
 
                             <!-- Modal Award-Extra-Points -->
-                            <div class="modal fade" id="Award_Extra_Modal_{{ employee.id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel">
+                            <div class="modal fade" id="Award_Extra_Modal_{{ clock.user.id }}" tabindex="-1"
+                                role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
-                                        <form action="/admin/award_extra_verify/{{ employee.id }}" method="post">
+                                        <form action="/admin/award_extra_verify/{{ clock.user.id }}/{{ clock.id }}"
+                                            method="post">
                                             {% csrf_token %}
                                             <div class="modal-body">
-                                                <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
-                                                <p>{{ employee.email }}</p>
+                                                <h4>{{ clock.user.first_name }} {{ clock.user.last_name }}</h4>
+                                                <p>{{ clock.user.email }}</p>
                                                 <h3>AWARD EXTRA POINTS</h3>
                                                 <input type="number" name="point_value" placeholder="Points Value">
                                                 <textarea name="reasons" cols="30" rows="10"
@@ -129,7 +131,7 @@
                             </div>
 
                             <!-- Modal Edit-Employee -->
-                            <div class="modal fade" id="Edit_Employee_Modal_{{ employee.id }}" tabindex="-1"
+                            <div class="modal fade" id="Edit_Employee_Modal_{{ clock.user.id }}" tabindex="-1"
                                 role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -137,20 +139,20 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
-                                        <form action="/admin/award_extra_verify/{{ employee.id }}" method="post">
+                                        <form action="/admin/award_extra_verify/{{ clock.user.id }}" method="post">
                                             {% csrf_token %}
                                             <div class="modal-body">
-                                                <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
-                                                <p>{{ employee.email }}</p>
+                                                <h4>{{ clock.user.first_name }} {{ employee.last_name }}</h4>
+                                                <p>{{ clock.user.email }}</p>
                                                 <h4>Employee Profile</h4>
                                                 <p>First Name</p>
                                                 <input type="text" name="first_name"
-                                                    placeholder="{{ employee.first_name }}">
+                                                    placeholder="{{ clock.user.first_name }}">
                                                 <p>Last Name</p>
                                                 <input type="text" name="last_name"
-                                                    placeholder="{{ employee.last_name }}">
+                                                    placeholder="{{ clock.user.last_name }}">
                                                 <p>Email</p>
-                                                <input type="text" name="email" placeholder="{{ employee.email }}">
+                                                <input type="text" name="email" placeholder="{{ clock.user.email }}">
                                                 <p>User Level</p>
                                                 <select name="user_level">
                                                     {% for i in level_range %}
@@ -161,10 +163,10 @@
                                                 <!-- leave this area empty for now -->
                                                 <p>Points Rate</p>
                                                 <input type="number" name="points_rate"
-                                                    placeholder="{{ employee.points_rate}}">
+                                                    placeholder="{{ clock.user.points_rate}}">
                                                 <p>Current Points</p>
                                                 <input type="number" name="total_points"
-                                                    placeholder="{{ employee.total_points }}">
+                                                    placeholder="{{ clock.user.total_points }}">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" style="min-width: 100%"
@@ -176,6 +178,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% endfor %}
                     {% endfor %}
                 </tbody>
             </table>

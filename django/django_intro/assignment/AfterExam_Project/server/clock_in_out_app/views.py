@@ -573,15 +573,17 @@ def update_quote(request, id):
         return redirect('/')
 
 
-def award_extra_verify(request, id):
+def award_extra_verify(request, uid, cid):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     if this_id:
-        award_user = User.objects.get(id=id)
+        award_user = User.objects.get(id=uid)
         award_points = float(request.POST['point_value'])
+        award_clock = Clock.objects.get(id=cid)
+        reasons = request.POST['reasons']
         print(award_points)
         new_award = Award.objects.create(
-            admin=this_user, user=award_user, points=award_points)
+            admin=this_user, user=award_user,clock=award_clock, points=award_points, reasons=reasons)
         return redirect('/admin')
     else:
         return redirect('/')
