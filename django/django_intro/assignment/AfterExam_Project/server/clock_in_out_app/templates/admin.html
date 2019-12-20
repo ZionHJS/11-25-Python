@@ -159,14 +159,15 @@
                                                 <p>Date Joined</p>
                                                 <!-- leave this area empty for now -->
                                                 <p>Points Rate</p>
-                                                <input type="number" name="points_rate">
+                                                <input type="number" name="points_rate"
+                                                    placeholder="{{ employee.points_rate}}">
                                                 <p>Current Points</p>
                                                 <input type="number" name="total_points"
-                                                    value="{{ employee.total_points }}">
+                                                    placeholder="{{ employee.total_points }}">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="submit" style="min-width: 100%"
-                                                    class="btn btn-success btn-lg">ADD</button>
+                                                    class="btn btn-primary btn-lg">Add/Update employee</button>
                                             </div>
                                         </form>
                                     </div>
