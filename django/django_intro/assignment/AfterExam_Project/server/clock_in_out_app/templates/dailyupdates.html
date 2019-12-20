@@ -97,21 +97,16 @@
                                             <button type="button" class="close" data-dismiss="modal"
                                                 aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         </div>
-                                        <form action="/dailyupdates/verify/{{ employee.id }}" method="post">
-                                            {% csrf_token %}
-                                            <div class="modal-body">
-                                                <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
-                                                <p>{{ employee.email }}</p>
-                                                <h3>AWARD EXTRA POINTS</h3>
-                                                <input type="text" name="point_value" placeholder="Points Value">
-                                                <textarea name="reasons" cols="30" rows="10"
-                                                    placeholder="Reason for adding points"></textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" style="min-width: 100%"
-                                                    class="btn btn-success btn-lg">ADD</button>
-                                            </div>
-                                        </form>
+                                        <div class="modal-body">
+                                            <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
+                                            <p>{{ employee.email }}</p>
+                                            <h3>AWARD EXTRA POINTS</h3>
+                                            <input type="text" name="point_value" placeholder="Points Value">
+                                            <textarea name="reasons" cols="30" rows="10"
+                                                placeholder="Reason for adding points"></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

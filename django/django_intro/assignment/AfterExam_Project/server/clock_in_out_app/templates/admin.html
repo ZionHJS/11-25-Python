@@ -90,18 +90,18 @@
                         <td>{{ employee.points_rate }}</td>
                         <td>
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#Award_Extra_Modal">
+                                data-target="#Award_Extra_Modal_{{ employee.id }}">
                                 <a href="#">Award Extra Points</a>
                             </button>
                             |
                             <button type="button" class="btn btn-link btn-sm" data-toggle="modal"
-                                data-target="#Edit_Employee_Modal">
+                                data-target="#Edit_Employee_Modal_{{ employee.id }}">
                                 <a href="#">Edit
                                     Employee</a>
                             </button>
 
                             <!-- Modal Award-Extra-Points -->
-                            <div class="modal fade" id="Award_Extra_Modal" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="Award_Extra_Modal_{{ employee.id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -115,7 +115,7 @@
                                                 <h4>{{ employee.first_name }} {{ employee.last_name }}</h4>
                                                 <p>{{ employee.email }}</p>
                                                 <h3>AWARD EXTRA POINTS</h3>
-                                                <input type="text" name="point_value" placeholder="Points Value">
+                                                <input type="number" name="point_value" placeholder="Points Value">
                                                 <textarea name="reasons" cols="30" rows="10"
                                                     placeholder="Reason for adding points"></textarea>
                                             </div>
@@ -129,8 +129,8 @@
                             </div>
 
                             <!-- Modal Edit-Employee -->
-                            <div class="modal fade" id="Edit_Employee_Modal" tabindex="-1" role="dialog"
-                                aria-labelledby="myModalLabel">
+                            <div class="modal fade" id="Edit_Employee_Modal_{{ employee.id }}" tabindex="-1"
+                                role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

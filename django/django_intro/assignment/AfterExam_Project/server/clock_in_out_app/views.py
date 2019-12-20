@@ -646,7 +646,7 @@ def dailyupdates(request):
         while last_clockout_choice < lastclock_midnight_time:
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
-            
+
         context = {
             "this_user": this_user,
             "employees": User.objects.all(),
