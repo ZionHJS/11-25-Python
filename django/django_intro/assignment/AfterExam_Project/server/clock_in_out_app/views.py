@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User, DailyReport, Clock, Quote, Award
+from .models import *
 import bcrypt
 from datetime import datetime, timedelta
 from decimal import Decimal
@@ -523,6 +523,16 @@ def admin(request):
         return render(request, 'admin.html', context)
     elif this_user.user_level < 9:
         return redirect('/clockinout')
+    else:
+        return redirect('/')
+
+
+def get_employee(request):
+    this_id = request.session.get('this_user_id')
+    this_user = User.objects.get(id=this_id)
+    if this_id:
+        request.session['show_employee_id'] = request.POST['show_employee_id']
+        return redirect('/admin')
     else:
         return redirect('/')
 
