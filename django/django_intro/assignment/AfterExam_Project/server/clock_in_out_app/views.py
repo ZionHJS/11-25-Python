@@ -131,11 +131,11 @@ def clockinout(request):  # unfinished
             last_clockout_choices.append(last_clockout_choice)
             last_clockout_choice += timedelta(minutes=30)
 
-        if request.session['show_employee_id']:
-            show_employee_id = request.session['show_employee_id']
+        if request.session.get('show_employee_id'):
+            show_employee_id = request.session.get('show_employee_id')
             show_employee = User.objects.get(id=show_employee_id)
         else:
-            shiw_employee = {}
+            show_employee = {}
 
         context = {
             "this_user": this_user,
