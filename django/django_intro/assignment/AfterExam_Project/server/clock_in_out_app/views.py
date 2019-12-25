@@ -56,7 +56,7 @@ def register_verify(request):
         last_name = request.POST['last_name']
         password = request.POST['password']
         user_pwd = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        User.objects.create(email=email, first_name=first_name,
+        this_user = User.objects.create(email=email, first_name=first_name,
                             last_name=last_name, password=user_pwd)
         request.session['this_user_id'] = this_user.id
         first_user = User.objects.first()
@@ -116,27 +116,36 @@ def clockinout(request):  # unfinished
         today_quote = daily_quote()
 
         clocks = Clock.objects.all().order_by('-created_at')
-        last_clock = Clock.objects.last()
-        last_clockout_choice = last_clock.clockin.replace(
-            tzinfo=None)  # remove the timezone
+        
+        if Clock.objects.last():
+            last_clock = Clock.objects.last()
+            last_clockout_choice = last_clock.clockin.replace(
+                tzinfo=None)  # remove the timezone
 
-        last_clockout_choice = last_clock.clockin
+            last_clockout_choice = last_clock.clockin
 
-        lastclock_midnight_time = last_clockout_choice.replace(
-            hour=23, minute=59, second=59, microsecond=0)
+            lastclock_midnight_time = last_clockout_choice.replace(
+                hour=23, minute=59, second=59, microsecond=0)
 
-        last_clockout_choices = []
+            last_clockout_choices = []
 
-        while last_clockout_choice < lastclock_midnight_time:
-            last_clockout_choices.append(last_clockout_choice)
-            last_clockout_choice += timedelta(minutes=30)
+            while last_clockout_choice < lastclock_midnight_time:
+                last_clockout_choices.append(last_clockout_choice)
+                last_clockout_choice += timedelta(minutes=30)
+        else:
+            last_clock = {}
+            last_clockout_choices = []
 
-        show_employee_id = request.session['show_employee_id']
-        show_employee = User.objects.get(id=show_employee_id)
+        if request.session.get('show_employee_id'):
+            show_employee_id = request.session['show_employee_id']
+            show_employee = User.objects.get(id=show_employee_id)
+        else:
+            show_employee = {}
 
         context = {
             "this_user": this_user,
             "show_employee": show_employee,
+            "employees":User.objects.all(),
             "today_quote": today_quote,
             "this_user_points": round(this_user.total_points, 2),
             "all_users_points": all_users_points,
@@ -154,8 +163,9 @@ def get_employee(request):
     this_id = request.session.get('this_user_id')
     this_user = User.objects.get(id=this_id)
     if this_id:
-        employee_id = request.POST['employee_id']
+        employee_id = request.POST['show_employee_id']
         this_employee = User.objects.get(id=employee_id)
+        request.session['show_employee_id'] = employee_id
         return redirect('/clockinout')
     else:
         return redirect('/')
@@ -580,6 +590,7 @@ def award_extra_verify(request, uid, cid):
         award_user = User.objects.get(id=uid)
         award_points = float(request.POST['point_value'])
         award_clock = Clock.objects.get(id=cid)
+
         reasons = request.POST['reasons']
         print(award_points)
         new_award = Award.objects.create(

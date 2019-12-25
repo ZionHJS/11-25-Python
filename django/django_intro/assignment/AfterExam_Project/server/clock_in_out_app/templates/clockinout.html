@@ -125,7 +125,7 @@
                 {% csrf_token %}
                 <select name="show_employee_id">
                     <option value="">-- please select an employee and show his clocks! --</option>
-                    {% for employee in employees%}
+                    {% for employee in employees %}
                     <option value="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name}}</option>
                     {% endfor %}
                 </select>
